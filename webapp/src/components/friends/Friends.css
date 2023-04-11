@@ -1,0 +1,147 @@
+#div-friends {
+  font-size: 1.5em;
+  color: white;
+}
+
+#table-friends {
+    width: 80%;
+    border-collapse: collapse;
+    margin: auto;
+    margin-bottom: 1rem;
+    /* box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); */
+    border-radius: 4px;
+  }
+
+  #table-friends caption {
+    font-size: 2em;
+  }
+  
+  #table-friends th {
+    font-weight: bold;
+    text-align: center;
+    padding: 1rem;
+    border-bottom: 2px solid #e0e0e0;
+  }
+  
+  #table-friends td {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 2px solid #e0e0e0;
+  }
+  
+  #table-friends td:last-child {
+    text-align: right;
+  }
+
+  .button {
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 1.5em;
+    cursor: pointer;
+  }
+  
+  .add-friend-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 300px;
+    margin: auto;
+    margin-top: 3em;
+  }
+  .add-friend-button {
+    display: block;
+    font-size: 1em;
+    height: 3em;
+  }
+  
+  .accept-button {
+    background-color: #4285f4;
+  }
+  
+  accept-button:hover {
+    background-color: #1976D2;
+  }
+  
+  accept-button:active {
+    background-color: #0D47A1;
+  }
+
+  .delete-button {
+    background-color: #f44336;
+  }
+  
+  delete-button:hover {
+    background-color: #e53935;
+  }
+  
+  delete-button:active {
+    background-color: #c62828;
+  }
+  
+  #div-friends {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.friends-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.friend-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 300px;
+  flex: 1 1 1;
+
+  margin: 1.5rem;
+  padding: 1.5rem;
+
+  border-radius: 8px;
+  border-color: white;
+  border-width: 0.25rem;
+  border-style: solid;
+
+  height: 400px; /* altura fija */
+  box-sizing: border-box;
+  
+}
+
+.friend-photo {
+  width: 150px;
+  min-height: 150px;
+  max-height: 150px;
+}
+
+.friend-card img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+
+  border-radius: 50%;
+}
+
+.friend-card h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: fit-content;
+  margin-bottom: 0.5rem;
+  max-width: 275px;
+  
+}
+
+.friend-card a {
+  margin-bottom: 1rem;
+}
+
+
+  

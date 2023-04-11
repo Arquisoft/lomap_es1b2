@@ -1,0 +1,72 @@
+[[section-introduction-and-goals]]
+== Introduction and Goals
+
+The software development company HappySw has been hired by the Council of Brussels to develop a software system called LoMap. This system will allow citizens to have personalized maps of places and local businesses in their city. The places that can be mapped include shops, bars, restaurants, sights, and cultural attractions, among others. Users will have full control over their personalized maps and the shared information will be stored in a personal pod according to the SOLID project.
+
+HappySw's goal is to develop a generic software solution that can be deployed and used in other cities. The initial focus of the project is on the user, allowing them to create their own personal map of the places they live. The next step could be to allow places such as shops, restaurants, etc. to create their own digital spaces.
+
+The software development project aims to create a system that meets the underlying business goals, essential features, and functional requirements. The architecture of the system must also meet specific quality goals, which are of utmost importance to the major stakeholders (especially the Happy Software project management). The relevant stakeholders and their expectations must also be considered during the development process.
+
+As the software architects and developers of the LoMap aplication we must take into account the following issues:
+
+* Business Goals: On request of Brussels' Council, LoMap has to provide citizens with personalized maps about local places and business. Regarding to the enterprise's expectations, the software solution should aim to be general enough to be adapted to other future projects.
+
+* https://github.com/Arquisoft/lomap_es1b/edit/develop/docs/01_introduction_and_goals.adoc#requirements-overview[Essential Features and Functional Requirements]
+
+* Quality Goals for the Architecture:
+  - The information about a place should be stored in each user’s personal pod.
+  - Security and respect for user privacy.
+  - Responsiveness of the application.
+  - Originality of the solution.
+  - The system should also have a continuous integration and continuous delivery strategy and must be interoperable between the data stored by different applications.
+
+
+* Relevant Stakeholders and Expectations: The stakeholders in the LoMap project include the Council of Brussels, HappySw, and the citizens of the city who will be using the software system. The Council of Brussels expects a software solution that will provide citizens with personalized maps about places and local businesses in their city. HappySw is expected to develop a generic software solution that can be deployed and used in other cities in the future. The citizens are expected to have an easy-to-use and responsive software solution that respects their privacy and allows them to create personalized maps about places and local businesses.
+
+
+=== Requirements Overview
+
+We expect the future users of the application to use it as a simpler and more friendly version of other mapps such as Google mapps, for example. Additionally, it will offer solid references of what can be expected from the city (as a general overview) and the sites that the users may introduce, post, comment, advise, etc...
+
+  - The LoMap system must allow users to add locations in different categories such as shops, bars, restaurants, sights, monuments, etc. 
+  - It should also enable users to show the locations on a map window and add review scores, comments, pictures, etc. about the added places. 
+  - The system must allow users to manage the information accessible by other users.
+  - The LoMap system must prioritize the aesthetics and usability by non-technical people.
+  - Quality of technical documentation
+  - Code quality and tests code coverage.
+
+
+
+=== Quality Architecture Goals
+  - The information about a place should be stored in each user’s personal pod.
+  - Security and respect for user privacy.
+  - Responsiveness of the application.
+
+Pending: How is the quality of the architecture going to be judged?
+
+
+=== Stakeholders
+
+
+.Stakeholders
+[options="header",cols="1,2,2"]
+|===
+| Role/Name | Contact | Expectations 
+
+| _Brussels Council_
+| _Fatima Abid_
+| _Keep the power in the next elections_
+
+| _Happy Software_
+| _Jose Emilio Labra Gayo_
+| _Earning a lot of money and getting a polivalent software solution_
+
+| _Developement Team_
+| _https://github.com/Arquisoft/lomap_es1b/tree/master/docs[Gihub repository]_
+| _Winning the SOLID tournament_
+|===
+
+
+* Brussels Council: The final solution is bound to be evaluated in terms of the popular satisfaction with the product.
+* Happy Software: It is neccessary that the solution keep the bosses satisfyed in every aspect of the project. Documentation will be a determinant factor as long as other techincal oriented people will certainly evaluate the work performed. It is particularly important that the architecture satisfyes their requirements.
+* Developement team: Must discuss and come up with ideas and solutions related to the architecture, design, system... Of course deep knowledge about the entire software is mandatory.

@@ -1,0 +1,17 @@
+[[section-glossary]]
+== Glossary
+
+[options="header"]
+|===
+| Term         | Definition
+| TypeScript     |  Free and open source high-level programming language developed and maintained by Microsoft. It is a superset of JavaScript that adds static typing.
+| React     | Free and open source JavaScript library for building interfaces, maintained by Meta.
+| Node.js     | Cross-platform, open source server environment, a back-end JavaScript runtime environment.
+| Express.js     | Free and open source back-end framework for developing web applications and APIs with Node.js
+| Solid     | Specification that lets users store their data securely in Pods
+| Pods     | Decentralized and secure data stores. The pod user controls who can access the data.
+| MongoDB     | Open source document-oriented NoSQL database.
+| Docker     | A set of platform as a service products that use OS-level virtualization to deliver software in containers.
+| CI, Continuous integration     | The practice of automating the integration process of a software so it can be done several times a day and errors are found as soon as possible.
+| CD, Continuous deployment     | Extension of the CI, where code changes to the application are released automatically into the production environment.
+|===

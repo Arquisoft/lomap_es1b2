@@ -1,0 +1,44 @@
+[[section-technical-risks]]
+== Risks and Technical Debts
+
+“Risk management is project management for grown-ups” (Tim Lister, Atlantic Systems Guild.) 
+
+_(It will obviously be extended as we find new risks and generate others technical debts as we develop the application.)_
+
+.Risks
+|===
+|Priority |Problem description |Considerations
+
+|Medium
+|Huge dimension of the project
+|The quality and readability of the developement solutions are mandatory in order to keep order
+
+|Medium
+|Time availability of memebers of the developement team
+|Good organization and distribution of the project work along the semester
+
+|===
+
+.Technical Debts
+|===
+|Relevance |Technical Debts | Considerations
+
+|Medium
+|Mandatory use of SOLID
+|Although it may be a great solution to the problem faced, the obligation to use this technology sets a new handicap to the start of the developement
+
+|Medium
+|Learning techincal material along the semester
+|The discovery of some of the technologies of the project and some of good strategies will take place as we attend the course lectures, which coincide with the developement period
+
+|Low
+|The usage of TypeScript and React
+|Even though the advises of our professors may conduct us to use these technologies, we are not familiar with them
+
+|Low
+|Lack of relation between members of the team
+|Most probably it will not be a big deal, but the fact that we do not know each other may difficutl at least the beggining of the developement
+
+|===
+
+

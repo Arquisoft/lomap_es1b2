@@ -1,0 +1,34 @@
+[[section-architecture-constraints]]
+== Architecture Constraints
+=== Technical constraints
+|===
+|*Constraint*|*Explanation*
+
+|*SOLID*| SOLID pods will be used to store the data.
+|*GitHub*|GitHub will be used as a git host. Through this, we will manage version control, 
+communication and the project itself.
+|===
+=== Organizational and political constraints
+|===
+|*Constraint*|*Explanation*
+
+|*Team composition*|The team will consist of 4 members with a small and limited experience in the technologies that will be used.
+|*Meetings*|In each laboratory, there will be a meeting to discuss the next week tasks. In case of any extraordinary meeting to be needed,
+it will be agreed by every team member and recorded in the activity. This meetings will need a lot of coordination due to the
+different schedules that we have. The record of each meeting can be found here https://github.com/Arquisoft/lomap_es1b/wiki[here].     
+Necessary to take into account that one of the members won't be able to assist to the lab meetings due to working reasons, but will work remotely.
+|*Testing*|There will be different scenarios that will test the proper behaviour of the application.
+|*Deliveries*|To check on the project progress there will be several deliveries through the time.
+|===
+=== Conventions
+|===
+|*Constraint*|*Explanation*
+
+|*Documentation*| It will be used https://arc42.org/[Arc32] template for keeping a simple and clean documentation.
+|*Clean code*| The code must be clean and well written to keep it easier to work with and mantain.
+|*Accessibility*| The interface must be easy to understand and to navigate through for every possible user.
+|*SOLID*| The code must follow Solid conventions.
+|===
+
+[role="arc42help"]
+

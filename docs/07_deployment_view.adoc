@@ -1,0 +1,25 @@
+[[section-deployment-view]]
+== Deployment View
+=== Infrastructure Level 1
+
+:imagesdir: images/
+image:07_deployment_view_overview.png["Infrastructure Level 1"]
+
+Motivation::
+This diagram tries to show a basic overview of how the application will be deployed. It will be upgraded in a near future as we get more deep into the project.
+
+Quality and/or performance features::
+Assuming every user has a decent internet connection, we can ensure that the goal is to have a fast and efficient application, using the minimum resources needed.
+
+Mapping of building blocks to infrastructure::
+|===
+|*Element*|*Description*
+
+|*WebServer*|Where the app will be hosted.
+|*WebApp*|The frontend of the app that will be displayed on the browser.
+|*RestApi*|The backend of the app.
+|*MongoDB*|The database chosen,  where data will be stored.
+|*POD Provider*|Provider of the pods to be used.
+|*MapProvider*|API that will be used to display a map.
+|===
+

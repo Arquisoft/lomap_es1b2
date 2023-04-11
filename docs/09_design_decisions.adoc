@@ -1,0 +1,40 @@
+[[section-design-decisions]]
+== Design Decisions
+
+=== Accepted decisions
+[options="header",cols="1,2,2,2"]
+|===
+|Architecture decision
+|Pros
+|Cons
+|Architecture decision record
+
+| *React.js*
+| This library is flexible, has Facebook's and Community support, great performance and is easy to test. Intended to make Front-end development simpler.
+| None of us has used this library before.
+| https://github.com/Arquisoft/lomap_es1b/wiki/ADR-%231:-Front-end-JavaScript-library[ADR #1]
+
+| *TypeScript*
+| While JavaScript is dynamically-typed, TypeScript is a statically-typed superset of JavaScript, which means it offers strict static typing as an option but will allow dynamic typing, as well.
+| None of us has used this language before.
+| https://github.com/Arquisoft/lomap_es1b/wiki/ADR-%232:-Backend-Programming-Language[ADR #2]
+
+| *MongoDB*
+| A TypeScript-compatible NoSQL database that is simple to utilize and incorporate.
+| MongoDB uses multi-document ACID transactions. This is one of the major limitations with MongoDB as it may lead to corruption of data.
+| https://github.com/Arquisoft/lomap_es1b/wiki/ADR-%233:-Database[ADR #3]
+
+| *Node.js*
+| We will use it in SDI. Active and vibrant community, with lots of code shared via GitHub, etc.
+| None of us has worked with this environment before.
+| https://github.com/Arquisoft/lomap_es1b/wiki/ADR-%234:-Backend-framework[ADR #4]
+
+| *Express.js*
+| Minimal and flexible Node.js web application framework used for designing and building our web application quickly and easily.
+| None of us has worked with this environment before.
+| https://github.com/Arquisoft/lomap_es1b/wiki/ADR-%235:-REST-API[ADR #5]
+
+|===
+
+=== Deprecated decisions
+None to date.

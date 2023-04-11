@@ -1,0 +1,27 @@
+[[section-solution-strategy]]
+== Solution Strategy
+
+=== Technology decisions
+
+We are using the following technologies for the development of the application:
+
+* Solid. Specification that lets people store their data securely in decentralized data stores called Pods. This was a constraint.
+* React. A open-source JavaScript library for building user interfaces. We use it since it is easy to lern, its high performance and the high demand of this technology.
+* MongoDB. A document oriented NoSQL database, popular for agile development. It has advanced queries compared to other NoSQL databases and the developer team has some previous experience with it.
+* MongoDB Atlas. A fully-managed cloud database that handles all the complexity of deploying and managing deployments on the cloud. The starter plan is free and it is possible to scale horizontally and vertically the database as needed.
+
+=== Decisions about the top-level decomposition of the system
+
+* We are starting this project from the public template Arquisoft/lomap_0
+
+=== Decisions on how to achieve key quality goals
+
+|===
+|Quality goal|Approach
+|Security and Privacy| SOLID pods will be used to store the user data securely in a decentralized way.
+|Responsiveness|React will be used for achieving a responsiveness web application. A database will be used with non-personal data to improve performance.
+|Maintanability|The code will be clean, avoiding bad smells.
+|===
+=== Relevant organizational decisions
+
+* Documentation written in English.

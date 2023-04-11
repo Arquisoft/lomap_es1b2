@@ -1,0 +1,20 @@
+#add-friend-form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    font-size: 1em;
+    text-align: center;
+  }
+  
+  #add-friend-form input[type="text"] {
+    font-size: 1em;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 0.3em;
+  }
+  
+  #add-friend-form button[type="submit"] {
+    margin-right: 1em;
+  }

@@ -1,0 +1,87 @@
+[[section-building-block-view]]
+== Building block view
+=== Level 1
+
+:imagesdir: images/
+image::05_level_1.png[]
+
+Motivation::
+LoMap is a software system where the citizens can have personalized maps about places and local businesses in their city. The user's PODs securely hold all of their data.
+
+Contained Building Blocks::
+[options="header",cols="1,3"]
+|===
+|Name| Description
+
+|*User*
+|Who uses the application.
+
+|*LoMap system*
+|Information from the Pods will be extracted through it.
+
+|*Pod service*
+|Responsible for accessing each user's personal POD.
+|===
+
+=== Level 2
+
+:imagesdir: images/
+image::05_level_2.png[]
+
+Motivation::
+It shows the broad outline of the internal structure of the application: by interacting with the user interface, the client will be able to communicate with the data access layer.
+
+Contained Building Blocks::
+[options="header",cols="1,3"]
+|===
+|Name| Description
+
+|*User Interface*
+|Through it, the user will be able to perform any task in the system.
+
+|*Data access layer*
+|Layer providing simplified access to data stored in persistent storage.
+
+|*MongoDB*
+|Responsible for storing information that is not to be stored in the PODs.
+|===
+
+=== Level 3
+
+:imagesdir: images/
+image::05_level_3.png[]
+
+Motivation::
+Detailed system operation. Concentrated on the building blocks of both User Interface and Data Access.
+
+Contained Building Blocks::
+[options="header",cols="1,3"]
+|===
+|Name| Description
+
+|*Views* 
+|Parts of the application where the user will interact with the system.
+
+|*Sign up*
+|Allows the user to create an account. This process happens only once per user.
+
+|*Sign in*
+|Allows the user to log in with their account, if they have already created one.
+
+|*Log out*
+|Allows the user to log out.
+
+|*Home*
+|Initial tab of the application. Displays a welcome message.
+
+|*Map*
+|Tab that displays a map and allows to manage the user's locations.
+
+|*My ubications*
+|Tab showing a short description of the locations created by the user.
+
+|*My friends*
+|Tab for managing the user's friends.
+
+|===
+

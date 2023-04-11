@@ -1,0 +1,40 @@
+[[section-quality-requirements]]
+== Quality Requirements
+=== Quality Tree
+[plantuml, "Quality tree", png]
+----
+left to right direction
+(Quality) as (Q)
+(Privacy) as (Pr)
+(Usability) as (U)
+(Security) as (S)
+(Reliability) as (R)
+(Testability) as (T)
+(Efficiency) as (E)
+(Maintainability) as (M)
+Q --> Pr
+Q --> U
+Q --> S
+Q --> R
+Q --> T
+Q --> E
+Q --> M
+----
+=== Quality Scenarios
+|===
+|*Quality goal*|*Motivation*|*Usage scenarios*|*Priority*
+
+|*Privacy*|User's data must not be kept, storing just the minimum required, and retrieving the necessary from the user's POD.|User's data will be stored in it's own pod during the sign-up and usage, may it be private information relative to the user or personalized maps.|High
+
+|*Usability*|The user won't be able to add locations to the map if he can't properly distinguish them in it, needing an intuitive interface clear enough to be used, be it a client or administrators.|Almost every user of every age will be able to complete any task without previous knowledge of the website without taking long time.|High
+
+|*Security*|The application needs to be secure enough, giving confidence enough to be used without any risk on the data being.|The app won't allow any third parties to access the data from the users.|High
+
+|*Reliability*|There shouldn't be any error that breaks the application, them being handled by the application.|User won't have any clear notice of any error happening while using the application.|High
+
+|*Testability*|The application will be tested with different methods and by different users to ensure the requirements.|The testing will help reduce to the minimum possibe every bug or bad design in the app for improving it.|High
+
+|*Efficiency*|The system should respond as smooth and efficient as possible, as the user won't use an application with bad performance.|The app must use the minimum resources possible without affecting the performance to ensure a fast and fluid use.|High
+
+|*Maintainability*|The app will go through many changes, so it is important that the code is easy to mantain and modify.|With a good quality code, we are able to perform the minimum changes required to be modified or repaired.|High
+|===

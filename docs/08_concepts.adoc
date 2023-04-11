@@ -1,0 +1,50 @@
+[[section-concepts]]
+== Cross-cutting Concepts
+
+=== Domain
+
+* *Location:* The application revolves around the concept of locations, which can be shops, bars, restaurants, sights, monuments, etc. Users can add locations to their personalized map, along with review scores, comments, pictures, and other information. Additionally, places can create their own digital space, allowing people to connect with them and receive recommendations.
+
+
+* *Personalized maps:* The application allows users to create their own personalized maps, with the locations they are interested in. Users can manage the information that is accessible to other users, such as their friends or groups of friends. The information about a place stored by each user is stored in each user's personal pod, according to the SOLID project.
+
+
+
+
+=== User Experience
+* *Personalized maps:* The ability for users to create their own maps of the places they live or visit, which puts the focus on the user and their preferences. Besides, users are thought to have full control over the mapps they create.
+
+* *Map filters:* The ability for users to filter the map by category, friends, and other criteria, which helps them find the places they are interested in more easily.
+
+
+=== Safety and security
+* *Privacy:* The application must ensure the privacy of its users. The information about a place stored by each user should not be centralized and should be stored in each user's pod. If it is considered necessary, the system could store other information in a centralized way for performance reasons trying to respect the privacy of the users as much as possible. Security is a quality goal for the architecture, and the system must respect the privacy of the users.
+
+* *Access control:* The system must have appropriate access controls in place to ensure that only authorized users can access and modify personal and shared data.
+
+* *Secure data storage:* The system must ensure that data stored in user pods and other centralized data stores is secure and protected from unauthorized access.
+
+=== Architecture and design
+* *Personal pod:* This refers to the storage location where the information about a place is stored by each user. It is a decentralized storage location and the information is owned and controlled by the user, which enhaces security and privacy.
+
+* *Centralized storage:* In some cases, it might be necessary to store information about a place in a centralized way for performance reasons. This should be done while respecting the privacy of the users as much as possible. Apart from the security policy, an application is bound to be efficient in its response if it wants to be util for users.
+
+* *Interoperability:* The solution must be designed in a way that allows for interoperability between the data stored by different applications. This means that the system should be able to integrate and work with other systems and applications that might be used by stakeholders or other parties.
+
+=== Implementation
+* *Testeability:* The implementation must be able to be tested. Not only must we test the ability of the application to perform the appropiate operation, but also the degree in which the quality scenarios are satisfyed.
+
+* *Maintenance:* This refers to the activities performed to keep the system running smoothly and to address any issues that may arise. It can include tasks like patching, upgrading, and bug fixing. In order to keep the maintenance of the project under control, we must proceed very carefuly with the developement of the application and keep our code under high level of quality.
+
+* *Reliability:* This refers to the ability of the system to function without failure or downtime. It involves designing the system in a way that minimizes the risk of failure and ensures that any failures that do occur are quickly detected and resolved.
+
+=== Developement
+(To be done or deleted if not necessary)
+
+=== Operational
+
+* *Performance:* This refers to the speed and efficiency of the system in carrying out its functions. It involves ensuring that the system meets its performance requirements and that it can handle the expected load.
+
+* *Reliability:* This refers to the ability of the system to function without failure or downtime. It involves designing the system in a way that minimizes the risk of failure and ensures that any failures that do occur are quickly detected and resolved.
+
+
