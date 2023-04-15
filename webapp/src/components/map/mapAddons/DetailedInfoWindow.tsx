@@ -32,6 +32,14 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
     if (marker.webId !== session.info.webId!) {
       await savePublicMarker(marker, marker.webId);
     }
+
+    restartValoration();
+  }
+
+  const restartValoration = () => {
+    setRatingOpen(false);
+    setComment('');
+    setRating(0);
   }
 
   const getRatingMean = () => {

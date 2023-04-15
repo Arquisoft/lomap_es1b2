@@ -36,11 +36,19 @@ const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
     });
 
     props.setAcceptedMarker(true);
+
+    restartForm();
+  }
+
+  const restartForm = () => {
+    props.setGlobalName('');
+    props.setGlobalDescription('');
+    props.setFormOpened(false);
   }
 
   return (
     <>
-      <Slide direction="left" in={props.formOpened} mountOnEnter unmountOnExit >
+      <Slide direction="left" in={props.formOpened} >
         <form name="newUbication" onSubmit={handleSubmit}>
           <Stack alignItems="right" sx={{ margin: 2 }}>
             <TextField

@@ -54,10 +54,11 @@ const MapView = () => {
     };
 
     useEffect(() => {
+        document.body.style.overflow='hidden';
         if (session.info.isLoggedIn) {
             saveMarkers(markers.filter((marker) => marker.webId === session.info.webId!),
                 session.info.webId!);
-        }
+        }        
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [markers]);
 
@@ -82,7 +83,7 @@ const MapView = () => {
                         <Select
                             value={globalMode}
                             onChange={(e) => setGlobalMode(e.target.value)}
-                            sx={{ width: '15em', height: '3em', bgcolor: 'white', margin: '1em' }}
+                            sx={{ width: '15em', height: '3em', bgcolor: 'white', margin: '1em', marginLeft: '2%' }}
                         >
                             <MenuItem value={'E'}>Explorar</MenuItem>
                             <MenuItem value={'M'}>Mis ubicaciones</MenuItem>
@@ -132,6 +133,7 @@ const MapView = () => {
                                 margin: '1em',
                                 fontSize: 'large',
                                 display: isFormOpened ? 'none' : '',
+                                marginRight: '3%',
                             }}
                             onClick={async () => setFormOpened(!isFormOpened)}
                         >Nueva ubicación</Button>
