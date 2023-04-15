@@ -1,0 +1,10 @@
+{
+    "NavBar":{
+        "open": "Iniciar sesión",
+        "close": "Cerrar sesión",
+        "ubic": "Mis ubicaciones",
+        "friends": "Mis amigos",
+        "about": "Acerca de",
+        "map": "Mapa"
+    }
+}

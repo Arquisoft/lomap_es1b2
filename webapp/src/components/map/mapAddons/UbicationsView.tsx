@@ -1,12 +1,14 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { Grid, Box, Button } from '@mui/material';
 import { useSession } from '@inrupt/solid-ui-react';
 import { IPMarker } from "../../../shared/SharedTypes";
 import { MarkerContext, Types } from '../../../context/MarkerContextProvider';
+import { useNotifications } from 'reapop';
 
 const UbicationsView = () => {
     const { session } = useSession();
     const { state: markers, dispatch } = useContext(MarkerContext);
+    const { notify } = useNotifications();
 
     const getMyUbications = () => {
         if (session.info.isLoggedIn) {
@@ -17,6 +19,7 @@ const UbicationsView = () => {
 
     const deleteMarker = (id: string) => {
         dispatch({ type: Types.DELETE_MARKER, payload: { id: id } });
+        notify("Localización eliminada correctamente!");
     }
     
     return (

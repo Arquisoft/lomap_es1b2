@@ -4,6 +4,7 @@
     import { useSession } from '@inrupt/solid-ui-react';
     import { MarkerContext, Types } from '../../context/MarkerContextProvider';
     import React, { useEffect, useRef, useState, useContext, MutableRefObject } from 'react';
+import { useNotifications } from 'reapop';
 
     interface IMarker {
         name: string;
@@ -43,6 +44,7 @@ interface ICouple {
         setDetailedIWOpen: (open: boolean) => void;
         setGlobalAddress: (globalAddress: string) => void;
         setAcceptedMarker: (acceptedMarker: boolean) => void;
+        notify: () => void;
     }
 
     // Aclaración: los comentarios en los useEffect deshabilitan warnings.
@@ -60,6 +62,7 @@ const Map: React.FC<IMapProps> = (props) => {
     const [lastAddedCouple, setLastAddedCouple] = useState<ICouple>();      // Último par (marcador, ventana de información) añadidos al mapa
     const [googleMarkers, setGoogleMarkers] = useState<GoogleMarker[]>([]); // useState para conservar referencias a todos los marcadores que se crean
     const DEFAULT_MAP_ZOOM = 15;
+    const { notify } = useNotifications();
 
         /**
          * Inicia y/o inicializa el mapa
@@ -201,6 +204,7 @@ const Map: React.FC<IMapProps> = (props) => {
                     marker.setMap(null);
                     dispatch({ type: Types.DELETE_MARKER, payload: { id: id } });
                 }
+                props.notify();
             });
 
             setGoogleMarkers(googleMarkers => [...googleMarkers, marker]);   // Actualizo el useState para conservar su referencia

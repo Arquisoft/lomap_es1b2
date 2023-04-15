@@ -6,16 +6,19 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { SessionProvider } from "@inrupt/solid-ui-react";
 import { MarkerContextProvider } from './context/MarkerContextProvider';
+import { NotificationsProvider } from 'reapop';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SessionProvider session-id="login">
-      <MarkerContextProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </MarkerContextProvider>
-    </SessionProvider>
+    <NotificationsProvider>
+      <SessionProvider session-id="login">
+        <MarkerContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </MarkerContextProvider>
+      </SessionProvider>
+    </NotificationsProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

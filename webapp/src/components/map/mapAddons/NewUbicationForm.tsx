@@ -1,8 +1,9 @@
 import Button from '@mui/material/Button';
-import React, { MutableRefObject } from 'react';
+import React, { MutableRefObject, useState } from 'react';
 import { useSession } from '@inrupt/solid-ui-react';
 import { IPMarker } from "../../../shared/SharedTypes";
-import { Slide, Stack, TextField, Select, MenuItem } from '@mui/material'
+import { Slide, Stack, TextField, Select, MenuItem } from '@mui/material';
+import { PowerInputSharp } from '@mui/icons-material';
 
 interface INewUbicationFormProps {
   globalLat: number;
@@ -21,6 +22,7 @@ interface INewUbicationFormProps {
   setGlobalDescription: (globalName: string) => void;
   setGlobalCategory: (globalCategory: string) => void;
   setAcceptedMarker: (acceptedMarker: boolean) => void;
+  notify: () => void;
 }
 
 const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
@@ -44,6 +46,9 @@ const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
     props.setGlobalName('');
     props.setGlobalDescription('');
     props.setFormOpened(false);
+    props.setGlobalLat(0);
+    props.setGlobalLng(0);
+    props.notify();
   }
 
   return (

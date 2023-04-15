@@ -21,6 +21,7 @@ import {
     ToggleButton,
     ToggleButtonGroup,
 } from '@mui/material';
+import { useNotifications } from 'reapop';
 
 const MapView = () => {
     const { session } = useSession();
@@ -48,6 +49,7 @@ const MapView = () => {
         category: "Sin categoría", isPublic: false, description: "Sin descripción",
         ratings: [], comments: [], webId: ""
     });
+    const { notify } = useNotifications();
 
     const addMarker = (marker: IPMarker) => {
         dispatch({ type: Types.ADD_MARKER, payload: { marker: marker } });
@@ -68,6 +70,14 @@ const MapView = () => {
     ) => {
         setGlobalFilterCategories(newCategories);
     };
+
+    const showLocationAdded = () => {
+        notify("Nueva localización añadida!");
+    }
+
+    const showLocationDeleted = () => {
+        notify("Localización eliminada correctamente!");
+    }
 
     session.onLogout(() => {
         setGlobalMode("E");
@@ -92,7 +102,7 @@ const MapView = () => {
                         :
                         <Select
                             value={'E'}
-                            sx={{ width: '15em', height: '3em', bgcolor: 'white', margin: '1em' }}
+                            sx={{ width: '15em', height: '3em', bgcolor: 'white', margin: '1em', marginLeft: '2%' }}
                         >
                             <MenuItem value={'E'}>Explorar</MenuItem>
                         </Select>}
@@ -169,6 +179,7 @@ const MapView = () => {
                     setDetailedIWOpen={setDetailedIWOpen}
                     mapType={google.maps.MapTypeId.ROADMAP}
                     globalFilterCategories={globalFilterCategories}
+                    notify={showLocationDeleted}
                 />
             </Grid>
             <Grid item xs={3}>
@@ -189,6 +200,7 @@ const MapView = () => {
                     setGlobalCategory={setGlobalCategory}
                     setAcceptedMarker={setAcceptedMarker}
                     setGlobalDescription={setGlobalDescription}
+                    notify={showLocationAdded}
                 />
             </Grid>
         </Grid>

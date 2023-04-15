@@ -20,6 +20,7 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
   const [isPublic, setPublic] = useState<boolean>(false);
   const { state: markers, dispatch } = useContext(MarkerContext);
   const [isRatingOpen, setRatingOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

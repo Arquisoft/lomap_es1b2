@@ -1,0 +1,10 @@
+{
+    "NavBar":{
+        "open": "Login",
+        "close": "Logout",
+        "ubic": "My ubications",
+        "friends": "My friends",
+        "about": "About us",
+        "map": "Map"
+    }
+}
