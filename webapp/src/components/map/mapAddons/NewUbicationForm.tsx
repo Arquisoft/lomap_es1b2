@@ -1,8 +1,10 @@
 import Button from '@mui/material/Button';
-import React, { MutableRefObject } from 'react';
+import React, { MutableRefObject, useState } from 'react';
 import { useSession } from '@inrupt/solid-ui-react';
 import { IPMarker } from "../../../shared/SharedTypes";
-import { Slide, Stack, TextField, Select, MenuItem } from '@mui/material'
+import { Slide, Stack, TextField, Select, MenuItem } from '@mui/material';
+import { PowerInputSharp } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 
 interface INewUbicationFormProps {
   globalLat: number;
@@ -21,10 +23,12 @@ interface INewUbicationFormProps {
   setGlobalDescription: (globalName: string) => void;
   setGlobalCategory: (globalCategory: string) => void;
   setAcceptedMarker: (acceptedMarker: boolean) => void;
+  notify: () => void;
 }
 
 const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
   const { session } = useSession();
+  const { t } = useTranslation("translation");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,18 +40,29 @@ const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
     });
 
     props.setAcceptedMarker(true);
+
+    restartForm();
+  }
+
+  const restartForm = () => {
+    props.setGlobalName('');
+    props.setGlobalDescription('');
+    props.setFormOpened(false);
+    props.setGlobalLat(0);
+    props.setGlobalLng(0);
+    props.notify();
   }
 
   return (
     <>
-      <Slide direction="left" in={props.formOpened} mountOnEnter unmountOnExit >
+      <Slide direction="left" in={props.formOpened} >
         <form name="newUbication" onSubmit={handleSubmit}>
           <Stack alignItems="right" sx={{ margin: 2 }}>
             <TextField
               required
               type='number'
               name="latitude"
-              label="Latitud"
+              label={t("NewUbication.latitud")}
               variant='filled'
               value={props.globalLat}
               onChange={e => props.setGlobalLat(e.target.value as unknown as number)}
@@ -57,7 +72,7 @@ const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
               required
               type='number'
               name="longitude"
-              label="Longitud"
+              label={t("NewUbication.longitud")}
               variant='filled'
               value={props.globalLng}
               onChange={e => props.setGlobalLng(e.target.value as unknown as number)}
@@ -65,8 +80,9 @@ const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
             />
             <TextField
               required
+              id="prueba"
               name="name"
-              label="Nombre"
+              label={t("NewUbication.name")}
               variant='filled'
               value={props.globalName}
               onChange={e => props.setGlobalName(e.target.value)}
@@ -75,7 +91,7 @@ const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
             <TextField
               required
               name="description"
-              label="Descripción"
+              label={t("NewUbication.descp")}
               variant='filled'
               value={props.globalDescription}
               onChange={e => props.setGlobalDescription(e.target.value)}
@@ -86,17 +102,17 @@ const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
               onChange={(e) => props.setGlobalCategory(e.target.value as string)}
               sx={{ my: 2, bgcolor: 'white' }}
             >
-              <MenuItem value={'Museos'}>Museos</MenuItem>
-              <MenuItem value={'Parques'}>Parques</MenuItem>
-              <MenuItem value={'Tiendas'}>Tiendas</MenuItem>
-              <MenuItem value={'Edificios'}>Edificios</MenuItem>
-              <MenuItem value={'Farmacias'}>Farmacias</MenuItem>
-              <MenuItem value={'Transporte'}>Transporte</MenuItem>
-              <MenuItem value={'Restaurantes'}>Restaurantes</MenuItem>
-              <MenuItem value={'Entretenimiento'}>Entretenimiento</MenuItem>
+              <MenuItem value={'Museos'}>{t("NewUbication.museo")}</MenuItem>
+              <MenuItem value={'Parques'}>{t("NewUbication.parks")}</MenuItem>
+              <MenuItem value={'Tiendas'}>{t("NewUbication.shops")}</MenuItem>
+              <MenuItem value={'Edificios'}>{t("NewUbication.build")}</MenuItem>
+              <MenuItem value={'Farmacias'}>{t("NewUbication.pharm")}</MenuItem>
+              <MenuItem value={'Transporte'}>{t("NewUbication.transp")}</MenuItem>
+              <MenuItem value={'Restaurantes'}>{t("NewUbication.rest")}</MenuItem>
+              <MenuItem value={'Entretenimiento'}>{t("NewUbication.entret")}</MenuItem>
             </Select>
-            <Button variant="contained" type="submit" sx={{ my: 2 }}>Aceptar</Button>
-            <Button variant="contained" onClick={() => props.setFormOpened(false)} sx={{ my: 2 }}>Cancelar</Button>
+            <Button variant="contained" type="submit" sx={{ my: 2 }}>{t("NewUbication.acept")}</Button>
+            <Button variant="contained" onClick={() => props.setFormOpened(false)} sx={{ my: 2 }}>{t("NewUbication.cancel")}</Button>
           </Stack>
         </form>
       </Slide>

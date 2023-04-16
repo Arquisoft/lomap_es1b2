@@ -4,6 +4,7 @@
     import { useSession } from '@inrupt/solid-ui-react';
     import { MarkerContext, Types } from '../../context/MarkerContextProvider';
     import React, { useEffect, useRef, useState, useContext, MutableRefObject } from 'react';
+import { useNotifications } from 'reapop';
 
     interface IMarker {
         name: string;
@@ -43,6 +44,7 @@ interface ICouple {
         setDetailedIWOpen: (open: boolean) => void;
         setGlobalAddress: (globalAddress: string) => void;
         setAcceptedMarker: (acceptedMarker: boolean) => void;
+        notify: () => void;
     }
 
     // Aclaración: los comentarios en los useEffect deshabilitan warnings.
@@ -59,6 +61,8 @@ const Map: React.FC<IMapProps> = (props) => {
     const { state: markers, dispatch } = useContext(MarkerContext);         // Proveedor de los marcadores en el POD
     const [lastAddedCouple, setLastAddedCouple] = useState<ICouple>();      // Último par (marcador, ventana de información) añadidos al mapa
     const [googleMarkers, setGoogleMarkers] = useState<GoogleMarker[]>([]); // useState para conservar referencias a todos los marcadores que se crean
+    const DEFAULT_MAP_ZOOM = 15;
+    const { notify } = useNotifications();
 
         /**
          * Inicia y/o inicializa el mapa
@@ -90,12 +94,12 @@ const Map: React.FC<IMapProps> = (props) => {
             const defaultAddress = new google.maps.LatLng(43.5276892, -5.6355573);  // Posición por defecto en caso de problemas
             if (navigator.geolocation) {                                            // Si se puede usar la geolocalización
                 navigator.geolocation.getCurrentPosition(({ coords }) => {
-                    initMap(4, new google.maps.LatLng(coords.latitude, coords.longitude))
+                    initMap(DEFAULT_MAP_ZOOM, new google.maps.LatLng(coords.latitude, coords.longitude))
                 }, () => {                                                          // En caso de error
-                    initMap(4, defaultAddress);
+                    initMap(DEFAULT_MAP_ZOOM, defaultAddress);
                 })
             } else {
-                initMap(4, defaultAddress);
+                initMap(DEFAULT_MAP_ZOOM, defaultAddress);
             }
         };
 
@@ -200,6 +204,7 @@ const Map: React.FC<IMapProps> = (props) => {
                     marker.setMap(null);
                     dispatch({ type: Types.DELETE_MARKER, payload: { id: id } });
                 }
+                props.notify();
             });
 
             setGoogleMarkers(googleMarkers => [...googleMarkers, marker]);   // Actualizo el useState para conservar su referencia

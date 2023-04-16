@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { MarkerContext, Types } from '../../../context/MarkerContextProvider';
 import { deletePublicMarker, savePublicMarker } from '../../../helpers/SolidHelper';
 import { Slide, Stack, TextField, Dialog, Rating, Button, IconButton, FormGroup, Switch, FormControlLabel } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 interface DetailedUbicationViewProps {
   markerShown: IPMarker;
@@ -20,6 +21,7 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
   const [isPublic, setPublic] = useState<boolean>(false);
   const { state: markers, dispatch } = useContext(MarkerContext);
   const [isRatingOpen, setRatingOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,6 +34,16 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
     if (marker.webId !== session.info.webId!) {
       await savePublicMarker(marker, marker.webId);
     }
+
+    restartValoration();
+  }
+
+  const { t } = useTranslation("translation");
+
+  const restartValoration = () => {
+    setRatingOpen(false);
+    setComment('');
+    setRating(0);
   }
 
   const getRatingMean = () => {
@@ -74,9 +86,9 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
             <h1 style={{ marginTop: '0em' }}>{props.markerShown.name}</h1>
             <IconButton sx={{ marginLeft: 'auto', marginRight: '0em' }} onClick={async () => props.setDetailedIWOpen(false)}><Close /></IconButton>
           </Stack>
-          <p style={{ marginTop: '0em' }}>Dirección: {props.markerShown.address}</p>
-          <p>Categoría: {props.markerShown.category}</p>
-          <p>Descripción: {props.markerShown.description}</p>
+          <p style={{ marginTop: '0em' }}><strong>{t("DetailedInfo.dir")}</strong>{props.markerShown.address}</p>
+          <p><strong>{t("DetailedInfo.cat")}</strong>{props.markerShown.category}</p>
+          <p><strong>{t("DetailedInfo.descp")}</strong>{props.markerShown.description}</p>
           {props.markerShown.webId === session.info.webId
             &&
             <FormGroup>
@@ -87,22 +99,22 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
                   onChange={e => setPublic(e.target.checked)}
                 />
               }
-                sx={{ color: 'white', my: 2 }} label="Compartir ubicación" />
+                sx={{ color: 'white', my: 2 }} label={t("DetailedInfo.share")} />
             </FormGroup>
           }
-          <h2>Resumen de reseñas</h2>
+          <h2>{t("DetailedInfo.summary")}</h2>
           <Rating value={getRatingMean()} readOnly />
           <ul>
             {props.markerShown.comments.map(comment =>
               <li key={comment}>{comment}</li>
             )}
           </ul>
-          <Button variant="contained" sx={{ my: 2 }} onClick={() => setRatingOpen(true)}>Escribir una reseña</Button>
+          <Button variant="contained" sx={{ my: 2 }} onClick={() => setRatingOpen(true)}>{t("DetailedInfo.write")}</Button>
           <Dialog onClose={() => setRatingOpen(false)} open={isRatingOpen}>
             <form name="newRating" onSubmit={handleSubmit}>
               <Stack direction='column' sx={{ width: '30em', padding: '1em' }}>
                 <Stack direction='row'>
-                  <h1 style={{ margin: '0' }}>Valora esta ubicación</h1>
+                  <h1 style={{ margin: '0' }}>{t("DetailedInfo.rate")}</h1>
                   <IconButton sx={{ marginLeft: 'auto', marginRight: '0em' }} onClick={async () => setRatingOpen(false)}><Close /></IconButton>
                 </Stack>
                 <Rating
@@ -117,11 +129,11 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
                   multiline
                   value={comment}
                   name="comment"
-                  label="Comentario"
+                  label={t("DetailedInfo.comment")}
                   onChange={(e) => setComment(e.target.value as string)}
                   sx={{ margin: '0.5em 0em 0.5em' }}
                 />
-                <Button variant="contained" type="submit" sx={{ marginTop: '0.5em' }}>Enviar</Button>
+                <Button variant="contained" type="submit" sx={{ marginTop: '0.5em' }}>{t("DetailedInfo.acept")}</Button>
               </Stack>
             </form>
           </Dialog>

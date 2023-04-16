@@ -11,11 +11,24 @@ import MapView from './components/map/mapAddons/MapView';
 import UbicationsView from './components/map/mapAddons/UbicationsView';
 import { readFriendMarkers, readMarkers } from './helpers/SolidHelper';
 import { MarkerContext, Types } from './context/MarkerContextProvider';
+import AboutUs from './components/AboutUs';
+import NotificationsSystem, { atalhoTheme, setUpNotifications, useNotifications } from "reapop";
+
+setUpNotifications({
+  defaultProps: {
+    position: "top-right",
+    dismissible: true,
+    title: "Success",
+    showDismissButton: true,
+    dismissAfter: 3000,
+  },
+});
 
 function App(): JSX.Element {
   const { session } = useSession();
   const { dispatch } = useContext(MarkerContext);
   const [scriptLoaded, setScriptLoaded] = useState(false);
+  const { notifications, dismissNotification } = useNotifications();
 
   useEffect(() => {
     const googleMapScript = loadMapApi();
@@ -41,21 +54,29 @@ function App(): JSX.Element {
 
   return (
     <>
-      <NavBar></NavBar>
-      <Routes>
-        <Route path="/" element={
-          <HomeView />
-        } />
-        <Route path="/map" element={scriptLoaded &&
-          (<MapView />)
-        } />
-        <Route path="/ubications" element={
-          <UbicationsView />
-        } />
-        <Route path="/friends" element={
-          <FriendsList />
-        } />
-      </Routes>
+        <NavBar></NavBar>
+        <Routes>
+          <Route path="/" element={
+            <HomeView />
+          } />
+          <Route path="/map" element={scriptLoaded &&
+            (<MapView />)
+          } />
+          <Route path="/ubications" element={
+            <UbicationsView/>
+          } />
+          <Route path="/friends" element={
+            <FriendsList />
+          } />
+          <Route path="/aboutus" element={
+            <AboutUs />
+          } />
+        </Routes>
+        <NotificationsSystem
+          notifications={notifications}
+          dismissNotification={(id) => dismissNotification(id)}
+          theme={atalhoTheme}
+        />
     </>
   );
 }
