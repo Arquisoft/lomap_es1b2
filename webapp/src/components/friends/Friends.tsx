@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useSession } from '@inrupt/solid-ui-react';
 import { PersonData, findPersonData } from './FriendList'
 import { addFriendByWebId, deleteFriendByWebId } from '../../helpers/SolidHelper';
+import { useTranslation } from 'react-i18next';
 
 
 const FriendsList: React.FC = () => {
@@ -12,6 +13,8 @@ const FriendsList: React.FC = () => {
   const [showAddFriendForm, setShowAddFriendForm] = useState(false);
   const [personData, setPersonData] = useState<PersonData>({ webId: '', name: '', photo: '', friends: [] })
   const [showFriends, setShowFriends] = useState(false)
+
+  const { t } = useTranslation("translation");
 
   useEffect(() => {
     const loadData = async () => {
@@ -73,7 +76,7 @@ const FriendsList: React.FC = () => {
 
   return (
     <div id='div-friends'>
-      <h2>Amigos</h2>
+      <h2>{t("Friends.main")}</h2>
       { showFriends ? (
       <div>
         <div className="friends-container">
@@ -82,7 +85,7 @@ const FriendsList: React.FC = () => {
               <img src={searchProfileImg(friend.photo)} alt="Foto de amigo" className="friend-photo" />
               <h3>{friend.name}</h3>
               <a href={friend.webId}>Solid profile</a>
-              <button className="button delete-button" onClick={() => handleRemoveFriend(friend.webId)}>Eliminar</button>
+              <button className="button delete-button" onClick={() => handleRemoveFriend(friend.webId)}>{t("Friends.delete")}</button>
             </div>
           ))}
 
@@ -93,12 +96,12 @@ const FriendsList: React.FC = () => {
             </div>
           ) : (
             <div className='add-friend-container'>
-              <button className='button accept-button add-friend-button' type="button" onClick={() => setShowAddFriendForm(true)}>Agregar amigo</button>
+              <button className='button accept-button add-friend-button' type="button" onClick={() => setShowAddFriendForm(true)}>{t("Friends.add")}</button>
             </div>
           )}
       </div>
 
-      ): <button className='button accept-button add-friend-button' type="button" onClick={() => setShowFriends(true)}>Ver amigos</button>}
+      ): <button className='button accept-button add-friend-button' type="button" onClick={() => setShowFriends(true)}>{t("Friends.show")}</button>}
       
     </div>
   );

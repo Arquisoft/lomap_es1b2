@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { LoginButton } from "@inrupt/solid-ui-react";
 import { Button, Dialog, FormGroup, Stack, Select, MenuItem, TextField, Container } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export interface LoginProps {
   open: boolean;
@@ -12,6 +13,8 @@ function LoginForm(props: LoginProps): JSX.Element {
   const [disabled, setDisabled] = useState<boolean>(true);
   const [oidcIssuer, setOidcIssuer] = useState<string>("");
   const [itemSelected, setItemSelected] = useState<string>("https://inrupt.net/");
+
+  const { t } = useTranslation("translation");
 
   const handleClose = () => {
     onClose();
@@ -30,7 +33,7 @@ function LoginForm(props: LoginProps): JSX.Element {
     <Dialog onClose={handleClose} open={open}>
       <Container sx={{ display: 'flex', padding: '0.5em !important' }}>
         <div style={{ margin: '1em' }}>
-          <p>Por favor, seleccione un proveedor.</p>
+          <p>{t("Login.select")}</p>
         </div>
         <div>
           <Stack direction={{ xs: 'column', sm: 'row' }} alignItems='center' sx={{ flexGrow: '2' }} justifyContent='flex-end' spacing={{ xs: 1, sm: 2, md: 4 }}>
@@ -43,7 +46,7 @@ function LoginForm(props: LoginProps): JSX.Element {
               >
                 <MenuItem value={"https://inrupt.net/"}>Inrupt</MenuItem>
                 <MenuItem value={"https://solidcommunity.net/"}>SOLID community</MenuItem>
-                <MenuItem value={"otro"}>Otro proveedor</MenuItem>
+                <MenuItem value={"otro"}>{t("Login.otro")}</MenuItem>
               </Select>
               <TextField
                 role="txtRole"
@@ -55,7 +58,7 @@ function LoginForm(props: LoginProps): JSX.Element {
               />
               <LoginButton oidcIssuer={oidcIssuer} redirectUrl="http://localhost:3000">
                 <Button variant="contained" sx={{ width: '17.25em', margin: '0.5em' }}>
-                  Iniciar sesión
+                  {t("Login.login")}
                 </Button>
               </LoginButton>
             </FormGroup>

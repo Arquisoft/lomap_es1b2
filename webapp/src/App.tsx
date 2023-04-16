@@ -18,7 +18,7 @@ setUpNotifications({
   defaultProps: {
     position: "top-right",
     dismissible: true,
-    title: "Éxito!",
+    title: "Success",
     showDismissButton: true,
     dismissAfter: 3000,
   },

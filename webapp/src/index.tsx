@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { SessionProvider } from "@inrupt/solid-ui-react";
 import { MarkerContextProvider } from './context/MarkerContextProvider';
 import { NotificationsProvider } from 'reapop';
+import "./localize/i18n";
 
 ReactDOM.render(
   <React.StrictMode>

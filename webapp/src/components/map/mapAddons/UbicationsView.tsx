@@ -4,11 +4,14 @@ import { useSession } from '@inrupt/solid-ui-react';
 import { IPMarker } from "../../../shared/SharedTypes";
 import { MarkerContext, Types } from '../../../context/MarkerContextProvider';
 import { useNotifications } from 'reapop';
+import { useTranslation } from 'react-i18next';
 
 const UbicationsView = () => {
     const { session } = useSession();
     const { state: markers, dispatch } = useContext(MarkerContext);
     const { notify } = useNotifications();
+
+    const { t } = useTranslation("translation");
 
     const getMyUbications = () => {
         if (session.info.isLoggedIn) {
@@ -18,8 +21,9 @@ const UbicationsView = () => {
     }
 
     const deleteMarker = (id: string) => {
+        let noti = t("Notifications.okUbi");
         dispatch({ type: Types.DELETE_MARKER, payload: { id: id } });
-        notify("Localización eliminada correctamente!");
+        notify(noti);
     }
     
     return (
@@ -33,10 +37,10 @@ const UbicationsView = () => {
                                     <Grid item xs={6} sm={4} md={3} key={ubication.id}>
                                         <Box sx={{ padding: '1em', bgcolor: 'white', border: 'solid', borderRadius: '2em' }}>
                                             <h1 style={{ marginTop: '0em' }}>{ubication.name}</h1>
-                                            <p style={{ marginTop: '0em' }}>Dirección: {ubication.address}</p>
-                                            <p>Categoría: {ubication.category}</p>
-                                            <p>Descripción: {ubication.description}</p>
-                                            <Button sx={{ bgcolor: 'lightgray', color: 'black'}} onClick={() => deleteMarker(ubication.id)}>Borrar</Button>
+                                            <p style={{ marginTop: '0em' }}> <strong>{t("UbicationsView.dir")}</strong> {ubication.address}</p>
+                                            <p><strong>{t("UbicationsView.cat")}</strong> {ubication.category}</p>
+                                            <p><strong>{t("UbicationsView.descp")}</strong> {ubication.description}</p>
+                                            <Button sx={{ bgcolor: 'lightgray', color: 'black', fontWeight: 'bold'}} onClick={() => deleteMarker(ubication.id)}>{t("UbicationsView.borrar")}</Button>
                                         </Box>                                        
                                     </Grid>
                                 )
@@ -45,7 +49,7 @@ const UbicationsView = () => {
                     )
                     :
                     (
-                        <h1 style={{ color: 'white', textAlign: 'center' }}>Aún no has creado ninguna ubicación</h1>
+                        <h1 style={{ color: 'white', textAlign: 'center' }}>{t("UbicationsView.notyet")}</h1>
                     )
             }
         </>

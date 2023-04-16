@@ -6,5 +6,72 @@
         "friends": "My friends",
         "about": "About us",
         "map": "Map"
+    },
+    "HomeView":{
+        "welcome": "Welcome"
+    },
+    "AboutUs":{
+        "about": "Good night"
+    },
+    "Login":{
+        "select": "Please, choose a provider.",
+        "otro": "Other",
+        "login": "Login"
+    },
+    "MapView":{
+        "explora": "Explore",
+        "misubs": "My ubications",
+        "friends": "Friends' ubications",
+        "filtros": "Filter",
+        "name": "Name",
+        "filtra": "Filter the ubications",
+        "categoria": "Categories",
+        "newub": "New ubication"
+    },
+    "UbicationsView":{
+        "dir": "Address:",
+        "cat": "Category:",
+        "descp": "Description:",
+        "borrar": "Delete",
+        "notyet": "There is no ubications yet"
+    },
+    "Notifications":{
+        "okUbi": "Ubication has been removed successfully",
+        "title": "Success!"
+    },
+    "NewUbication":{
+        "latitud": "Latitude",
+        "longitud": "Longitude",
+        "name": "Name",
+        "descp": "Description",
+        "museo": "Museum",
+        "parks": "Parks",
+        "shops": "Shops",
+        "build": "Buildings",
+        "pharm": "Pharmacies",
+        "transp": "Transport",
+        "rest": "Restaurants",
+        "entret": "Entertainment",
+        "acept": "Submit",
+        "cancel": "Cancel"
+    },
+    "DetailedInfo":{
+        "dir": "Address: ",
+        "cat": "Category: ",
+        "descp": "Description: ",
+        "share": "Share this ubication",
+        "summary": "Summary of reviews",
+        "write": "Write a review",
+        "rate": "Rate this ubication",
+        "comment": "Comment",
+        "acept": "Submit"
+    },
+    "Friends":{
+        "main": "Friends",
+        "delete": "Delete",
+        "add": "Add a friend",
+        "show": "Show friends",
+        "addB": "Add",
+        "cancel": "Cancel"
     }
 }

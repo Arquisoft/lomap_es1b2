@@ -6,5 +6,72 @@
         "friends": "Mis amigos",
         "about": "Acerca de",
         "map": "Mapa"
+    },
+    "HomeView":{
+        "welcome": "¡Bienvenido"
+    },
+    "AboutUs":{
+        "about": "Buenas noches"
+    },
+    "Login":{
+        "select": "Por favor, seleccione un proveedor.",
+        "otro": "Otro",
+        "login": "Iniciar sesión"
+    },
+    "MapView":{
+        "explora": "Explora",
+        "misubs": "Mis ubicaciones",
+        "friends": "Ubicaciones de amigos",
+        "filtros": "Filtrar",
+        "name": "Nombre",
+        "filtra": "Filtra las ubicaciones",
+        "categoria": "Categorías",
+        "newub": "Nueva ubicación"
+    },
+    "UbicationsView":{
+        "dir": "Dirección:",
+        "cat": "Categoría:",
+        "descp": "Descripción:",
+        "borrar": "Borrar",
+        "notyet": "Aún no has creado ninguna ubicación."
+    },
+    "Notifications":{
+        "okUbi": "Localización eliminada correctamente!",
+        "title": "¡Éxito!"
+    },
+    "NewUbication":{
+        "latitud": "Latitud",
+        "longitud": "Longitud",
+        "name": "Nombre",
+        "descp": "Descripción",
+        "museo": "Museo",
+        "parks": "Parques",
+        "shops": "Tiendas",
+        "build": "Edificios",
+        "pharm": "Farmacias",
+        "transp": "Transporte",
+        "rest": "Restaurantes",
+        "entret": "Entretenimiento",
+        "acept": "Aceptar",
+        "cancel": "Cancelar"
+    },
+    "DetailedInfo":{
+        "dir": "Dirección: ",
+        "cat": "Categoría: ",
+        "descp": "Descripción: ",
+        "share": "Compartir ubicación",
+        "summary": "Resumen de reseñas",
+        "write": "Escribe una reseña",
+        "rate": "Puntua esta ubicación",
+        "comment": "Comentario",
+        "acept": "Enviar"
+    },
+    "Friends":{
+        "main": "Amigos",
+        "delete": "Borrar",
+        "add": "Añadir amigo",
+        "show": "Ver amigos",
+        "addB": "Añadir",
+        "cancel": "Cancelar"
     }
 }

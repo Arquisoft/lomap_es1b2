@@ -22,6 +22,7 @@ import {
     ToggleButtonGroup,
 } from '@mui/material';
 import { useNotifications } from 'reapop';
+import { useTranslation } from 'react-i18next';
 
 const MapView = () => {
     const { session } = useSession();
@@ -50,6 +51,8 @@ const MapView = () => {
         ratings: [], comments: [], webId: ""
     });
     const { notify } = useNotifications();
+
+    const { t } = useTranslation("translation");
 
     const addMarker = (marker: IPMarker) => {
         dispatch({ type: Types.ADD_MARKER, payload: { marker: marker } });
@@ -95,42 +98,42 @@ const MapView = () => {
                             onChange={(e) => setGlobalMode(e.target.value)}
                             sx={{ width: '15em', height: '3em', bgcolor: 'white', margin: '1em', marginLeft: '2%' }}
                         >
-                            <MenuItem value={'E'}>Explorar</MenuItem>
-                            <MenuItem value={'M'}>Mis ubicaciones</MenuItem>
-                            <MenuItem value={'A'}>Ubicaciones de amigo</MenuItem>
+                            <MenuItem value={'E'}>{t("MapView.explora")}</MenuItem>
+                            <MenuItem value={'M'}>{t("MapView.misubs")}</MenuItem>
+                            <MenuItem value={'A'}>{t("MapView.friends")}</MenuItem>
                         </Select>
                         :
                         <Select
                             value={'E'}
                             sx={{ width: '15em', height: '3em', bgcolor: 'white', margin: '1em', marginLeft: '2%' }}
                         >
-                            <MenuItem value={'E'}>Explorar</MenuItem>
+                            <MenuItem value={'E'}>{t("MapView.explora")}</MenuItem>
                         </Select>}
                     <Button sx={{ fontSize: 'large' }} variant="contained" onClick={() => setFilterOpen(true)}>
-                        Filtros
+                        {t("MapView.filtros")}
                     </Button>
                     <Dialog onClose={() => setFilterOpen(false)} open={isFilterOpen}>
                         <Stack direction='column' padding={'1em'}>
                             <Stack direction='row'>
-                                <h1 style={{ margin: '0' }}>Filtra las ubicaciones</h1>
+                                <h1 style={{ margin: '0' }}>{t("MapView.filtra")}</h1>
                                 <IconButton sx={{ marginLeft: 'auto', marginRight: '0em' }} onClick={async () => setFilterOpen(false)}><Close /></IconButton>
                             </Stack>
-                            <h2>Nombre</h2>
+                            <h2>{t("MapView.name")}</h2>
                             <TextField value={globalFilterName} onChange={(e) => setGlobalFilterName(e.target.value as string)}></TextField>
-                            <h2>Categorías</h2>
+                            <h2>{t("MapView.categoria")}</h2>
                             <ToggleButtonGroup
                                 onChange={handleCategories}
                                 value={globalFilterCategories}
                                 aria-label="Categorías seleccionadas"
                                 sx={{ display: 'flex', flexWrap: 'wrap' }}>
-                                <ToggleButton sx={{ flex: '1' }} value="Museos" aria-label="museos">Museos</ToggleButton>
-                                <ToggleButton sx={{ flex: '1' }} value="Parques" aria-label="parques">Parques</ToggleButton>
-                                <ToggleButton sx={{ flex: '1' }} value="Tiendas" aria-label="tiendas">Tiendas</ToggleButton>
-                                <ToggleButton sx={{ flex: '1' }} value="Edificios" aria-label="edificios">Edificios</ToggleButton>
-                                <ToggleButton sx={{ flex: '1' }} value="Farmacias" aria-label="farmacias">Farmacias</ToggleButton>
-                                <ToggleButton sx={{ flex: '1' }} value="Transporte" aria-label="transporte">Transporte</ToggleButton>
-                                <ToggleButton sx={{ flex: '1' }} value="Restaurantes" aria-label="restaurantes">Restaurantes</ToggleButton>
-                                <ToggleButton sx={{ flex: '1' }} value="Entretenimiento" aria-label="entretenimiento">Entretenimiento</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Museos" aria-label="museos">{t("NewUbication.museo")}</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Parques" aria-label="parques">{t("NewUbication.parks")}</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Tiendas" aria-label="tiendas">{t("NewUbication.shops")}</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Edificios" aria-label="edificios">{t("NewUbication.build")}</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Farmacias" aria-label="farmacias">{t("NewUbication.pharm")}</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Transporte" aria-label="transporte">{t("NewUbication.transp")}</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Restaurantes" aria-label="restaurantes">{t("NewUbication.rest")}</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Entretenimiento" aria-label="entretenimiento">{t("NewUbication.entret")}</ToggleButton>
                             </ToggleButtonGroup>
                         </Stack>
                     </Dialog>
@@ -146,7 +149,7 @@ const MapView = () => {
                                 marginRight: '3%',
                             }}
                             onClick={async () => setFormOpened(!isFormOpened)}
-                        >Nueva ubicación</Button>
+                        >{t("MapView.newub")}</Button>
                     }
                 </Stack>
             </Grid>
