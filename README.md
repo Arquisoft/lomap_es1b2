@@ -1,12 +1,12 @@
 
-[![CI for LOMAP ES1B](https://github.com/Arquisoft/lomap_es1b/actions/workflows/lomap_es1b.yml/badge.svg)](https://github.com/Arquisoft/lomap_es1b/actions/workflows/lomap_es1b.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es1b&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es1b)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es1b&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es1b)
+[![CI for LOMAP ES1B](https://github.com/Arquisoft/lomap_es1b2/actions/workflows/lomap_es1b2.yml/badge.svg)](https://github.com/Arquisoft/lomap_es1b2/actions/workflows/lomap_es1b2.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es1b2&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es1b2)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es1b2&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es1b2)
 
 ___
 
 <h1><div align="center">
-    <img src="https://github.com/Arquisoft/lomap_es1b/blob/develop/docs/images/logo-no-background.png" alt="LO MAP" width="300" height="200" align="center">
+    <img src="https://github.com/Arquisoft/lomap_es1b2/blob/develop/docs/images/logo-no-background.png" alt="LO MAP" width="300" height="200" align="center">
 </div></h1>
 
 ___
