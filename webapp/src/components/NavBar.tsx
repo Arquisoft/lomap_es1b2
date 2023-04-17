@@ -1,10 +1,11 @@
-import { useState} from 'react';
+import { useEffect, useState} from 'react';
 import { Link } from "react-router-dom";
 import LoginForm from './login/LoginForm';
 import { Stack, Box, Button } from '@mui/material';
 import { useSession, LogoutButton } from '@inrupt/solid-ui-react';
 import { useTranslation } from 'react-i18next';
 import { height } from 'rdf-namespaces/dist/as';
+import { findPersonData } from '../helpers/ProfileHelper';
 
 export const NavBar = () => {
     const UK_URL = "/uk-flag.png";
@@ -15,6 +16,8 @@ export const NavBar = () => {
     const [icon, setIcon] = useState<string>(UK_URL);
 
     const { t, i18n } = useTranslation("translation");
+
+    const [profilePic, setProfilePic] = useState("/user.png")
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -35,6 +38,22 @@ export const NavBar = () => {
         } 
     }
 
+    function searchProfileImg(webId: string): string | undefined {
+        let url = "/user.png"
+        if (webId) {
+            findPersonData(webId)
+              .then(personData => {
+                console.log("Imagen de perfil: " + personData.photo)
+                url = personData.photo;
+                setProfilePic(url)
+            })
+            .catch(error => {
+                console.error("Error en findPersonData:", error);
+              });
+          }
+        return url
+    }
+
     return (
         <nav>
             <Stack
@@ -53,6 +72,9 @@ export const NavBar = () => {
 
                         <Stack direction={{ xs: 'column', sm: 'row' }} alignItems='center' sx={{ flexGrow: '2' }} justifyContent='flex-end' spacing={{ xs: 1, sm: 2, md: 4 }}>
                             <Box component="p" color={'white'}>{session.info.webId?.substring(8).split('.')[0]}</Box>
+                            <a href={searchProfileImg(session.info.webId?session.info.webId:"")} target="_blank" rel="noopener noreferrer">
+                                <img src={profilePic} alt="profile pic" className="profile-pic" />
+                            </a>
                             <LogoutButton>
                                 <Button variant="contained" sx={{ margin: "1em", marginLeft: "0em" }}>
                                     {t("NavBar.close")}
