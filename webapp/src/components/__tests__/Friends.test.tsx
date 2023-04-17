@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import { useSession } from '@inrupt/solid-ui-react';
 import { addFriendByWebId, deleteFriendByWebId } from '../../helpers/SolidHelper';
-import { PersonData } from '../friends/FriendList';
+import { PersonData } from '../../helpers/ProfileHelper';
 import FriendsList from '../friends/Friends';
 
 jest.mock('@inrupt/solid-ui-react', () => ({
