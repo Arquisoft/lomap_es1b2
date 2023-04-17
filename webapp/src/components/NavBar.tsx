@@ -62,20 +62,25 @@ export const NavBar = () => {
             >
                 <Link to="/"><img src="/logo-no-background.png" className="App-logo" alt="logo" height="60" /></Link>
                 <Link to="/map">{t("NavBar.map" as const)}</Link>
+                { session.info.isLoggedIn ? <></> : <Link to="/aboutus">{t("NavBar.about" as const)}</Link> }
                 { session.info.isLoggedIn ? 
                     <>
                         <Link to="/ubications">{t("NavBar.ubic")}</Link>
                         <Link to="/friends">{t("NavBar.friends")}</Link>
                         <Link to="/aboutus">{t("NavBar.about" as const)}</Link>
 
-                        <Stack direction={{ xs: 'column', sm: 'row' }} alignItems='center' sx={{ flexGrow: '2' }} justifyContent='flex-end' spacing={{ xs: 1, sm: 2, md: 4 }}>
+                        <Button onClick={changeLanguage} style={{marginRight:"2.5%", height:"40" }}>
+                        <img src={icon} height="40" alt="language" />
+                        </Button>  
+
+                        <Stack direction={{ xs: 'column', sm: 'row' }} alignItems='center' sx={{ flexGrow: '2' }} justifyContent='flex-end' spacing={{ xs: 2, sm: 2, md: 2 } }>
                             <Box component="p" color={'white'}>{session.info.webId?.substring(8).split('.')[0]}</Box>
                             {searchProfileImg(session.info.webId)}
                             <a href={profilePic} target="_blank" rel="noopener noreferrer">
                                 <img src={profilePic} alt="profile pic" className="profile-pic" />
                             </a>
                             <LogoutButton>
-                                <Button variant="contained" sx={{ margin: "1em", marginLeft: "0em" }}>
+                                <Button variant="contained" sx={{ margin: "1em"}}>
                                     {t("NavBar.close")}
                                 </Button>
                             </LogoutButton>
@@ -89,10 +94,7 @@ export const NavBar = () => {
                             open={open}
                             onClose={handleClose}
                         />
-                    </Stack>}
-                    <Button onClick={changeLanguage} style={{marginRight:"2.5%", height:"40"}}>
-                        <img src={icon} height="40" alt="language" />
-                    </Button>                    
+                    </Stack>}                  
             </Stack>
         </nav>
     )
