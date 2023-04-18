@@ -26,7 +26,8 @@
         "name": "Nombre",
         "filtra": "Filtra las ubicaciones",
         "categoria": "Categorías",
-        "newub": "Nueva ubicación"
+        "newub": "Nueva ubicación",
+        "errorDel": "¡No puedes borrar las ubicaciones de tus amigos!"
     },
     "UbicationsView":{
         "dir": "Dirección:",
@@ -36,7 +37,8 @@
         "notyet": "Aún no has creado ninguna ubicación."
     },
     "Notifications":{
-        "okUbi": "Localización eliminada correctamente!",
+        "okUbi": "¡Localización eliminada correctamente!",
+        "okUbiAdd": "¡La ubicación ha sido añadida correctamente!",
         "title": "¡Éxito!"
     },
     "NewUbication":{
@@ -72,6 +74,8 @@
         "add": "Añadir amigo",
         "show": "Ver amigos",
         "addB": "Añadir",
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+        "addF": "¡Amigo añadido correctamente!",
+        "delF": "¡Amigo eliminado correctamente!"
     }
 }

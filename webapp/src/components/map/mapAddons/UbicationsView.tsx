@@ -21,9 +21,8 @@ const UbicationsView = () => {
     }
 
     const deleteMarker = (id: string) => {
-        let noti = t("Notifications.okUbi");
         dispatch({ type: Types.DELETE_MARKER, payload: { id: id } });
-        notify(noti);
+        notify(t("Notifications.okUbi"), "success");
     }
     
     return (

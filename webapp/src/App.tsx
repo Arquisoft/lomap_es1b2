@@ -12,13 +12,12 @@ import UbicationsView from './components/map/mapAddons/UbicationsView';
 import { readFriendMarkers, readMarkers } from './helpers/SolidHelper';
 import { MarkerContext, Types } from './context/MarkerContextProvider';
 import AboutUs from './components/AboutUs';
-import NotificationsSystem, { atalhoTheme, setUpNotifications, useNotifications } from "reapop";
+import NotificationsSystem, { atalhoTheme, setUpNotifications, useNotifications, wyboTheme } from "reapop";
 
 setUpNotifications({
   defaultProps: {
     position: "top-right",
     dismissible: true,
-    title: "Success",
     showDismissButton: true,
     dismissAfter: 3000,
   },
@@ -75,7 +74,7 @@ function App(): JSX.Element {
         <NotificationsSystem
           notifications={notifications}
           dismissNotification={(id) => dismissNotification(id)}
-          theme={atalhoTheme}
+          theme={wyboTheme}
         />
     </>
   );
