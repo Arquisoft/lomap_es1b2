@@ -35,7 +35,8 @@
         "name": "Name",
         "filtra": "Filter the ubications",
         "categoria": "Categories",
-        "newub": "New ubication"
+        "newub": "New ubication",
+        "errorDel": "You can't delete your friends' markers!"
     },
     "UbicationsView":{
         "dir": "Address:",
@@ -45,7 +46,8 @@
         "notyet": "There is no ubications yet"
     },
     "Notifications":{
-        "okUbi": "Ubication has been removed successfully",
+        "okUbi": "Ubication has been removed successfully!",
+        "okUbiAdd": "Ubication has been added successfully!",
         "title": "Success!"
     },
     "NewUbication":{
@@ -81,6 +83,8 @@
         "add": "Add a friend",
         "show": "Show friends",
         "addB": "Add",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "addF": "Friend added correctly!",
+        "delF": "Friend deleted correctly!"
     }
 }

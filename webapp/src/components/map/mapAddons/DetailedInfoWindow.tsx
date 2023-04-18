@@ -4,7 +4,7 @@ import { IPMarker } from "../../../shared/SharedTypes";
 import React, { useContext, useEffect, useState } from 'react';
 import { MarkerContext, Types } from '../../../context/MarkerContextProvider';
 import { deletePublicMarker, savePublicMarker } from '../../../helpers/SolidHelper';
-import { Slide, Stack, TextField, Dialog, Rating, Button, IconButton, FormGroup, Switch, FormControlLabel } from '@mui/material';
+import { Slide, Stack, TextField, Dialog, Rating, Button, IconButton, FormGroup, Switch, FormControlLabel, Input } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 interface DetailedUbicationViewProps {
@@ -21,7 +21,7 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
   const [isPublic, setPublic] = useState<boolean>(false);
   const { state: markers, dispatch } = useContext(MarkerContext);
   const [isRatingOpen, setRatingOpen] = useState<boolean>(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<File |  null>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,6 +37,14 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
 
     restartValoration();
   }
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+    }
+  };
+  
 
   const { t } = useTranslation("translation");
 
@@ -109,7 +117,7 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
               <li key={comment}>{comment}</li>
             )}
           </ul>
-          <Button variant="contained" sx={{ my: 2 }} onClick={() => setRatingOpen(true)}>{t("DetailedInfo.write")}</Button>
+          <Button variant="outlined" sx={{ my: 2, color:'lightblue', border: '2px solid' }} onClick={() => setRatingOpen(true)}>{t("DetailedInfo.write")}</Button>
           <Dialog onClose={() => setRatingOpen(false)} open={isRatingOpen}>
             <form name="newRating" onSubmit={handleSubmit}>
               <Stack direction='column' sx={{ width: '30em', padding: '1em' }}>
@@ -133,7 +141,11 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
                   onChange={(e) => setComment(e.target.value as string)}
                   sx={{ margin: '0.5em 0em 0.5em' }}
                 />
-                <Button variant="contained" type="submit" sx={{ marginTop: '0.5em' }}>{t("DetailedInfo.acept")}</Button>
+                <Input
+                  type='file'
+                  // DO-IT HERE
+                 />
+                <Button variant="contained" type="submit" sx={{ marginTop: '0.5em', color:'lightblue', border: '2px solid' }}>{t("DetailedInfo.acept")}</Button>
               </Stack>
             </form>
           </Dialog>

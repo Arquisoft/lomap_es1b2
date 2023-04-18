@@ -4,7 +4,9 @@
     import { useSession } from '@inrupt/solid-ui-react';
     import { MarkerContext, Types } from '../../context/MarkerContextProvider';
     import React, { useEffect, useRef, useState, useContext, MutableRefObject } from 'react';
-import { useNotifications } from 'reapop';
+    import { useNotifications } from 'reapop';
+    import { useTranslation } from 'react-i18next';
+    import { backOff } from "exponential-backoff";
 
     interface IMarker {
         name: string;
@@ -16,13 +18,13 @@ import { useNotifications } from 'reapop';
 
 interface ICouple {
     marker: GoogleMarker;
-    infoWindow: GoogleInfoWindow;
+    //infoWindow: GoogleInfoWindow;
 }
 
     type GoogleMap = google.maps.Map;
     type GoogleLatLng = google.maps.LatLng;
     type GoogleMarker = google.maps.Marker;
-    type GoogleInfoWindow = google.maps.InfoWindow;
+    //type GoogleInfoWindow = google.maps.InfoWindow;
 
     interface IMapProps {
         globalLat: number;
@@ -38,12 +40,16 @@ interface ICouple {
         mapType: google.maps.MapTypeId;
         globalFilterCategories: string[];
         nextID: MutableRefObject<string>;
+        friendsMap: boolean;
+        isNewUbiOpen: boolean;
         setGlobalLat: (globalLat: number) => void;
         setGlobalLng: (globalLng: number) => void;
         setMarkerShown: (marker: IPMarker) => void;
         setDetailedIWOpen: (open: boolean) => void;
         setGlobalAddress: (globalAddress: string) => void;
         setAcceptedMarker: (acceptedMarker: boolean) => void;
+        setFriendsMap: (friendsMap: boolean) => void;
+        setNewUbiFormOpened: (isNewUbiOpen: boolean) => void;
         notify: () => void;
     }
 
@@ -63,6 +69,7 @@ const Map: React.FC<IMapProps> = (props) => {
     const [googleMarkers, setGoogleMarkers] = useState<GoogleMarker[]>([]); // useState para conservar referencias a todos los marcadores que se crean
     const DEFAULT_MAP_ZOOM = 15;
     const { notify } = useNotifications();
+    const { t } = useTranslation("translation");
 
         /**
          * Inicia y/o inicializa el mapa
@@ -110,7 +117,7 @@ const Map: React.FC<IMapProps> = (props) => {
             listenerRef.current = google.maps.event.addListener(map!, 'click', async function (e) { // Una vez se recibe un click...
                 props.setGlobalLat(e.latLng.lat());                           // Cambio las coordenadas en los campos del formulario
                 props.setGlobalLng(e.latLng.lng());
-
+                
                 setMarker({                                                   // Y actualizo el useState "marker"
                     address: "",
                     latLng: e.latLng,
@@ -118,7 +125,7 @@ const Map: React.FC<IMapProps> = (props) => {
                     category: "Placeholder categoría",
                     description: "Placeholder descripción"
                 })
-            })
+            })            
         };
 
         session.onLogout(() => {
@@ -161,6 +168,7 @@ const Map: React.FC<IMapProps> = (props) => {
          * @param iMarker parámetros del marcador a añadir
          */
         const addMarker = (iMarker: IMarker): void => {
+            console.log("añado");
             if (lastAddedCouple) {
                 lastAddedCouple.marker.setMap(null);                            // Elimina del mapa el último marcador añadido
             }
@@ -175,20 +183,24 @@ const Map: React.FC<IMapProps> = (props) => {
          * @returns ICouple par(marcador, ventana de información) 
          */
         const generateMarker = (notAddedMarker: IMarker, id: string): ICouple => {
+            const icon = {
+                url: "location-marker.png",
+                scaledSize: new google.maps.Size(35,35),
+            }
             const marker: GoogleMarker = new google.maps.Marker({
                 position: notAddedMarker.latLng,                             // Posición del marcador
-                icon: "blue_marker.png",                                     // Icono del marcador
+                icon: icon,                                     // Icono del marcador
                 map: map                                                     // Referencia al mapa
             });
 
             // Empleo una función para crear el contenido de la ventana de información (¡¡¡pues solo admite HTML plano!!!)
-            const infoWindow = new google.maps.InfoWindow({
-                content: generateInfoWindowContent(notAddedMarker.name, notAddedMarker.category,
-                    notAddedMarker.description, notAddedMarker.address)
-            })
+            // const infoWindow = new google.maps.InfoWindow({
+            //     content: generateInfoWindowContent(notAddedMarker.name, notAddedMarker.category,
+            //         notAddedMarker.description, notAddedMarker.address)
+            // })
 
             marker.addListener('click', () => {                              // Cuando hago click en el marcador...
-                infoWindow.open(map, marker);                                // Abro la ventana de información correspondiente.
+                //infoWindow.open(map, marker);                                // Abro la ventana de información correspondiente.
 
                 let detailedMarker = markers.find(marker => marker.id === id);
                 if (detailedMarker) {
@@ -198,38 +210,42 @@ const Map: React.FC<IMapProps> = (props) => {
             });
 
             marker.addListener('rightclick', () => {
-                if (markers.find(marker => marker.id === id)) {
-                    props.setDetailedIWOpen(false);
+                if (!props.friendsMap) {
+                    if (markers.find(marker => marker.id === id)) {
+                        props.setDetailedIWOpen(false);
 
-                    marker.setMap(null);
-                    dispatch({ type: Types.DELETE_MARKER, payload: { id: id } });
+                        marker.setMap(null);
+                        dispatch({ type: Types.DELETE_MARKER, payload: { id: id } });
+                    }
+                    props.notify();
+                } else {
+                    notify(t("MapView.errorDel"), "error");
                 }
-                props.notify();
             });
 
             setGoogleMarkers(googleMarkers => [...googleMarkers, marker]);   // Actualizo el useState para conservar su referencia
 
-            return { marker, infoWindow };
+            return { marker };
         }
 
-        /**
-         * Crea el string que contiene el HTML a incluir en la InfoWindow
-         * @param name nombre del marcador
-         * @param category categoría del marcador
-         * @param description descripción del marcador
-         * @param address dirección del marcador
-         * @returns string que contiene el HTML a incluir en la InfoWindow
-         */
-        const generateInfoWindowContent = (name: string, category: string, description: string, address: string): string => {
-            let result = ""
+        // /**
+        //  * Crea el string que contiene el HTML a incluir en la InfoWindow
+        //  * @param name nombre del marcador
+        //  * @param category categoría del marcador
+        //  * @param description descripción del marcador
+        //  * @param address dirección del marcador
+        //  * @returns string que contiene el HTML a incluir en la InfoWindow
+        //  */
+        // const generateInfoWindowContent = (name: string, category: string, description: string, address: string): string => {
+        //     let result = ""
 
-            result += `<h1>${name} (${category})</h1>`
-            result += `<h2>${address}</h2>`
-            result += `<p>${description}</p>`
-            // result += `<button>Más info</button>`
+        //     result += `<h1>${name} (${category})</h1>`
+        //     result += `<h2>${address}</h2>`
+        //     result += `<p>${description}</p>`
+        //     // result += `<button>Más info</button>`
 
-            return result;
-        }
+        //     return result;
+        // }
 
         /**
          * Añade un marcador; al hacer click, el mapa se centra en él.
@@ -237,7 +253,7 @@ const Map: React.FC<IMapProps> = (props) => {
          */
         const addHomeMarker = (location: GoogleLatLng): void => {
             const homeMarkerConst: GoogleMarker = new google.maps.Marker({ // Mismo proceso que en generateMarker()
-                icon: "blue_marker.png",
+                icon: "home_marker.png",
                 position: location,
                 map: map
             });
@@ -267,7 +283,10 @@ const Map: React.FC<IMapProps> = (props) => {
          */
         useEffect(() => {
             let location = new google.maps.LatLng(props.globalLat, props.globalLng);        // Accedo a los campos del formulario
-            coordinateToAddress(location).then(address => props.setGlobalAddress(address)); // Actualizado la dirección del marcador
+            // backOff() aplica el algoritmo de exponential-backOff para retrasar la llamada de manera
+            // exponencial por cada reintento que se hace.
+            // Sin esto podia dar problemas de OVER_QUERY_LIMIT constantes
+            const resp = backOff(() => coordinateToAddress(location)).then(address => props.setGlobalAddress(address)); // Actualizado la dirección del marcador
 
             if (lastAddedCouple) {
                 lastAddedCouple.marker.setPosition(location);                               // Cambio su posición
@@ -275,23 +294,23 @@ const Map: React.FC<IMapProps> = (props) => {
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [props.globalLat, props.globalLng]);
 
-        /**
-         * UseEffect encargado de actualizar el último marcador añadido cuando se cambian
-         * sus propiedades en el formulariom o se modifica su dirección
-         */
-        useEffect(() => {
-            if (lastAddedCouple) {
-                lastAddedCouple.infoWindow.setContent(  // Modifica el contenido de su InfoWindow
-                    generateInfoWindowContent(
-                        formatName(),
-                        props.globalCategory,
-                        formatDescription(),
-                        props.globalAddress
-                    )
-                );
-            }
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [props.globalName, props.globalDescription, props.globalCategory, props.globalAddress]);
+        // /**
+        //  * UseEffect encargado de actualizar el último marcador añadido cuando se cambian
+        //  * sus propiedades en el formulario o se modifica su dirección
+        //  */
+        // useEffect(() => {
+        //     if (lastAddedCouple) {
+        //         // lastAddedCouple.infoWindow.setContent(  // Modifica el contenido de su InfoWindow
+        //         //     generateInfoWindowContent(
+        //         //         formatName(),
+        //         //         props.globalCategory,
+        //         //         formatDescription(),
+        //         //         props.globalAddress
+        //         //     )
+        //         // );
+        //     }
+        //     // eslint-disable-next-line react-hooks/exhaustive-deps
+        // }, [props.globalName, props.globalDescription, props.globalCategory, props.globalAddress]);
 
         /**
          * Función auxiliar para evitar tener que guardar referencias
@@ -313,7 +332,6 @@ const Map: React.FC<IMapProps> = (props) => {
                 updateMarkerListeners();                                    // Debemos actualizar sus listener, pues hacen referencia a valores antiguos...
 
                 lastAddedCouple.marker = new google.maps.Marker();          // Corta la referencia al último marcador añadido
-                lastAddedCouple.infoWindow = new google.maps.InfoWindow();  // Corta la referencia a su ventana de información
 
                 props.setAcceptedMarker(false);                             // Cambia el useState a false
 
@@ -441,6 +459,7 @@ const Map: React.FC<IMapProps> = (props) => {
                         draggableCursor: 'pointer',
                         gestureHandling: 'cooperative',
                         mapTypeControl: props.mapTypeControl,
+                        clickableIcons: false
                     })
                 );
             }

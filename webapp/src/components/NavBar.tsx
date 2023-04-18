@@ -80,14 +80,14 @@ export const NavBar = () => {
                                 <img src={profilePic} alt="profile pic" className="profile-pic" />
                             </a>
                             <LogoutButton>
-                                <Button variant="contained" sx={{ margin: "1em"}}>
+                                <Button variant="outlined" sx={{ margin: "1em", marginLeft: "0em", color:'lightblue', border: '2px solid' }}>
                                     {t("NavBar.close")}
                                 </Button>
                             </LogoutButton>
                         </Stack>
                     </>
                     : <Stack direction={{ xs: 'column', sm: 'row' }} alignItems='center' sx={{ flexGrow: '2' }} justifyContent='flex-end' spacing={{ xs: 1, sm: 2, md: 4 }}>
-                        <Button variant="contained" onClick={handleClickOpen} sx={{ margin: "1em" }}>
+                        <Button variant="outlined" onClick={handleClickOpen} sx={{ margin: "1em", color:'lightblue', border: '2px solid' }}>
                             {t("NavBar.open")}
                         </Button>
                         <LoginForm

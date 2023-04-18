@@ -9,10 +9,10 @@ body {
 }
 
 body {
-  font-family: 'Kanit', serif;
+  font-family: Roboto,sans-serif;
   background: #0F2027;
-  background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);
-  background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
+  background: -webkit-linear-gradient(to right, #228ebc, #106b89, #01291e);
+  background: linear-gradient(to right, #172226, #0d2127, #000c11);
 }
 
 #root {

@@ -40,6 +40,7 @@ const MapView = () => {
     const [globalDescription, setGlobalDescription] = useState<string>("");
     const [globalCategory, setGlobalCategory] = useState<string>("Museos");
     const [isDetailedIWOpen, setDetailedIWOpen] = useState<boolean>(false);
+    const [isFriendsOn, setFriendsOn] = useState<boolean>(false);
     const [globalFilterCategories, setGlobalFilterCategories] = useState([
         'Museos', 'Parques', 'Tiendas',
         'Edificios', 'Farmacias', 'Transporte',
@@ -75,11 +76,11 @@ const MapView = () => {
     };
 
     const showLocationAdded = () => {
-        notify("Nueva localización añadida!");
+        notify(t("Notifications.okUbiAdd"), "success");
     }
 
     const showLocationDeleted = () => {
-        notify("Localización eliminada correctamente!");
+        notify(t("Notifications.okUbi"), "success");
     }
 
     session.onLogout(() => {
@@ -87,6 +88,13 @@ const MapView = () => {
         setFormOpened(false);
         setDetailedIWOpen(false);
     });
+
+    const changeFriendsMap = (value: string) => {
+        if (value == 'E' || value == 'A')
+            setFriendsOn(true);
+        else
+            setFriendsOn(false);
+    }
 
     return (
         <Grid container sx={{ width: '100%', height: '100%' }}>
@@ -98,18 +106,18 @@ const MapView = () => {
                             onChange={(e) => setGlobalMode(e.target.value)}
                             sx={{ width: '15em', height: '3em', bgcolor: 'white', margin: '1em', marginLeft: '2%' }}
                         >
-                            <MenuItem value={'E'}>{t("MapView.explora")}</MenuItem>
-                            <MenuItem value={'M'}>{t("MapView.misubs")}</MenuItem>
-                            <MenuItem value={'A'}>{t("MapView.friends")}</MenuItem>
+                            <MenuItem value={'E'} onClick={() => changeFriendsMap('E')}>{t("MapView.explora")}</MenuItem>
+                            <MenuItem value={'M'} onClick={() => changeFriendsMap('M')}>{t("MapView.misubs")}</MenuItem>
+                            <MenuItem value={'A'} onClick={() => changeFriendsMap('A')}>{t("MapView.friends")}</MenuItem>
                         </Select>
                         :
                         <Select
                             value={'E'}
                             sx={{ width: '15em', height: '3em', bgcolor: 'white', margin: '1em', marginLeft: '2%' }}
                         >
-                            <MenuItem value={'E'}>{t("MapView.explora")}</MenuItem>
+                            <MenuItem value={'E'} onClick={() => changeFriendsMap('E')}>{t("MapView.explora")}</MenuItem>
                         </Select>}
-                    <Button sx={{ fontSize: 'large' }} variant="contained" onClick={() => setFilterOpen(true)}>
+                    <Button sx={{ fontSize: 'large', color:'lightblue', border: '2px solid', borderColor: 'white' }} variant="outlined" color="primary" onClick={() => setFilterOpen(true)}>
                         {t("MapView.filtros")}
                     </Button>
                     <Dialog onClose={() => setFilterOpen(false)} open={isFilterOpen}>
@@ -140,13 +148,15 @@ const MapView = () => {
                     <Box sx={{ flexGrow: 2 }}></Box>
                     {session.info.isLoggedIn &&
                         <Button
-                            variant="contained"
+                            variant="outlined"
                             sx={{
                                 width: '15em',
                                 margin: '1em',
                                 fontSize: 'large',
                                 display: isFormOpened ? 'none' : '',
-                                marginRight: '3%',
+                                marginRight: '3%', 
+                                color:'lightblue',
+                                border: '2px solid'
                             }}
                             onClick={async () => setFormOpened(!isFormOpened)}
                         >{t("MapView.newub")}</Button>
@@ -182,7 +192,11 @@ const MapView = () => {
                     setDetailedIWOpen={setDetailedIWOpen}
                     mapType={google.maps.MapTypeId.ROADMAP}
                     globalFilterCategories={globalFilterCategories}
-                    notify={showLocationDeleted}
+                    friendsMap={isFriendsOn}
+                    setFriendsMap={setFriendsOn}
+                    isNewUbiOpen={isFormOpened}
+                    setNewUbiFormOpened={setFormOpened}
+                    notify={showLocationDeleted}                 
                 />
             </Grid>
             <Grid item xs={3}>

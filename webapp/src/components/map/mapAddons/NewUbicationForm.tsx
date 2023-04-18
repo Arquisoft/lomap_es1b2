@@ -111,8 +111,8 @@ const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
               <MenuItem value={'Restaurantes'}>{t("NewUbication.rest")}</MenuItem>
               <MenuItem value={'Entretenimiento'}>{t("NewUbication.entret")}</MenuItem>
             </Select>
-            <Button variant="contained" type="submit" sx={{ my: 2 }}>{t("NewUbication.acept")}</Button>
-            <Button variant="contained" onClick={() => props.setFormOpened(false)} sx={{ my: 2 }}>{t("NewUbication.cancel")}</Button>
+            <Button variant="outlined" type="submit" sx={{ my: 2, color:'lightblue', border: '2px solid' }}>{t("NewUbication.acept")}</Button>
+            <Button variant="outlined" onClick={() => props.setFormOpened(false)} sx={{ my: 2, color:'lightblue', border: '2px solid' }}>{t("NewUbication.cancel")}</Button>
           </Stack>
         </form>
       </Slide>

@@ -5,6 +5,7 @@ import { useSession } from '@inrupt/solid-ui-react';
 import { PersonData, findPersonData } from '../../helpers/ProfileHelper'
 import { addFriendByWebId, deleteFriendByWebId } from '../../helpers/SolidHelper';
 import { useTranslation } from 'react-i18next';
+import { notify } from 'reapop';
 
 
 const FriendsList: React.FC = () => {
@@ -51,6 +52,7 @@ const FriendsList: React.FC = () => {
   const handleRemoveFriend = (webId: string) => {
     deleteFriendByWebId(session.info.webId!, webId);
     fetchFriends();
+    notify(t("Friends.delF"), "success");
   };
 
   function searchProfileImg(photo: string): string | undefined {
