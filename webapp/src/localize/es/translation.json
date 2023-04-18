@@ -10,8 +10,17 @@
     "HomeView":{
         "welcome": "¡Bienvenido"
     },
-    "AboutUs":{
-        "about": "Buenas noches"
+    "AboutUs": {
+        "about": "Sobre Nosotros",
+        "description": "¡Hola! Somos Pablo Calvo y Pablo Ovies, dos apasionados estudiantes de ingeniería del software. Estamos desarrollando una aplicación de mapas donde las personas pueden registrar sus ubicaciones favoritas y compartirlas con seguridad. Utilizamos una innovadora tecnología de manejo de datos descentralizados llamada SOLID para garantizar la privacidad de los datos de nuestros usuarios.",
+        "team1": {
+          "name": "Pablo Calvo",
+          "role": "Estudiante de Ingeniería del Software"
+        },
+        "team2": {
+          "name": "Pablo Ovies",
+          "role": "Estudiante de Ingeniería del Software"
+        }
     },
     "Login":{
         "select": "Por favor, seleccione un proveedor.",

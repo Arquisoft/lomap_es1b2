@@ -10,8 +10,17 @@
     "HomeView":{
         "welcome": "Welcome"
     },
-    "AboutUs":{
-        "about": "Good night"
+    "AboutUs": {
+        "about": "About Us",
+        "description": "Hello! We are Pablo Calvo and Pablo Ovies, two enthusiastic software engineering students. We are developing an maps application where people can register their favorite locations and share them securely. We use an innovative decentralized data handling technology called SOLID to ensure the privacy of our users' data. Join us on this thrilling adventure!",
+        "team1": {
+          "name": "Pablo Calvo",
+          "role": "Software Engineering Student"
+        },
+        "team2": {
+          "name": "Pablo Ovies",
+          "role": "Software Engineering Student"
+        }
     },
     "Login":{
         "select": "Please, choose a provider.",

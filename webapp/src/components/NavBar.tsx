@@ -5,6 +5,7 @@ import { Stack, Box, Button } from '@mui/material';
 import { useSession, LogoutButton } from '@inrupt/solid-ui-react';
 import { useTranslation } from 'react-i18next';
 import { height } from 'rdf-namespaces/dist/as';
+import { findPersonData } from '../helpers/ProfileHelper';
 
 export const NavBar = () => {
     const UK_URL = "/uk-flag.png";
@@ -15,6 +16,8 @@ export const NavBar = () => {
     const [icon, setIcon] = useState<string>(UK_URL);
 
     const { t, i18n } = useTranslation("translation");
+
+    const [profilePic, setProfilePic] = useState("/user.png")
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -35,6 +38,20 @@ export const NavBar = () => {
         } 
     }
 
+    function searchProfileImg(webId: string|undefined) {
+        let url = "/user.png"
+        if (webId) {
+            findPersonData(webId)
+              .then(personData => {
+                // console.log("Imagen de perfil: " + personData.photo)
+                setProfilePic(personData.photo)
+            })
+            .catch(error => {
+                console.error("Error en findPersonData:", error);
+              });
+        }
+    }
+
     return (
         <nav>
             <Stack
@@ -45,14 +62,23 @@ export const NavBar = () => {
             >
                 <Link to="/"><img src="/logo-no-background.png" className="App-logo" alt="logo" height="60" /></Link>
                 <Link to="/map">{t("NavBar.map" as const)}</Link>
+                { session.info.isLoggedIn ? <></> : <Link to="/aboutus">{t("NavBar.about" as const)}</Link> }
                 { session.info.isLoggedIn ? 
                     <>
                         <Link to="/ubications">{t("NavBar.ubic")}</Link>
                         <Link to="/friends">{t("NavBar.friends")}</Link>
                         <Link to="/aboutus">{t("NavBar.about" as const)}</Link>
 
-                        <Stack direction={{ xs: 'column', sm: 'row' }} alignItems='center' sx={{ flexGrow: '2' }} justifyContent='flex-end' spacing={{ xs: 1, sm: 2, md: 4 }}>
+                        <Button onClick={changeLanguage} style={{marginRight:"2.5%", height:"40" }}>
+                        <img src={icon} height="40" alt="language" />
+                        </Button>  
+
+                        <Stack direction={{ xs: 'column', sm: 'row' }} alignItems='center' sx={{ flexGrow: '2' }} justifyContent='flex-end' spacing={{ xs: 2, sm: 2, md: 2 } }>
                             <Box component="p" color={'white'}>{session.info.webId?.substring(8).split('.')[0]}</Box>
+                            {searchProfileImg(session.info.webId)}
+                            <a href={profilePic} target="_blank" rel="noopener noreferrer">
+                                <img src={profilePic} alt="profile pic" className="profile-pic" />
+                            </a>
                             <LogoutButton>
                                 <Button variant="outlined" sx={{ margin: "1em", marginLeft: "0em", color:'lightblue', border: '2px solid' }}>
                                     {t("NavBar.close")}
@@ -68,10 +94,7 @@ export const NavBar = () => {
                             open={open}
                             onClose={handleClose}
                         />
-                    </Stack>}
-                    <Button onClick={changeLanguage} style={{marginRight:"2.5%", height:"40"}}>
-                        <img src={icon} height="40" alt="language" />
-                    </Button>                    
+                    </Stack>}                  
             </Stack>
         </nav>
     )

@@ -2,7 +2,7 @@ import './Friends.css';
 import AddFriendForm from './AddFriendForm';
 import React, { useState, useEffect } from 'react';
 import { useSession } from '@inrupt/solid-ui-react';
-import { PersonData, findPersonData } from './FriendList'
+import { PersonData, findPersonData } from '../../helpers/ProfileHelper'
 import { addFriendByWebId, deleteFriendByWebId } from '../../helpers/SolidHelper';
 import { useTranslation } from 'react-i18next';
 import { notify } from 'reapop';

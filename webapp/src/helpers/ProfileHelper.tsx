@@ -7,7 +7,6 @@ import {
   SolidDataset,
 } from '@inrupt/solid-client'
 import { foaf, vcard, owl, rdfs } from 'rdf-namespaces'
-import { RateLimiter } from 'limiter'
 
 export interface PersonData {
   webId: IriString
@@ -16,29 +15,6 @@ export interface PersonData {
   photo: IriString
 }
 
-const limiter = new RateLimiter({ tokensPerInterval: 1, interval: 50 })
-
-/**
- * https://dmitripavlutin.com/timeout-fetch-request/#2-timeout-a-fetch-request
- */
-const fetchWithTimeout: (timeout: number) => typeof fetch =
-  (timeout: number) => async (resource, options) => {
-    const controller = new AbortController()
-    const id = setTimeout(() => controller.abort(), timeout)
-
-    const response = await fetch(resource, {
-      ...options,
-      signal: controller.signal,
-    })
-    clearTimeout(id)
-
-    return response
-  }
-
-const limitedFetch: typeof fetch = async (...props) => {
-  await limiter.removeTokens(1)
-  return await fetchWithTimeout(8000)(...props)
-}
 
 /**
  * Fetch all profile documents connected to the webId by owl:sameAs or rdfs.seeAlso
@@ -57,7 +33,7 @@ const findFullPersonProfile = async (
     }
     // */
     visited.add(iri)
-    const dataset = await getSolidDataset(iri, { fetch: limitedFetch })
+    const dataset = await getSolidDataset(iri)
     const person = getThing(dataset, webId)
     if (person) {
       response.push(dataset)

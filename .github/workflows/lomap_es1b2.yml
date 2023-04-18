@@ -1,4 +1,4 @@
-name: CI for LOMAP ES1B
+name: CI for LOMAP ES1B2
 
 on:
   pull_request:
