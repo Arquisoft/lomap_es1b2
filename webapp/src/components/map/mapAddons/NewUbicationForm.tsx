@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 interface INewUbicationFormProps {
   globalLat: number;
   globalLng: number;
+  globalOwnr: string;
   globalName: string;
   formOpened: boolean;
   globalAddress: string;
@@ -22,6 +23,7 @@ interface INewUbicationFormProps {
   setFormOpened: (formOpened: boolean) => void;
   setGlobalDescription: (globalName: string) => void;
   setGlobalCategory: (globalCategory: string) => void;
+  setGlobalOwner: (globalOwnr: string) => void;
   setAcceptedMarker: (acceptedMarker: boolean) => void;
   notify: () => void;
 }
@@ -34,7 +36,7 @@ const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
     e.preventDefault();
 
     props.addMarker({
-      id: props.nextID.current, date: new Date(), name: props.globalName, description: props.globalDescription,
+      id: props.nextID.current, owner: props.globalOwnr, date: new Date(), name: props.globalName, description: props.globalDescription,
       lat: props.globalLat, lng: props.globalLng, category: props.globalCategory, isPublic: false,
       address: props.globalAddress, ratings: [], comments: [], webId: session.info.webId!
     });

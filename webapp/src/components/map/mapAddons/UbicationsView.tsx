@@ -34,12 +34,29 @@ const UbicationsView = () => {
                             {
                                 getMyUbications().map((ubication: IPMarker) =>
                                     <Grid item xs={6} sm={4} md={3} key={ubication.id}>
-                                        <Box sx={{ padding: '1em', bgcolor: 'white', border: 'solid', borderRadius: '2em' }}>
+                                        <Box 
+                                        sx={{ padding: '1em', 
+                                              bgcolor: 'white', 
+                                              border: 'solid', 
+                                              borderRadius: '2em'  }}
+                                        >
                                             <h1 style={{ marginTop: '0em' }}>{ubication.name}</h1>
                                             <p style={{ marginTop: '0em' }}> <strong>{t("UbicationsView.dir")}</strong> {ubication.address}</p>
                                             <p><strong>{t("UbicationsView.cat")}</strong> {ubication.category}</p>
                                             <p><strong>{t("UbicationsView.descp")}</strong> {ubication.description}</p>
-                                            <Button sx={{ bgcolor: 'lightgray', color: 'black', fontWeight: 'bold'}} onClick={() => deleteMarker(ubication.id)}>{t("UbicationsView.borrar")}</Button>
+                                            <Button 
+                                                sx={{ 
+                                                    bgcolor: 'lightgray', 
+                                                    color: 'black', 
+                                                    fontWeight: 'bold', 
+                                                    left: '0%',
+                                                    possition: 'absolute',
+                                                    bottom: '0',                                                   
+                                                    marginLeft: '-100'
+
+                                                }} onClick={() => deleteMarker(ubication.id)}>{
+                                                    t("UbicationsView.borrar")}
+                                            </Button>
                                         </Box>                                        
                                     </Grid>
                                 )

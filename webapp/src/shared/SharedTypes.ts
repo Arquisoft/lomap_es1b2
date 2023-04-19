@@ -7,6 +7,7 @@ export type User = {
 
 export interface IPMarker {
   id: string,
+  owner?: string,
   date: Date,
   lat: number,
   lng: number,
@@ -16,6 +17,11 @@ export interface IPMarker {
   category: string,
   isPublic: boolean,
   ratings: number[],
-  comments: string[],
+  comments: Comment[],
   description: string
+}
+
+export interface Comment {
+  text: string,
+  img?: string
 }

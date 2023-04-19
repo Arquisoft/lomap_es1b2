@@ -45,6 +45,7 @@ function App(): JSX.Element {
 
     session.onLogout(async () => {
       setMarkers([])
+      window.location.reload();
     })
 
     function setMarkers(markers: IPMarker[]) {

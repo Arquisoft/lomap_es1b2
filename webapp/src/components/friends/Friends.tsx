@@ -18,13 +18,17 @@ const FriendsList: React.FC = () => {
   const { t } = useTranslation("translation");
 
   useEffect(() => {
-    const loadData = async () => {
-      await loadPersonData();
-      await fetchFriends();
-    };
+
   
     loadData();
   }, [showFriends, showAddFriendForm]);
+
+  const loadData = async () => {
+    if (session.info.isLoggedIn) {
+      await loadPersonData();
+      await fetchFriends();
+    }
+  };
 
   async function loadPersonData() {
     const webId = session.info.webId
@@ -43,6 +47,7 @@ const FriendsList: React.FC = () => {
     addFriendByWebId(session.info.webId!, webId);
     setShowAddFriendForm(false);
     fetchFriends();
+    notify(t("Notifications.addF"), "success");
   };
   const handleCancel = () => {
     setShowAddFriendForm(false);
@@ -52,7 +57,7 @@ const FriendsList: React.FC = () => {
   const handleRemoveFriend = (webId: string) => {
     deleteFriendByWebId(session.info.webId!, webId);
     fetchFriends();
-    notify(t("Friends.delF"), "success");
+    notify(t("Notifications.delF"), "success");
   };
 
   function searchProfileImg(photo: string): string | undefined {

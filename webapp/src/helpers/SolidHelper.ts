@@ -24,7 +24,7 @@ import {
 } from "@inrupt/solid-client";
 
 export async function readMarkers(webId: string) {
-    let fileURL = `${parseURL(webId)}private/lomap/markers.json`;
+    let fileURL = `${parseURL(webId)}public/lomap/markers.json`;
     let markers = await readMarkersFromFile(fileURL);
 
     return markers;
@@ -55,7 +55,7 @@ async function readMarkersFromFile(fileURL: string) {
 }
 
 export async function saveMarkers(markers: IPMarker[], webId: string) {
-    let fileURL = `${parseURL(webId)}private/lomap/markers.json`;
+    let fileURL = `${parseURL(webId)}public/lomap/markers.json`;
     await saveMarkersToFile(markers, fileURL);
 };
 

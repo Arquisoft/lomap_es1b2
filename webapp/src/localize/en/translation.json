@@ -48,7 +48,9 @@
     "Notifications":{
         "okUbi": "Ubication has been removed successfully!",
         "okUbiAdd": "Ubication has been added successfully!",
-        "title": "Success!"
+        "title": "Success!",
+        "addF": "Friend added correctly!",
+        "delF": "Friend deleted correctly!"
     },
     "NewUbication":{
         "latitud": "Latitude",
@@ -75,7 +77,9 @@
         "write": "Write a review",
         "rate": "Rate this ubication",
         "comment": "Comment",
-        "acept": "Submit"
+        "acept": "Submit",
+        "created": "Created by: ",
+        "owner": "Unknown"
     },
     "Friends":{
         "main": "Friends",
@@ -83,8 +87,6 @@
         "add": "Add a friend",
         "show": "Show friends",
         "addB": "Add",
-        "cancel": "Cancel",
-        "addF": "Friend added correctly!",
-        "delF": "Friend deleted correctly!"
+        "cancel": "Cancel"
     }
 }

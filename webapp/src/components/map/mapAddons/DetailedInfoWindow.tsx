@@ -1,11 +1,12 @@
 import { Close } from '@mui/icons-material';
 import { useSession } from '@inrupt/solid-ui-react';
-import { IPMarker } from "../../../shared/SharedTypes";
+import { Comment, IPMarker } from "../../../shared/SharedTypes";
 import React, { useContext, useEffect, useState } from 'react';
 import { MarkerContext, Types } from '../../../context/MarkerContextProvider';
 import { deletePublicMarker, savePublicMarker } from '../../../helpers/SolidHelper';
 import { Slide, Stack, TextField, Dialog, Rating, Button, IconButton, FormGroup, Switch, FormControlLabel, Input } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { notify } from 'reapop';
 
 interface DetailedUbicationViewProps {
   markerShown: IPMarker;
@@ -17,18 +18,20 @@ interface DetailedUbicationViewProps {
 const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
   const { session } = useSession();
   const [rating, setRating] = useState<number>(0);
-  const [comment, setComment] = useState<string>("");
+  const [comment, setComment] = useState<Comment>();
   const [isPublic, setPublic] = useState<boolean>(false);
   const { state: markers, dispatch } = useContext(MarkerContext);
   const [isRatingOpen, setRatingOpen] = useState<boolean>(false);
-  const [selectedImage, setSelectedImage] = useState<File |  null>();
+  const [selectedImage, setSelectedImage] = useState<string>();
+
+  const { t } = useTranslation("translation");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     let marker = markers.find(marker => marker.id = props.markerShown.id)!;
     marker.ratings.push(rating);
-    marker.comments.push(comment);
+    marker.comments.push(comment!);
 
     dispatch({ type: Types.UPDATE_MARKER, payload: { id: marker.id, marker: marker } });
     if (marker.webId !== session.info.webId!) {
@@ -38,20 +41,20 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
     restartValoration();
   }
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setSelectedImage(file);
+      const fileBaseImg = await fileToBase64(file);
+      console.log(fileBaseImg);
+      setSelectedImage(fileBaseImg!);
     }
   };
-  
-
-  const { t } = useTranslation("translation");
 
   const restartValoration = () => {
     setRatingOpen(false);
-    setComment('');
+    setComment(undefined);
     setRating(0);
+    setSelectedImage(undefined);
   }
 
   const getRatingMean = () => {
@@ -62,6 +65,19 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
     let result = sum / total;
 
     return result;
+  }
+
+  // Convierte un File a un string en base64
+  const fileToBase64 = async (file: File): Promise<string | null> => {
+    return await new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+
+      reader.onload = () => {
+          if (typeof reader.result === 'string') return resolve(reader.result)
+      }
+      reader.onerror = (error) => reject(error)
+    })
   }
 
   useEffect(() => {
@@ -90,11 +106,12 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
     <>
       <Slide style={{ color: 'white' }} direction="right" in={props.isDetailedIWOpen} mountOnEnter unmountOnExit>
         <Stack alignItems="right" sx={{ margin: 2, display: props.isDetailedIWOpen ? '' : 'none' }}>
-          <Stack direction='row'>
+          <Stack direction='row' >
             <h1 style={{ marginTop: '0em' }}>{props.markerShown.name}</h1>
             <IconButton sx={{ marginLeft: 'auto', marginRight: '0em' }} onClick={async () => props.setDetailedIWOpen(false)}><Close /></IconButton>
           </Stack>
-          <p style={{ marginTop: '0em' }}><strong>{t("DetailedInfo.dir")}</strong>{props.markerShown.address}</p>
+          <p style={{ marginTop: '0em' }}><strong>{t("DetailedInfo.created")}</strong>{props.markerShown.owner || t("DetailedInfo.owner")}</p>
+          <p><strong>{t("DetailedInfo.dir")}</strong>{props.markerShown.address}</p>
           <p><strong>{t("DetailedInfo.cat")}</strong>{props.markerShown.category}</p>
           <p><strong>{t("DetailedInfo.descp")}</strong>{props.markerShown.description}</p>
           {props.markerShown.webId === session.info.webId
@@ -113,8 +130,11 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
           <h2>{t("DetailedInfo.summary")}</h2>
           <Rating value={getRatingMean()} readOnly />
           <ul>
-            {props.markerShown.comments.map(comment =>
-              <li key={comment}>{comment}</li>
+            {props.markerShown.comments.map((comment) =>
+              <li key={comment.text+Math.random()*100}>
+                {comment.text}{comment.img && <img src={comment.img} alt="pruebas" height={80} style={{display: 'block'}} />}
+              </li>
+              
             )}
           </ul>
           <Button variant="outlined" sx={{ my: 2, color:'lightblue', border: '2px solid' }} onClick={() => setRatingOpen(true)}>{t("DetailedInfo.write")}</Button>
@@ -135,15 +155,19 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
                   rows={4}
                   required
                   multiline
-                  value={comment}
+                  value={comment?.text}
                   name="comment"
                   label={t("DetailedInfo.comment")}
-                  onChange={(e) => setComment(e.target.value as string)}
+                  onChange={(e) => setComment({
+                    text: e.target.value,
+                    img: selectedImage
+                  })}
                   sx={{ margin: '0.5em 0em 0.5em' }}
                 />
                 <Input
                   type='file'
-                  // DO-IT HERE
+                  onChange={handleImageUpload}
+                  inputProps={{ accept: "image/png, image/gif, image/jpeg" }}
                  />
                 <Button variant="contained" type="submit" sx={{ marginTop: '0.5em', color:'lightblue', border: '2px solid' }}>{t("DetailedInfo.acept")}</Button>
               </Stack>

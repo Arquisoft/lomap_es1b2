@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography } from "@mui/material"
+import { Box, Container, Grid, Link, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next";
 
 const AboutUs = () => {
@@ -25,13 +25,13 @@ const AboutUs = () => {
           </Typography>
           <Grid container justifyContent="center" spacing={10}>
             <Grid item xs={12} sm={4}>
-              <Typography variant="h5">{t("AboutUs.team1.name")}</Typography>
+              <Typography variant="h5"><Link href="https://github.com/pelotazos123" rel="noopener" sx={{ textDecoration: 'hover', color: 'lightgray' }}>{t("AboutUs.team1.name")}</Link></Typography>
               <Typography variant="body2" sx={{ color: "#AAA" }}>
                 {t("AboutUs.team1.role")}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Typography variant="h5">{t("AboutUs.team2.name")}</Typography>
+              <Typography variant="h5"><Link href="https://github.com/PabloGOP" rel="noopener" sx={{ textDecoration: 'hover', color: 'lightgray' }}>{t("AboutUs.team2.name")}</Link></Typography>
               <Typography variant="body2" sx={{ color: "#AAA" }}>
                 {t("AboutUs.team2.role")}
               </Typography>

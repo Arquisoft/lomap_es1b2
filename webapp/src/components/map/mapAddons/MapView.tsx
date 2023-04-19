@@ -41,13 +41,15 @@ const MapView = () => {
     const [globalCategory, setGlobalCategory] = useState<string>("Museos");
     const [isDetailedIWOpen, setDetailedIWOpen] = useState<boolean>(false);
     const [isFriendsOn, setFriendsOn] = useState<boolean>(false);
+    const [globalOwnr, setGlobalOwner] = useState<string>(session.info.webId?.substring(8).split('.')[0]!);
     const [globalFilterCategories, setGlobalFilterCategories] = useState([
         'Museos', 'Parques', 'Tiendas',
         'Edificios', 'Farmacias', 'Transporte',
         'Restaurantes', 'Entretenimiento'
     ]);
+    
     const [markerShown, setMarkerShown] = useState<IPMarker>({
-        id: "", date: new Date(), lat: 0, lng: 0, name: "Sin nombre", address: "Sin dirección",
+        id: "", owner: globalOwnr, date: new Date(), lat: 0, lng: 0, name: "Sin nombre", address: "Sin dirección",
         category: "Sin categoría", isPublic: false, description: "Sin descripción",
         ratings: [], comments: [], webId: ""
     });
@@ -90,7 +92,7 @@ const MapView = () => {
     });
 
     const changeFriendsMap = (value: string) => {
-        if (value == 'E' || value == 'A')
+        if (value === 'E' || value === 'A')
             setFriendsOn(true);
         else
             setFriendsOn(false);
@@ -204,6 +206,8 @@ const MapView = () => {
                     nextID={nextID}
                     globalLat={globalLat}
                     globalLng={globalLng}
+                    globalOwnr={globalOwnr}
+                    setGlobalOwner={setGlobalOwner}
                     addMarker={addMarker}
                     globalName={globalName}
                     formOpened={isFormOpened}

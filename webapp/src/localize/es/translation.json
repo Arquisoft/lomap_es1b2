@@ -75,7 +75,9 @@
         "write": "Escribe una reseña",
         "rate": "Puntua esta ubicación",
         "comment": "Comentario",
-        "acept": "Enviar"
+        "acept": "Enviar",
+        "created": "Creada por: ",
+        "owner": "Desconocido"
     },
     "Friends":{
         "main": "Amigos",

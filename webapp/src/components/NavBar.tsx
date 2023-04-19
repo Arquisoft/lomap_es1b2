@@ -4,12 +4,13 @@ import LoginForm from './login/LoginForm';
 import { Stack, Box, Button } from '@mui/material';
 import { useSession, LogoutButton } from '@inrupt/solid-ui-react';
 import { useTranslation } from 'react-i18next';
-import { height } from 'rdf-namespaces/dist/as';
 import { findPersonData } from '../helpers/ProfileHelper';
 
 export const NavBar = () => {
     const UK_URL = "/uk-flag.png";
     const ES_URL = "/es-flag.png";
+
+    const DEFAULT_USERPIC = "/no-profile-pic.png";
 
     const { session } = useSession();
     const [open, setOpen] = useState(false);
@@ -28,7 +29,7 @@ export const NavBar = () => {
     };
 
     const changeLanguage = () => {
-        if (i18n.language == "en") {
+        if (i18n.language === "en") {
             i18n.changeLanguage("es");
             setIcon(UK_URL);
         }           
@@ -39,16 +40,15 @@ export const NavBar = () => {
     }
 
     function searchProfileImg(webId: string|undefined) {
-        let url = "/user.png"
         if (webId) {
             findPersonData(webId)
               .then(personData => {
-                // console.log("Imagen de perfil: " + personData.photo)
-                setProfilePic(personData.photo)
+                    // console.log("Imagen de perfil: " + personData.photo)
+                    setProfilePic(personData.photo || DEFAULT_USERPIC)
             })
             .catch(error => {
                 console.error("Error en findPersonData:", error);
-              });
+            });
         }
     }
 
@@ -62,7 +62,15 @@ export const NavBar = () => {
             >
                 <Link to="/"><img src="/logo-no-background.png" className="App-logo" alt="logo" height="60" /></Link>
                 <Link to="/map">{t("NavBar.map" as const)}</Link>
-                { session.info.isLoggedIn ? <></> : <Link to="/aboutus">{t("NavBar.about" as const)}</Link> }
+                { session.info.isLoggedIn ? <></> : 
+                    <>
+                        <Link to="/aboutus">{t("NavBar.about" as const)}</Link>         
+                        <Button onClick={changeLanguage} style={{marginRight:"2.5%", height:"40" }}>
+                            <img src={icon} height="40" alt="language" />
+                        </Button>
+                    </>                    
+                }
+
                 { session.info.isLoggedIn ? 
                     <>
                         <Link to="/ubications">{t("NavBar.ubic")}</Link>
@@ -70,13 +78,13 @@ export const NavBar = () => {
                         <Link to="/aboutus">{t("NavBar.about" as const)}</Link>
 
                         <Button onClick={changeLanguage} style={{marginRight:"2.5%", height:"40" }}>
-                        <img src={icon} height="40" alt="language" />
+                            <img src={icon} height="40" alt="language" />
                         </Button>  
 
                         <Stack direction={{ xs: 'column', sm: 'row' }} alignItems='center' sx={{ flexGrow: '2' }} justifyContent='flex-end' spacing={{ xs: 2, sm: 2, md: 2 } }>
                             <Box component="p" color={'white'}>{session.info.webId?.substring(8).split('.')[0]}</Box>
                             {searchProfileImg(session.info.webId)}
-                            <a href={profilePic} target="_blank" rel="noopener noreferrer">
+                            <a href={session.info.webId} target="_blank" rel="noopener noreferrer">
                                 <img src={profilePic} alt="profile pic" className="profile-pic" />
                             </a>
                             <LogoutButton>
@@ -87,7 +95,7 @@ export const NavBar = () => {
                         </Stack>
                     </>
                     : <Stack direction={{ xs: 'column', sm: 'row' }} alignItems='center' sx={{ flexGrow: '2' }} justifyContent='flex-end' spacing={{ xs: 1, sm: 2, md: 4 }}>
-                        <Button variant="outlined" onClick={handleClickOpen} sx={{ margin: "1em", color:'lightblue', border: '2px solid' }}>
+                        <Button variant="outlined" onClick={handleClickOpen} sx={{ margin: "1em", color:'lightblue', border: '2px solid', marginRight: '3.5%' }}>
                             {t("NavBar.open")}
                         </Button>
                         <LoginForm

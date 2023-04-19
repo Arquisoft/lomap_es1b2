@@ -6,7 +6,6 @@
     import React, { useEffect, useRef, useState, useContext, MutableRefObject } from 'react';
     import { useNotifications } from 'reapop';
     import { useTranslation } from 'react-i18next';
-    import { backOff } from "exponential-backoff";
 
     interface IMarker {
         name: string;
@@ -184,7 +183,7 @@ const Map: React.FC<IMapProps> = (props) => {
          */
         const generateMarker = (notAddedMarker: IMarker, id: string): ICouple => {
             const icon = {
-                url: "location-marker.png",
+                url: "marker.png",
                 scaledSize: new google.maps.Size(35,35),
             }
             const marker: GoogleMarker = new google.maps.Marker({
@@ -252,15 +251,19 @@ const Map: React.FC<IMapProps> = (props) => {
          * @param location coordenadas del marcador
          */
         const addHomeMarker = (location: GoogleLatLng): void => {
+            const icon = {
+                url: "home.png",
+                scaledSize: new google.maps.Size(45,45),
+            }
             const homeMarkerConst: GoogleMarker = new google.maps.Marker({ // Mismo proceso que en generateMarker()
-                icon: "home_marker.png",
+                icon: icon,
                 position: location,
                 map: map
             });
 
             homeMarkerConst.addListener('click', () => {                   // Cuando hago click en el marcador...
                 map?.panTo(location);                                      // Centro el mapa en el marcador
-                map?.setZoom(6);                                           // Aumento el zoom
+                map?.setZoom(DEFAULT_MAP_ZOOM);                                           // Aumento el zoom
             });
         };
 
@@ -283,10 +286,8 @@ const Map: React.FC<IMapProps> = (props) => {
          */
         useEffect(() => {
             let location = new google.maps.LatLng(props.globalLat, props.globalLng);        // Accedo a los campos del formulario
-            // backOff() aplica el algoritmo de exponential-backOff para retrasar la llamada de manera
-            // exponencial por cada reintento que se hace.
-            // Sin esto podia dar problemas de OVER_QUERY_LIMIT constantes
-            const resp = backOff(() => coordinateToAddress(location)).then(address => props.setGlobalAddress(address)); // Actualizado la dirección del marcador
+            
+            coordinateToAddress(location).then(address => props.setGlobalAddress(address)); // Actualizado la dirección del marcador
 
             if (lastAddedCouple) {
                 lastAddedCouple.marker.setPosition(location);                               // Cambio su posición
