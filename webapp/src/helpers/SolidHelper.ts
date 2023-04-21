@@ -63,6 +63,7 @@ async function saveMarkersToFile(markers: IPMarker[], fileURL: string) {
     const blob = new Blob([(new TextEncoder()).encode(JSON.stringify(markers))], {
         type: "application/json;charset=utf-8"
     });
+    
     try {
         await overwriteFile(fileURL, blob,
             {

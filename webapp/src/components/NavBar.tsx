@@ -1,7 +1,7 @@
 import { useState} from 'react';
 import { Link } from "react-router-dom";
 import LoginForm from './login/LoginForm';
-import { Stack, Box, Button } from '@mui/material';
+import { Stack, Box, Button, Select, MenuItem } from '@mui/material';
 import { useSession, LogoutButton } from '@inrupt/solid-ui-react';
 import { useTranslation } from 'react-i18next';
 import { findPersonData } from '../helpers/ProfileHelper';
@@ -28,15 +28,8 @@ export const NavBar = () => {
         setOpen(false);
     };
 
-    const changeLanguage = () => {
-        if (i18n.language === "en") {
-            i18n.changeLanguage("es");
-            setIcon(UK_URL);
-        }           
-        else {
-            i18n.changeLanguage("en");
-            setIcon(ES_URL);
-        } 
+    const changeLanguage = (lang: string) => {
+        i18n.changeLanguage(lang);
     }
 
     function searchProfileImg(webId: string|undefined) {
@@ -64,10 +57,15 @@ export const NavBar = () => {
                 <Link to="/map">{t("NavBar.map" as const)}</Link>
                 { session.info.isLoggedIn ? <></> : 
                     <>
-                        <Link to="/aboutus">{t("NavBar.about" as const)}</Link>         
-                        <Button onClick={changeLanguage} style={{marginRight:"2.5%", height:"40" }}>
+                        <Link to="/aboutus">{t("NavBar.about" as const)}</Link>     
+                        <Select value={i18n.language} onChange={(e) => changeLanguage(e.target.value)}
+                            sx={{boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
+                            <MenuItem value={"en"}> <img src={UK_URL} height="35" alt="en_icon" /> </MenuItem>
+                            <MenuItem value={"es"}> <img src={ES_URL} height="35" alt="es_icon" /> </MenuItem>
+                        </Select>   
+                        {/* <Button onClick={changeLanguage} style={{marginRight:"2.5%", height:"40" }}>
                             <img src={icon} height="40" alt="language" />
-                        </Button>
+                        </Button> */}
                     </>                    
                 }
 
@@ -76,10 +74,15 @@ export const NavBar = () => {
                         <Link to="/ubications">{t("NavBar.ubic")}</Link>
                         <Link to="/friends">{t("NavBar.friends")}</Link>
                         <Link to="/aboutus">{t("NavBar.about" as const)}</Link>
+                        <Select value={i18n.language} onChange={(e) => changeLanguage(e.target.value)}
+                            sx={{boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
+                            <MenuItem value={"en"}><img src={UK_URL} height="40" alt="en_icon" /></MenuItem>
+                            <MenuItem value={"es"}><img src={ES_URL} height="40" alt="es_icon" /></MenuItem>
+                        </Select>
 
-                        <Button onClick={changeLanguage} style={{marginRight:"2.5%", height:"40" }}>
+                        {/* <Button onClick={changeLanguage} style={{marginRight:"2.5%", height:"40" }}>
                             <img src={icon} height="40" alt="language" />
-                        </Button>  
+                        </Button>   */}
 
                         <Stack direction={{ xs: 'column', sm: 'row' }} alignItems='center' sx={{ flexGrow: '2' }} justifyContent='flex-end' spacing={{ xs: 2, sm: 2, md: 2 } }>
                             <Box component="p" color={'white'}>{session.info.webId?.substring(8).split('.')[0]}</Box>
