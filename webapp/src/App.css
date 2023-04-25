@@ -3,20 +3,6 @@ nav a {
   text-decoration: none;
 }
 
-#notification-root {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 9999;
-}
-
-.notification {
-  opacity: 0;
-  transition-property: opacity;
-  transition-timing-function: ease;
-  transition-duration: 300ms;
-}
-
 .profile-pic {
   width: 40px;
   height: 40px;

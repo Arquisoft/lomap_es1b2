@@ -23,6 +23,7 @@ import {
 } from '@mui/material';
 import { useNotifications } from 'reapop';
 import { useTranslation } from 'react-i18next';
+import * as ReactBootStrap from 'react-bootstrap';
 
 const MapView = () => {
     const { session } = useSession();
@@ -53,6 +54,7 @@ const MapView = () => {
         category: "Sin categoría", isPublic: false, description: "Sin descripción",
         ratings: [], comments: [], webId: ""
     });
+
     const { notify } = useNotifications();
 
     const { t } = useTranslation("translation");
@@ -174,32 +176,34 @@ const MapView = () => {
                 />
             </Grid>
             <Grid item xs={12 - (isFormOpened ? 3 : 0) - (isDetailedIWOpen ? 3 : 0)} sx={{ width: '100%', height: '100%' }}>
-                <Map
-                    nextID={nextID}
-                    mapTypeControl={true}
-                    globalLat={globalLat}
-                    globalLng={globalLng}
-                    globalMode={globalMode}
-                    globalName={globalName}
-                    setGlobalLat={setGlobalLat}
-                    setGlobalLng={setGlobalLng}
-                    globalAddress={globalAddress}
-                    acceptedMarker={acceptedMarker}
-                    globalCategory={globalCategory}
-                    setMarkerShown={setMarkerShown}
-                    setGlobalAddress={setGlobalAddress}
-                    globalFilterName={globalFilterName}
-                    setAcceptedMarker={setAcceptedMarker}
-                    globalDescription={globalDescription}
-                    setDetailedIWOpen={setDetailedIWOpen}
-                    mapType={google.maps.MapTypeId.ROADMAP}
-                    globalFilterCategories={globalFilterCategories}
-                    friendsMap={isFriendsOn}
-                    setFriendsMap={setFriendsOn}
-                    isNewUbiOpen={isFormOpened}
-                    setNewUbiFormOpened={setFormOpened}
-                    notify={showLocationDeleted}                 
-                />
+                
+                    <Map
+                        nextID={nextID}
+                        mapTypeControl={true}
+                        globalLat={globalLat}
+                        globalLng={globalLng}
+                        globalMode={globalMode}
+                        globalName={globalName}
+                        setGlobalLat={setGlobalLat}
+                        setGlobalLng={setGlobalLng}
+                        globalAddress={globalAddress}
+                        acceptedMarker={acceptedMarker}
+                        globalCategory={globalCategory}
+                        setMarkerShown={setMarkerShown}
+                        setGlobalAddress={setGlobalAddress}
+                        globalFilterName={globalFilterName}
+                        setAcceptedMarker={setAcceptedMarker}
+                        globalDescription={globalDescription}
+                        setDetailedIWOpen={setDetailedIWOpen}
+                        mapType={google.maps.MapTypeId.ROADMAP}
+                        globalFilterCategories={globalFilterCategories}
+                        friendsMap={isFriendsOn}
+                        setFriendsMap={setFriendsOn}
+                        isNewUbiOpen={isFormOpened}
+                        setNewUbiFormOpened={setFormOpened}
+                        notify={showLocationDeleted}
+                    />
+                
             </Grid>
             <Grid item xs={3}>
                 <NewUbicationForm

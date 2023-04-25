@@ -6,6 +6,7 @@
     import React, { useEffect, useRef, useState, useContext, MutableRefObject } from 'react';
     import { useNotifications } from 'reapop';
     import { useTranslation } from 'react-i18next';
+import { Image } from '@mui/icons-material';
 
     interface IMarker {
         name: string;
@@ -66,6 +67,7 @@ const Map: React.FC<IMapProps> = (props) => {
     const { state: markers, dispatch } = useContext(MarkerContext);         // Proveedor de los marcadores en el POD
     const [lastAddedCouple, setLastAddedCouple] = useState<ICouple>();      // Último par (marcador, ventana de información) añadidos al mapa
     const [googleMarkers, setGoogleMarkers] = useState<GoogleMarker[]>([]); // useState para conservar referencias a todos los marcadores que se crean
+    const [isLoaded, setLoaded] = useState<boolean>(false);
     const DEFAULT_MAP_ZOOM = 15;
     const { notify } = useNotifications();
     const { t } = useTranslation("translation");
@@ -75,8 +77,16 @@ const Map: React.FC<IMapProps> = (props) => {
          */
         const startMap = (): void => {
             if (!map) {
-                defaultMapStart();              // Si el mapa no está iniciado, lo inicia
+                setTimeout(defaultMapStart, 2000)               // Si el mapa no está iniciado, lo inicia
             } else {
+                google.maps.event.addListenerOnce(map, 'idle', function(){
+                    // do something only the first time the map is loaded
+                    console.log("ejecuta dentro")
+            setLoaded(true);
+                    
+                });
+                console.log("ejecuta fuera")
+
                 if (session.info.isLoggedIn) {
                     addInitMarker();                // Añade un marcador para evitar problemas con los Spinner del formulario
                     initEventListener();            // Inicia el listener encargado de escuchar clicks en el mapa
@@ -89,6 +99,7 @@ const Map: React.FC<IMapProps> = (props) => {
          * UseEffect encargado de iniciar y/o inicializar el mapa
          */
         useEffect(() => {
+            console.log("una vez")
             startMap();
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [map]);
@@ -97,10 +108,13 @@ const Map: React.FC<IMapProps> = (props) => {
          * Intenta conseguir la posición del usuario para iniciar y centrar el mapa en dicha posición
          */
         const defaultMapStart = (): void => {
+            
             const defaultAddress = new google.maps.LatLng(43.5276892, -5.6355573);  // Posición por defecto en caso de problemas
             if (navigator.geolocation) {                                            // Si se puede usar la geolocalización
                 navigator.geolocation.getCurrentPosition(({ coords }) => {
+
                     initMap(DEFAULT_MAP_ZOOM, new google.maps.LatLng(coords.latitude, coords.longitude))
+
                 }, () => {                                                          // En caso de error
                     initMap(DEFAULT_MAP_ZOOM, defaultAddress);
                 })
@@ -113,6 +127,7 @@ const Map: React.FC<IMapProps> = (props) => {
          * Inicia el listener encargado de escuchar clicks en el mapa
          */
         const initEventListener = (): void => {
+            
             listenerRef.current = google.maps.event.addListener(map!, 'click', async function (e) { // Una vez se recibe un click...
                 props.setGlobalLat(e.latLng.lat());                           // Cambio las coordenadas en los campos del formulario
                 props.setGlobalLng(e.latLng.lng());
@@ -465,9 +480,14 @@ const Map: React.FC<IMapProps> = (props) => {
                 );
             }
         };
+        
 
         return (
-            <div ref={ref} className="map"></div>
+                <div ref={ref} className="map" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <img src="loading-gif.gif" style={{display: 'block'}}/>
+                    <br />
+                    <p style={{color:'white', fontSize:'40px'}}>Loading map...</p>
+                </div>
         );
     };
 
