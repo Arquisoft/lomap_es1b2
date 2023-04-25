@@ -7,6 +7,7 @@ ___
 
 <h1><div align="center">
     <img src="https://github.com/Arquisoft/lomap_es1b2/blob/develop/docs/images/logo-no-background.png" alt="LO MAP" width="300" height="200" align="center">
+    <a href="https://arquisoft.github.io/lomap_es1b/"><strong>Project documentation »</strong></a>
 </div></h1>
 
 ___
