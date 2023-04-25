@@ -172,7 +172,7 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
               </ul>
             </Box>
             <Button variant="outlined" 
-                sx={{ my: 2, color:'lightblue', border: '2px solid', position: 'absolute', bottom: '0' ,marginBottom: '1%'  }} onClick={() => setRatingOpen(true)}>
+                sx={{ my: 2, color:'lightblue', border: '2px solid', marginBottom: '1%'  }} onClick={() => setRatingOpen(true)}>
                   {t("DetailedInfo.write")}
             </Button>
           </Box>
