@@ -50,7 +50,8 @@
         "okUbiAdd": "Ubication has been added successfully!",
         "title": "Success!",
         "addF": "Friend added correctly!",
-        "delF": "Friend deleted correctly!"
+        "delF": "Friend deleted correctly!",
+        "loading": "Loading..."
     },
     "NewUbication":{
         "latitud": "Latitude",

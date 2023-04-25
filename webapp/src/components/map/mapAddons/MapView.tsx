@@ -24,6 +24,7 @@ import {
 import { useNotifications } from 'reapop';
 import { useTranslation } from 'react-i18next';
 import * as ReactBootStrap from 'react-bootstrap';
+import LoMap from '../Map';
 
 const MapView = () => {
     const { session } = useSession();
@@ -177,7 +178,7 @@ const MapView = () => {
             </Grid>
             <Grid item xs={12 - (isFormOpened ? 3 : 0) - (isDetailedIWOpen ? 3 : 0)} sx={{ width: '100%', height: '100%' }}>
                 
-                    <Map
+                    <LoMap
                         nextID={nextID}
                         mapTypeControl={true}
                         globalLat={globalLat}

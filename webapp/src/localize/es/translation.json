@@ -48,7 +48,10 @@
     "Notifications":{
         "okUbi": "¡Localización eliminada correctamente!",
         "okUbiAdd": "¡La ubicación ha sido añadida correctamente!",
-        "title": "¡Éxito!"
+        "title": "¡Éxito!",
+        "addF": "¡Amigo añadido correctamente!",
+        "delF": "¡Amigo eliminado correctamente!",
+        "loading": "Cargando..."
     },
     "NewUbication":{
         "latitud": "Latitud",
@@ -85,8 +88,6 @@
         "add": "Añadir amigo",
         "show": "Ver amigos",
         "addB": "Añadir",
-        "cancel": "Cancelar",
-        "addF": "¡Amigo añadido correctamente!",
-        "delF": "¡Amigo eliminado correctamente!"
+        "cancel": "Cancelar"
     }
 }

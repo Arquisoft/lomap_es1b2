@@ -58,7 +58,7 @@ interface ICouple {
     // quebraderos de cabeza y/o bucles infinitos, lo que se escapa
     // del ámbito de esta asignatura.
 
-const Map: React.FC<IMapProps> = (props) => {
+const LoMap: React.FC<IMapProps> = (props) => {
     const { session } = useSession();
     const ref = useRef<HTMLDivElement>(null);                               // Contenedor HTML del mapa
     const [map, setMap] = useState<GoogleMap>();                            // useState para conservar la referencia al mapa
@@ -486,9 +486,9 @@ const Map: React.FC<IMapProps> = (props) => {
                 <div ref={ref} className="map" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <img src="loading-gif.gif" style={{display: 'block'}}/>
                     <br />
-                    <p style={{color:'white', fontSize:'40px'}}>Loading map...</p>
+                    <p style={{color:'white', fontSize:'40px'}}>{t("Notifications.loading")}</p>
                 </div>
         );
     };
 
-    export default Map;
+    export default LoMap;

@@ -27,6 +27,7 @@ function App(): JSX.Element {
     const { session } = useSession();
     const { dispatch } = useContext(MarkerContext);
     const [scriptLoaded, setScriptLoaded] = useState(false);
+    const [theme, setTheme] = useState<string>('dark');
     const { notifications, dismissNotification } = useNotifications();
 
     useEffect(() => {
@@ -35,6 +36,10 @@ function App(): JSX.Element {
         setScriptLoaded(true);
       });
     }, []);
+
+    useEffect(() => {
+      document.body.className = theme;
+    }, [theme])
 
     session.onLogin(async () => {
       let markers = await readFriendMarkers(session.info.webId!);
@@ -48,13 +53,21 @@ function App(): JSX.Element {
       window.location.reload();
     })
 
+    const toggleTheme = () => {
+      if (theme === 'dark'){
+        setTheme('light');
+      } else if(theme === 'light'){
+        setTheme('dark');
+      }
+    }
+
     function setMarkers(markers: IPMarker[]) {
       dispatch({ type: Types.SET_MARKERS, payload: { markers: markers } });
     }
 
     return (
       <>
-          <NavBar></NavBar>
+          <NavBar theme={theme} toggleTheme={toggleTheme}></NavBar>
           <Routes>
             <Route path="/" element={
               <HomeView />

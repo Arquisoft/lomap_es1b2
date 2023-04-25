@@ -10,9 +10,18 @@ body {
 
 body {
   font-family: Roboto,sans-serif;
+}
+
+.dark {
+  color: white; 
   background: #0F2027;
   background: -webkit-linear-gradient(to right, #228ebc, #106b89, #01291e);
   background: linear-gradient(to right, #172226, #0d2127, #000c11);
+}
+
+.light {
+  color: black; 
+  background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
 }
 
 

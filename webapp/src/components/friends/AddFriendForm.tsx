@@ -17,7 +17,7 @@ const AddFriendForm: React.FC<AddFriendFormProps> = ({ onAddFriend, onCancel }) 
     event.preventDefault();
     onAddFriend(newFriendName);
     setNewFriendName('');
-    notify(t("Friends.addF"), "success");
+    notify(t("Notifications.addF"), "success");
   };
 
   return (
