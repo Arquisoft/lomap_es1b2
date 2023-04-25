@@ -4,6 +4,8 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es1b2&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es1b2)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_lomap_es1b2&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_lomap_es1b2)
 
+
+
 <div align="center">
     <img src="https://github.com/Arquisoft/lomap_es1b/blob/develop/docs/images/logo-no-background.png" alt="LOMAP ES1B" width="160" height="100">
     <h3>lomap_es1b</h3>
