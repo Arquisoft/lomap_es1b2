@@ -38,7 +38,8 @@ const UbicationsView = () => {
                                         sx={{ padding: '1em', 
                                               bgcolor: 'white', 
                                               border: 'solid', 
-                                              borderRadius: '2em'  }}
+                                              borderRadius: '1em',
+                                              color: 'black'  }}
                                         >
                                             <h1 style={{ marginTop: '0em' }}>{ubication.name}</h1>
                                             <p style={{ marginTop: '0em' }}> <strong>{t("UbicationsView.dir")}</strong> {ubication.address}</p>

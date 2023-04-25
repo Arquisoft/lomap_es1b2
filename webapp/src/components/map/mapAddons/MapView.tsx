@@ -111,9 +111,9 @@ const MapView = () => {
                             onChange={(e) => setGlobalMode(e.target.value)}
                             sx={{ width: '15em', height: '3em', bgcolor: 'white', margin: '1em', marginLeft: '2%' }}
                         >
-                            <MenuItem value={'E'} onClick={() => changeFriendsMap('E')}>{t("MapView.explora")}</MenuItem>
-                            <MenuItem value={'M'} onClick={() => changeFriendsMap('M')}>{t("MapView.misubs")}</MenuItem>
-                            <MenuItem value={'A'} onClick={() => changeFriendsMap('A')}>{t("MapView.friends")}</MenuItem>
+                            <MenuItem value={'E'} >{t("MapView.explora")}</MenuItem>
+                            <MenuItem value={'M'} >{t("MapView.misubs")}</MenuItem>
+                            <MenuItem value={'A'} >{t("MapView.friends")}</MenuItem>
                         </Select>
                         :
                         <Select
@@ -139,19 +139,19 @@ const MapView = () => {
                                 value={globalFilterCategories}
                                 aria-label="Categorías seleccionadas"
                                 sx={{ display: 'flex', flexWrap: 'wrap' }}>
-                                <ToggleButton sx={{ flex: '1' }} value="Museos" aria-label="museos">{t("NewUbication.museo")}</ToggleButton>
-                                <ToggleButton sx={{ flex: '1' }} value="Parques" aria-label="parques">{t("NewUbication.parks")}</ToggleButton>
-                                <ToggleButton sx={{ flex: '1' }} value="Tiendas" aria-label="tiendas">{t("NewUbication.shops")}</ToggleButton>
-                                <ToggleButton sx={{ flex: '1' }} value="Edificios" aria-label="edificios">{t("NewUbication.build")}</ToggleButton>
-                                <ToggleButton sx={{ flex: '1' }} value="Farmacias" aria-label="farmacias">{t("NewUbication.pharm")}</ToggleButton>
-                                <ToggleButton sx={{ flex: '1' }} value="Transporte" aria-label="transporte">{t("NewUbication.transp")}</ToggleButton>
-                                <ToggleButton sx={{ flex: '1' }} value="Restaurantes" aria-label="restaurantes">{t("NewUbication.rest")}</ToggleButton>
-                                <ToggleButton sx={{ flex: '1' }} value="Entretenimiento" aria-label="entretenimiento">{t("NewUbication.entret")}</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Museos" aria-label="museos">{t("NewUbication.museos")}</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Parques" aria-label="parques">{t("NewUbication.parques")}</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Tiendas" aria-label="tiendas">{t("NewUbication.tiendas")}</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Edificios" aria-label="edificios">{t("NewUbication.edificios")}</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Farmacias" aria-label="farmacias">{t("NewUbication.farmacias")}</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Transporte" aria-label="transporte">{t("NewUbication.transporte")}</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Restaurantes" aria-label="restaurantes">{t("NewUbication.restaurantes")}</ToggleButton>
+                                <ToggleButton sx={{ flex: '1' }} value="Entretenimiento" aria-label="entretenimiento">{t("NewUbication.entretenimiento")}</ToggleButton>
                             </ToggleButtonGroup>
                         </Stack>
                     </Dialog>
                     <Box sx={{ flexGrow: 2 }}></Box>
-                    {session.info.isLoggedIn &&
+                    {(globalMode==='M' && session.info.isLoggedIn) &&
                         <Button
                             variant="outlined"
                             sx={{
@@ -201,7 +201,6 @@ const MapView = () => {
                         friendsMap={isFriendsOn}
                         setFriendsMap={setFriendsOn}
                         isNewUbiOpen={isFormOpened}
-                        setNewUbiFormOpened={setFormOpened}
                         notify={showLocationDeleted}
                     />
                 

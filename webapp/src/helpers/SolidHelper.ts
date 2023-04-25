@@ -185,7 +185,7 @@ export async function readFriendMarkers(webId: string) {
                 });
 
         } catch (error) {
-            console.error(error);
+            console.error("No ubications available from user: " + friendWebId);
         }
     });
 

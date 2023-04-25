@@ -36,7 +36,9 @@
         "filtra": "Filtra las ubicaciones",
         "categoria": "Categorías",
         "newub": "Nueva ubicación",
-        "errorDel": "¡No puedes borrar las ubicaciones de tus amigos!"
+        "errorDel": "¡No puedes borrar las ubicaciones de tus amigos!",
+        "noname": "Sin nombre",
+        "nodescp": "Sin descripción"
     },
     "UbicationsView":{
         "dir": "Dirección:",
@@ -58,14 +60,14 @@
         "longitud": "Longitud",
         "name": "Nombre",
         "descp": "Descripción",
-        "museo": "Museo",
-        "parks": "Parques",
-        "shops": "Tiendas",
-        "build": "Edificios",
-        "pharm": "Farmacias",
-        "transp": "Transporte",
-        "rest": "Restaurantes",
-        "entret": "Entretenimiento",
+        "museos": "Museos",
+        "parques": "Parques",
+        "tiendas": "Tiendas",
+        "edificios": "Edificios",
+        "farmacias": "Farmacias",
+        "transporte": "Transporte",
+        "restaurantes": "Restaurantes",
+        "entretenimiento": "Entretenimiento",
         "acept": "Aceptar",
         "cancel": "Cancelar"
     },

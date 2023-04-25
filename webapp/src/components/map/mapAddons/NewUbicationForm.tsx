@@ -104,14 +104,14 @@ const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
               onChange={(e) => props.setGlobalCategory(e.target.value as string)}
               sx={{ my: 2, bgcolor: 'white' }}
             >
-              <MenuItem value={'Museos'}>{t("NewUbication.museo")}</MenuItem>
-              <MenuItem value={'Parques'}>{t("NewUbication.parks")}</MenuItem>
-              <MenuItem value={'Tiendas'}>{t("NewUbication.shops")}</MenuItem>
-              <MenuItem value={'Edificios'}>{t("NewUbication.build")}</MenuItem>
-              <MenuItem value={'Farmacias'}>{t("NewUbication.pharm")}</MenuItem>
-              <MenuItem value={'Transporte'}>{t("NewUbication.transp")}</MenuItem>
-              <MenuItem value={'Restaurantes'}>{t("NewUbication.rest")}</MenuItem>
-              <MenuItem value={'Entretenimiento'}>{t("NewUbication.entret")}</MenuItem>
+              <MenuItem value={'Museos'}>{t("NewUbication.museos")}</MenuItem>
+              <MenuItem value={'Parques'}>{t("NewUbication.parques")}</MenuItem>
+              <MenuItem value={'Tiendas'}>{t("NewUbication.tiendas")}</MenuItem>
+              <MenuItem value={'Edificios'}>{t("NewUbication.edificios")}</MenuItem>
+              <MenuItem value={'Farmacias'}>{t("NewUbication.farmacias")}</MenuItem>
+              <MenuItem value={'Transporte'}>{t("NewUbication.transporte")}</MenuItem>
+              <MenuItem value={'Restaurantes'}>{t("NewUbication.restaurantes")}</MenuItem>
+              <MenuItem value={'Entretenimiento'}>{t("NewUbication.entretenimiento")}</MenuItem>
             </Select>
             <Button variant="outlined" type="submit" sx={{ my: 2, color:'lightblue', border: '2px solid' }}>{t("NewUbication.acept")}</Button>
             <Button variant="outlined" onClick={() => props.setFormOpened(false)} sx={{ my: 2, color:'lightblue', border: '2px solid' }}>{t("NewUbication.cancel")}</Button>

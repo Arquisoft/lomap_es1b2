@@ -36,7 +36,9 @@
         "filtra": "Filter the ubications",
         "categoria": "Categories",
         "newub": "New ubication",
-        "errorDel": "You can't delete your friends' markers!"
+        "errorDel": "You can't delete your friends' markers!",
+        "noname": "No name",
+        "nodescp": "No description"
     },
     "UbicationsView":{
         "dir": "Address:",
@@ -58,14 +60,14 @@
         "longitud": "Longitude",
         "name": "Name",
         "descp": "Description",
-        "museo": "Museum",
-        "parks": "Parks",
-        "shops": "Shops",
-        "build": "Buildings",
-        "pharm": "Pharmacies",
-        "transp": "Transport",
-        "rest": "Restaurants",
-        "entret": "Entertainment",
+        "museos": "Museums",
+        "parques": "Parks",
+        "tiendas": "Shops",
+        "edificios": "Buildings",
+        "farmacias": "Pharmacies",
+        "transporte": "Transport",
+        "restaurantes": "Restaurants",
+        "entretenimiento": "Entertainment",
         "acept": "Submit",
         "cancel": "Cancel"
     },

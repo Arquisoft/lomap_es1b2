@@ -47,7 +47,6 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
     const file = event.target.files?.[0];
     if (file) {
       const fileBaseImg = await fileToBase64(file);
-      console.log(fileBaseImg);
       setSelectedImage(fileBaseImg!);
     }
   };
@@ -138,7 +137,7 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
           </Stack>
           <p style={{ marginTop: '0em' }}><strong>{t("DetailedInfo.created")}</strong>{props.markerShown.owner || t("DetailedInfo.owner")}</p>
           <p><strong>{t("DetailedInfo.dir")}</strong>{props.markerShown.address}</p>
-          <p><strong>{t("DetailedInfo.cat")}</strong>{props.markerShown.category}</p>
+          <p><strong>{t("DetailedInfo.cat")}</strong>{t('NewUbication.'+props.markerShown.category.toLocaleLowerCase())}</p>
           <p><strong>{t("DetailedInfo.descp")}</strong>{props.markerShown.description}</p>
           {props.markerShown.webId === session.info.webId
             &&
@@ -172,7 +171,7 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
               </ul>
             </Box>
             <Button variant="outlined" 
-                sx={{ my: 2, color:'lightblue', border: '2px solid', marginBottom: '1%'  }} onClick={() => setRatingOpen(true)}>
+                sx={{ my: 2, color:'lightblue', border: '2px solid', position: 'absolute', bottom: '0' ,marginBottom: '1%'  }} onClick={() => setRatingOpen(true)}>
                   {t("DetailedInfo.write")}
             </Button>
           </Box>

@@ -49,7 +49,6 @@ interface ICouple {
         setGlobalAddress: (globalAddress: string) => void;
         setAcceptedMarker: (acceptedMarker: boolean) => void;
         setFriendsMap: (friendsMap: boolean) => void;
-        setNewUbiFormOpened: (isNewUbiOpen: boolean) => void;
         notify: () => void;
     }
 
@@ -81,11 +80,9 @@ const LoMap: React.FC<IMapProps> = (props) => {
             } else {
                 google.maps.event.addListenerOnce(map, 'idle', function(){
                     // do something only the first time the map is loaded
-                    console.log("ejecuta dentro")
-            setLoaded(true);
+                  setLoaded(true);
                     
                 });
-                console.log("ejecuta fuera")
 
                 if (session.info.isLoggedIn) {
                     addInitMarker();                // Añade un marcador para evitar problemas con los Spinner del formulario
@@ -99,7 +96,6 @@ const LoMap: React.FC<IMapProps> = (props) => {
          * UseEffect encargado de iniciar y/o inicializar el mapa
          */
         useEffect(() => {
-            console.log("una vez")
             startMap();
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [map]);
@@ -166,7 +162,7 @@ const LoMap: React.FC<IMapProps> = (props) => {
          * @returns string nombre
          */
         const formatName = (): string => {
-            return props.globalName ? props.globalName : "Sin nombre";
+            return props.globalName ? props.globalName : t("MapView.noname");
         }
 
         /**
@@ -174,7 +170,7 @@ const LoMap: React.FC<IMapProps> = (props) => {
          * @returns string descripción
          */
         const formatDescription = (): string => {
-            return props.globalDescription ? props.globalDescription : "Sin descripción";
+            return props.globalDescription ? props.globalDescription : t("MapView.nodescp");
         }
 
         /**
@@ -182,7 +178,6 @@ const LoMap: React.FC<IMapProps> = (props) => {
          * @param iMarker parámetros del marcador a añadir
          */
         const addMarker = (iMarker: IMarker): void => {
-            console.log("añado");
             if (lastAddedCouple) {
                 lastAddedCouple.marker.setMap(null);                            // Elimina del mapa el último marcador añadido
             }
@@ -206,12 +201,6 @@ const LoMap: React.FC<IMapProps> = (props) => {
                 icon: icon,                                     // Icono del marcador
                 map: map                                                     // Referencia al mapa
             });
-
-            // Empleo una función para crear el contenido de la ventana de información (¡¡¡pues solo admite HTML plano!!!)
-            // const infoWindow = new google.maps.InfoWindow({
-            //     content: generateInfoWindowContent(notAddedMarker.name, notAddedMarker.category,
-            //         notAddedMarker.description, notAddedMarker.address)
-            // })
 
             marker.addListener('click', () => {                              // Cuando hago click en el marcador...
                 //infoWindow.open(map, marker);                                // Abro la ventana de información correspondiente.
@@ -241,25 +230,6 @@ const LoMap: React.FC<IMapProps> = (props) => {
 
             return { marker };
         }
-
-        // /**
-        //  * Crea el string que contiene el HTML a incluir en la InfoWindow
-        //  * @param name nombre del marcador
-        //  * @param category categoría del marcador
-        //  * @param description descripción del marcador
-        //  * @param address dirección del marcador
-        //  * @returns string que contiene el HTML a incluir en la InfoWindow
-        //  */
-        // const generateInfoWindowContent = (name: string, category: string, description: string, address: string): string => {
-        //     let result = ""
-
-        //     result += `<h1>${name} (${category})</h1>`
-        //     result += `<h2>${address}</h2>`
-        //     result += `<p>${description}</p>`
-        //     // result += `<button>Más info</button>`
-
-        //     return result;
-        // }
 
         /**
          * Añade un marcador; al hacer click, el mapa se centra en él.
@@ -310,24 +280,6 @@ const LoMap: React.FC<IMapProps> = (props) => {
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [props.globalLat, props.globalLng]);
 
-        // /**
-        //  * UseEffect encargado de actualizar el último marcador añadido cuando se cambian
-        //  * sus propiedades en el formulario o se modifica su dirección
-        //  */
-        // useEffect(() => {
-        //     if (lastAddedCouple) {
-        //         // lastAddedCouple.infoWindow.setContent(  // Modifica el contenido de su InfoWindow
-        //         //     generateInfoWindowContent(
-        //         //         formatName(),
-        //         //         props.globalCategory,
-        //         //         formatDescription(),
-        //         //         props.globalAddress
-        //         //     )
-        //         // );
-        //     }
-        //     // eslint-disable-next-line react-hooks/exhaustive-deps
-        // }, [props.globalName, props.globalDescription, props.globalCategory, props.globalAddress]);
-
         /**
          * Función auxiliar para evitar tener que guardar referencias
          * a los listener del último marcador
@@ -369,9 +321,6 @@ const LoMap: React.FC<IMapProps> = (props) => {
                     break;
                 case 'A':
                     loadFriendMarkers();
-                    break;
-                case 'E':
-                    // <- Cargar marcadores
                     break;
                 default:
             }
@@ -485,8 +434,7 @@ const LoMap: React.FC<IMapProps> = (props) => {
         return (
                 <div ref={ref} className="map" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <img src="loading-gif.gif" style={{display: 'block'}}/>
-                    <br />
-                    <p style={{color:'white', fontSize:'40px'}}>{t("Notifications.loading")}</p>
+                    <p style={{color:'white', fontSize:'40px'}}>Loading map...</p>
                 </div>
         );
     };
