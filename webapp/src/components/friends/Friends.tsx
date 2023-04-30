@@ -40,7 +40,7 @@ const FriendsList: React.FC = () => {
   
   async function fetchFriends() {
     const names = await Promise.all(
-      personData.friends.map((friend) => findPersonData(friend).then(personData => personData))
+      personData.friends.map((friend) => findPersonData(friend))
     );
     setFriendList(names);
   }
@@ -93,10 +93,10 @@ const FriendsList: React.FC = () => {
       { session.info.isLoggedIn ? 
       <>
       <h2>{t("Friends.main")}</h2>
-      { isLoading ? 
+      { isLoading || friends.length == 0 ? 
       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
         <img src="loading-gif.gif" style={{display: 'block'}}/>
-        <p style={{color:'white', fontSize:'40px'}}>Loading friends...</p>
+        <p style={{color:'white', fontSize:'40px'}}>{t("Friends.loading")}</p>
       </div>
       :
       <div>
