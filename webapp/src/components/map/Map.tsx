@@ -322,11 +322,13 @@ const LoMap: React.FC<IMapProps> = (props) => {
                 case 'A':
                     loadFriendMarkers();
                     break;
+                case 'E':
+                    break;
                 default:
             }
 
             // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [props.globalMode, props.globalFilterName, props.globalFilterCategories]);
+        }, [props.globalMode, props.globalFilterName, props.globalFilterCategories, isLoaded]);
 
         /**
          * Borra todos los marcadores del mapa y vacía el useState correspondiente
@@ -424,17 +426,84 @@ const LoMap: React.FC<IMapProps> = (props) => {
                         draggableCursor: 'pointer',
                         gestureHandling: 'cooperative',
                         mapTypeControl: props.mapTypeControl,
-                        clickableIcons: false
+                        clickableIcons: false,
+                        styles: [
+                            { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+                            { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+                            { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+                            {
+                              featureType: "administrative.locality",
+                              elementType: "labels.text.fill",
+                              stylers: [{ color: "#d59563" }],
+                            },
+                            {
+                              featureType: "poi",
+                              stylers: [{visibility: 'off'}],
+                            },
+                            {
+                              featureType: "road",
+                              elementType: "geometry",
+                              stylers: [{ color: "#38414e" }],
+                            },
+                            {
+                              featureType: "road",
+                              elementType: "geometry.stroke",
+                              stylers: [{ color: "#212a37" }],
+                            },
+                            {
+                              featureType: "road",
+                              elementType: "labels.text.fill",
+                              stylers: [{ color: "#9ca5b3" }],
+                            },
+                            {
+                              featureType: "road.highway",
+                              elementType: "geometry",
+                              stylers: [{ visibility: 'off' }],
+                            },
+                            {
+                              featureType: "road.highway",
+                              elementType: "geometry.stroke",
+                              stylers: [{ visibility: 'off' }],
+                            },
+                            {
+                              featureType: "road.highway",
+                              elementType: "labels.text.fill",
+                              stylers: [{ visibility: 'off' }],
+                            },
+                            {
+                              featureType: "transit",
+                              elementType: "geometry",
+                              stylers: [{ color: "#2f3948" }],
+                            },
+                            {
+                              featureType: "transit.station",
+                              elementType: "labels.text.fill",
+                              stylers: [{ color: "#d59563" }],
+                            },
+                            {
+                              featureType: "water",
+                              elementType: "geometry",
+                              stylers: [{ color: "#17263c" }],
+                            },
+                            {
+                              featureType: "water",
+                              elementType: "labels.text.fill",
+                              stylers: [{ color: "#515c6d" }],
+                            },
+                            {
+                              featureType: "water",
+                              elementType: "labels.text.stroke",
+                              stylers: [{ color: "#17263c" }],
+                            },
+                          ],
                     })
                 );
             }
         };
-        
 
         return (
                 <div ref={ref} className="map" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <img src="loading-gif.gif" style={{display: 'block'}}/>
-                    <p style={{color:'white', fontSize:'40px'}}>Loading map...</p>
+                    <img src="loading-gif2.gif" style={{display: 'block'}}/>
                 </div>
         );
     };

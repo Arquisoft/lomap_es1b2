@@ -49,6 +49,7 @@ const MapView = () => {
         'Edificios', 'Farmacias', 'Transporte',
         'Restaurantes', 'Entretenimiento'
     ]);
+    const [menuOptions, setMenuOptions] = useState<{value:string, txt: string}[]>()
     
     const [markerShown, setMarkerShown] = useState<IPMarker>({
         id: "", owner: globalOwnr, date: new Date(), lat: 0, lng: 0, name: "Sin nombre", address: "Sin dirección",
@@ -65,8 +66,8 @@ const MapView = () => {
     };
 
     useEffect(() => {
-        document.body.style.overflow='hidden';
         if (session.info.isLoggedIn) {
+            console.log("guardo");
             saveMarkers(markers.filter((marker) => marker.webId === session.info.webId!),
                 session.info.webId!);
         }        
@@ -89,7 +90,7 @@ const MapView = () => {
     }
 
     session.onLogout(() => {
-        setGlobalMode("E");
+        setGlobalMode('E');
         setFormOpened(false);
         setDetailedIWOpen(false);
     });
@@ -101,27 +102,42 @@ const MapView = () => {
             setFriendsOn(false);
     }
 
+    useEffect(() => {
+        if (session.info.isLoggedIn){
+            setGlobalMode('M')
+            setMenuOptions([
+                {value: 'M', txt: t("MapView.misubs")}, 
+                {value: 'A', txt: t("MapView.friends")},
+            ])
+        }else {
+            setMenuOptions([{value: 'E', txt: t("MapView.explora")}])
+            setGlobalMode('E')
+        }
+    }, [session.info.isLoggedIn]);
+
+
     return (
         <Grid container sx={{ width: '100%', height: '100%' }}>
             <Grid item xs={12}>
                 <Stack direction={'row'} alignItems={'center'}>
-                    {session.info.isLoggedIn ?
-                        <Select
-                            value={globalMode}
-                            onChange={(e) => setGlobalMode(e.target.value)}
-                            sx={{ width: '15em', height: '3em', bgcolor: 'white', margin: '1em', marginLeft: '2%' }}
-                        >
-                            <MenuItem value={'E'} >{t("MapView.explora")}</MenuItem>
-                            <MenuItem value={'M'} >{t("MapView.misubs")}</MenuItem>
-                            <MenuItem value={'A'} >{t("MapView.friends")}</MenuItem>
-                        </Select>
-                        :
-                        <Select
-                            value={'E'}
-                            sx={{ width: '15em', height: '3em', bgcolor: 'white', margin: '1em', marginLeft: '2%' }}
-                        >
-                            <MenuItem value={'E'} onClick={() => changeFriendsMap('E')}>{t("MapView.explora")}</MenuItem>
-                        </Select>}
+                <Select
+                    defaultValue=''
+                    value={globalMode}
+                    onChange={(e) => {
+                        setGlobalMode(e.target.value)
+                        changeFriendsMap(e.target.value);
+                    }}
+                    sx={{ width: '15em', height: '3em', bgcolor: 'white', margin: '1em', marginLeft: '2%' }}
+                >
+                    {/* <MenuItem value={'M'} >{t("MapView.misubs")}</MenuItem> */}
+                    {menuOptions?.map(({value, txt}) => (
+                        <MenuItem key={value} value={value} >{txt}</MenuItem>
+                    ))
+                    }
+                                
+                      
+                    {/* </Select><MenuItem value={'E'} onClick={() => changeFriendsMap('E')}>{}</MenuItem> */}
+                </Select>
                     <Button sx={{ fontSize: 'large', color:'lightblue', border: '2px solid', borderColor: 'white' }} variant="outlined" color="primary" onClick={() => setFilterOpen(true)}>
                         {t("MapView.filtros")}
                     </Button>
@@ -205,7 +221,8 @@ const MapView = () => {
                     />
                 
             </Grid>
-            <Grid item xs={3}>
+            {
+                isFormOpened && <Grid item xs={3}>
                 <NewUbicationForm
                     nextID={nextID}
                     globalLat={globalLat}
@@ -228,6 +245,8 @@ const MapView = () => {
                     notify={showLocationAdded}
                 />
             </Grid>
+            }
+            
         </Grid>
     );
 }

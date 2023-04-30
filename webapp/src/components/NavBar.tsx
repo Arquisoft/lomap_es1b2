@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useEffect, useState} from 'react';
 import { Link } from "react-router-dom";
 import LoginForm from './login/LoginForm';
 import { Stack, Box, Button, Select, MenuItem } from '@mui/material';
@@ -7,23 +7,21 @@ import { useTranslation } from 'react-i18next';
 import { PersonData, findPersonData } from '../helpers/ProfileHelper';
 
 type propsNav = {
-    theme: string;
-    toggleTheme: () => void;
+    isLoggedIn?: boolean;
+    lang: string;
+    setLang: (lang: string) => void;
 }
 
 export const NavBar: React.FC<propsNav> = (props) => {
     const UK_URL = "/uk-flag.png";
     const ES_URL = "/es-flag.png";
 
-    const LIGHT = "/light-theme.png";
-    const DARK = "/dark-theme.png";
-
     const DEFAULT_USERPIC = "/no-profile-pic.png";
 
     const { session } = useSession();
     const [open, setOpen] = useState(false);
-    const [themeIcon, setThemeIcon] = useState<string>(DARK)
     const [icon, setIcon] = useState<string>(UK_URL);
+    const [isLoged, setLoggedIn] = useState<boolean>(props.isLoggedIn!);
 
     const { t, i18n } = useTranslation("translation");
 
@@ -37,13 +35,9 @@ export const NavBar: React.FC<propsNav> = (props) => {
         setOpen(false);
     };
 
-    const changeLanguage = (lang: string) => {
-        i18n.changeLanguage(lang);
-    }
-
-    const changeTheme = (thSelected: string) => {
-        props.toggleTheme();
-    }
+    useEffect(() => {
+        i18n.changeLanguage(props.lang);
+    }, [props.lang, i18n]);
 
     function searchPersonData(webId: string|undefined) {
         // let name = session.info.webId?.substring(8).split('.')[0]
@@ -98,16 +92,10 @@ export const NavBar: React.FC<propsNav> = (props) => {
                 </Box>
 
                 <Box>
-                    <Select value={i18n.language} onChange={(e) => changeLanguage(e.target.value)}
+                    <Select value={props.lang} onChange={(e) => props.setLang(e.target.value)}
                             sx={{boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
                             <MenuItem value={"en"}> <img src={UK_URL} height="35" alt="en_icon" /> </MenuItem>
                             <MenuItem value={"es"}> <img src={ES_URL} height="35" alt="es_icon" /> </MenuItem>
-                    </Select>
-                    <Select value={props.theme} onChange={(e) => changeTheme(e.target.value)}
-                        sx={{boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
-                        <MenuItem value={'dark'}> <img src={DARK} alt='themeD' height={'35'}/> </MenuItem>
-                        <MenuItem value={'light'}> <img src={LIGHT} alt='themeL' height={'35'}/> </MenuItem>
-                        
                     </Select>
                 </Box>
 

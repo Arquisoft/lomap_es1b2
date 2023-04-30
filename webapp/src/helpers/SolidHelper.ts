@@ -65,6 +65,7 @@ async function saveMarkersToFile(markers: IPMarker[], fileURL: string) {
     });
     
     try {
+        console.log("hola?")
         await overwriteFile(fileURL, blob,
             {
                 contentType: blob.type,
@@ -80,7 +81,7 @@ function parseURL(webId: string) {
     return webId.split("profile")[0];
 }
 
-async function getFriendList(webId: string) {
+export async function getFriendList(webId: string) {
     let solidDataset = await getSolidDataset(webId);
     let friends = getUrlAll((getThing(solidDataset, webId) as Thing), FOAF.knows);
 
