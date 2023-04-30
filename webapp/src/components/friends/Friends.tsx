@@ -13,55 +13,63 @@ const FriendsList: React.FC = () => {
   const [friends, setFriendList] = useState<PersonData[]>([]);
   const [showAddFriendForm, setShowAddFriendForm] = useState(false);
   const [personData, setPersonData] = useState<PersonData>({ webId: '', name: '', photo: '', friends: [] })
-  const [showFriends, setShowFriends] = useState(false)
+  const [isLoading, setLoading] = useState(true)
 
   const { t } = useTranslation("translation");
 
   useEffect(() => {
-
-  
     loadData();
-  }, [showFriends, showAddFriendForm]);
+  }, [isLoading, showAddFriendForm]);
 
-  const loadData = async () => {
+  async function loadData() {
     if (session.info.isLoggedIn) {
       await loadPersonData();
-      await fetchFriends();
+      setLoading(false);
     }
   };
 
   async function loadPersonData() {
     const webId = session.info.webId
-    const data = await findPersonData(webId!)
-    setPersonData(data)
+    await findPersonData(webId!).then(personData => {
+      setPersonData(personData);
+      fetchFriends();
+    })
   }
 
+  
   async function fetchFriends() {
     const names = await Promise.all(
-      personData.friends.map((friend) => findPersonData(friend))
+      personData.friends.map((friend) => findPersonData(friend).then(personData => personData))
     );
     setFriendList(names);
   }
+  
 
   const handleAddFriend = async (webId: string) => {
     addFriendByWebId(session.info.webId!, webId);
     setShowAddFriendForm(false);
-    fetchFriends();
+    
+    const friendData = await findPersonData(webId);
+    setFriendList(friends.concat(friendData));
+
     notify(t("Notifications.addF"), "success");
   };
+
+
   const handleCancel = () => {
     setShowAddFriendForm(false);
-    fetchFriends();
   };
+
 
   const handleRemoveFriend = (webId: string) => {
     deleteFriendByWebId(session.info.webId!, webId);
-    fetchFriends();
+    setFriendList(friends.filter(friend => friend.webId !== webId))
     notify(t("Notifications.delF"), "success");
   };
 
+
   function searchProfileImg(photo: string): string | undefined {
-    let url = "/user.png"
+    let url = "/no-profile-pic.png"
     if (photo !== "") {
       url = photo
     }
@@ -83,8 +91,15 @@ const FriendsList: React.FC = () => {
 
   return (
     <div id='div-friends'>
+      { session.info.isLoggedIn ? 
+      <>
       <h2>{t("Friends.main")}</h2>
-      { showFriends ? (
+      { isLoading ? 
+      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <img src="loading-gif.gif" style={{display: 'block'}}/>
+        <p style={{color:'white', fontSize:'40px'}}>Loading friends...</p>
+      </div>
+      :
       <div>
         <div className="friends-container">
           {friends.map((friend) => (
@@ -107,9 +122,11 @@ const FriendsList: React.FC = () => {
             </div>
           )}
       </div>
-
-      ): <button className='button accept-button add-friend-button' type="button" onClick={() => setShowFriends(true)}>{t("Friends.show")}</button>}
-      
+      }   
+      </>
+      : 
+      <><h2>{t("Friends.noLoggedIn")}</h2></>
+    }
     </div>
   );
 };

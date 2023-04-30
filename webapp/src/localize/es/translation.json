@@ -90,6 +90,7 @@
         "add": "Añadir amigo",
         "show": "Ver amigos",
         "addB": "Añadir",
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+        "noLoggedIn": "Inicia sesión para ver a tus amigos"
     }
 }
