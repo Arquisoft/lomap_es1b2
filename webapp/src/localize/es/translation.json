@@ -91,6 +91,7 @@
         "show": "Ver amigos",
         "addB": "Añadir",
         "cancel": "Cancelar",
-        "noLoggedIn": "Inicia sesión para ver a tus amigos"
+        "noLoggedIn": "Inicia sesión para ver a tus amigos",
+        "loading": "Cargando amigos..."
     }
 }

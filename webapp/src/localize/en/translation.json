@@ -91,6 +91,7 @@
         "show": "Show friends",
         "addB": "Add",
         "cancel": "Cancel",
-        "noLoggedIn": "Log-In to see your friends"
+        "noLoggedIn": "Log-In to see your friends",
+        "loading": "Loading friends..."
     }
 }
