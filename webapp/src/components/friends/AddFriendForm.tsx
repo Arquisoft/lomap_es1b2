@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './FriendForm.css'
 import { useTranslation } from 'react-i18next';
 import { notify } from 'reapop';
+import { Button } from '@mui/material';
 
 interface AddFriendFormProps {
   onAddFriend: (name: string) => void;
@@ -14,10 +15,10 @@ const AddFriendForm: React.FC<AddFriendFormProps> = ({ onAddFriend, onCancel }) 
   const { t } = useTranslation("translation");
 
   const handleAddFriend = (event: React.FormEvent<HTMLFormElement>) => {
+    notify(t("Notifications.addF"), "success");
     event.preventDefault();
     onAddFriend(newFriendName);
-    setNewFriendName('');
-    notify(t("Notifications.addF"), "success");
+    setNewFriendName('');    
   };
 
   return (
@@ -25,8 +26,8 @@ const AddFriendForm: React.FC<AddFriendFormProps> = ({ onAddFriend, onCancel }) 
       <label>
         <input type="text" value={newFriendName} onChange={event => setNewFriendName(event.target.value)} required placeholder='https://example.provider.net/profile/card#me'/>
       </label>
-      <button className='button accept-button' type="submit">{t("Friends.addB")}</button>
-      <button className='button delete-button' type="button" onClick={onCancel}>{t("Friends.cancel")}</button>
+      <Button variant="outlined" sx={{color: 'lightblue',  border: '1.5px solid', borderColor: 'lightskyblue'}} type="submit">{t("Friends.addB")}</Button>
+      <Button variant="outlined" sx={{color: 'lightblue',  borderColor: 'red', border: '1.5px solid' }} type="button" onClick={onCancel}>{t("Friends.cancel")}</Button>
     </form>
   );
 };

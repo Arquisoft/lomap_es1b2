@@ -6,6 +6,7 @@ import { PersonData, findPersonData } from '../../helpers/ProfileHelper'
 import { addFriendByWebId, deleteFriendByWebId } from '../../helpers/SolidHelper';
 import { useTranslation } from 'react-i18next';
 import { notify } from 'reapop';
+import { Button, Link } from '@mui/material';
 
 
 const FriendsList: React.FC = () => {
@@ -51,8 +52,6 @@ const FriendsList: React.FC = () => {
     
     const friendData = await findPersonData(webId);
     setFriendList(friends.concat(friendData));
-
-    notify(t("Notifications.addF"), "success");
   };
 
 
@@ -106,8 +105,8 @@ const FriendsList: React.FC = () => {
             <div key={friend.webId} className="friend-card">
               <img src={searchProfileImg(friend.photo)} alt="Foto de amigo" className="friend-photo" />
               <h3>{friend.name}</h3>
-              <a href={friend.webId}>Solid profile</a>
-              <button className="button delete-button" onClick={() => handleRemoveFriend(friend.webId)}>{t("Friends.delete")}</button>
+              <Link href={friend.webId} sx={{textDecoration: 'hover', color: 'lightgray'}}>Solid profile</Link>
+              <Button variant="outlined" sx={{color: 'lightblue', border: '2px solid', borderColor: 'red'}} onClick={() => handleRemoveFriend(friend.webId)}>{t("Friends.delete")}</Button>
             </div>
           ))}
 
@@ -118,7 +117,7 @@ const FriendsList: React.FC = () => {
             </div>
           ) : (
             <div className='add-friend-container'>
-              <button className='button accept-button add-friend-button' type="button" onClick={() => setShowAddFriendForm(true)}>{t("Friends.add")}</button>
+              <Button variant="outlined" sx={{color: 'lightblue', height: '3em', fontWeight: '700', border: '2px solid'}} type="button" onClick={() => setShowAddFriendForm(true)}>{t("Friends.add")}</Button>
             </div>
           )}
       </div>

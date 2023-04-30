@@ -5,6 +5,7 @@ import { IPMarker } from "../../../shared/SharedTypes";
 import { MarkerContext, Types } from '../../../context/MarkerContextProvider';
 import { useNotifications } from 'reapop';
 import { useTranslation } from 'react-i18next';
+import { lightBlue } from '@mui/material/colors';
 
 const UbicationsView = () => {
     const { session } = useSession();
@@ -46,6 +47,7 @@ const UbicationsView = () => {
                                             <p><strong>{t("UbicationsView.cat")}</strong> {ubication.category}</p>
                                             <p><strong>{t("UbicationsView.descp")}</strong> {ubication.description}</p>
                                             <Button 
+                                                variant='contained'
                                                 sx={{ 
                                                     bgcolor: 'lightgray', 
                                                     color: 'black', 
@@ -53,7 +55,11 @@ const UbicationsView = () => {
                                                     left: '0%',
                                                     possition: 'absolute',
                                                     bottom: '0',                                                   
-                                                    marginLeft: '-100'
+                                                    marginLeft: '-100',
+                                                    ":hover": {
+                                                        bgcolor: 'lightBlue',
+                                                        color: 'black'
+                                                    }
 
                                                 }} onClick={() => deleteMarker(ubication.id)}>{
                                                     t("UbicationsView.borrar")}

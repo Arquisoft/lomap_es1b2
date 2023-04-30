@@ -39,7 +39,7 @@
     padding: 0.5rem 1rem;
     text-transform: uppercase;
     font-weight: bold;
-    border-radius: 1.5em;
+    border-radius: 0.5em;
     cursor: pointer;
   }
   
@@ -55,6 +55,7 @@
     display: block;
     font-size: 1em;
     height: 3em;
+    background-color: #0F2027;
   }
   
   .accept-button {
@@ -70,7 +71,7 @@
   }
 
   .delete-button {
-    background-color: #f44336;
+    background-color: #c21c11ea;
   }
   
   delete-button:hover {

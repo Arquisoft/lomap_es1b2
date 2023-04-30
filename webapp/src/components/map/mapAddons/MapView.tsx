@@ -103,6 +103,11 @@ const MapView = () => {
     }
 
     useEffect(() => {
+        setDetailedIWOpen(false);
+        setFormOpened(false);
+    }, [globalMode])
+
+    useEffect(() => {
         if (session.info.isLoggedIn){
             setGlobalMode('M')
             setMenuOptions([
