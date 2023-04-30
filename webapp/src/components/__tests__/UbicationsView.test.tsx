@@ -60,12 +60,6 @@ describe("UbicationsView", () => {
   });
 
   it("displays a message when the user has no ubications", async () => {
-    const dispatchMock = jest.fn();
-    jest.spyOn(React, "useContext").mockImplementation(() => ({
-      state: [],
-      dispatch: dispatchMock,
-    }));
-
     await act(async () => {
       render(
         <SessionProvider sessionId="test">
@@ -76,6 +70,6 @@ describe("UbicationsView", () => {
       );
     });
 
-    expect("Aún no has creado ninguna ubicación").toBeInTheDocument();
+    expect("UbicationsView.notyet").toBeInTheDocument();
   });
 });

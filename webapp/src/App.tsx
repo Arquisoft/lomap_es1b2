@@ -13,6 +13,7 @@ import { readFriendMarkers, readMarkers } from './helpers/SolidHelper';
 import { MarkerContext, Types } from './context/MarkerContextProvider';
 import AboutUs from './components/AboutUs';
 import NotificationsSystem, { atalhoTheme, setUpNotifications, useNotifications, wyboTheme } from "reapop";
+import i18n from './localize/i18n';
 
 setUpNotifications({
   defaultProps: {
@@ -27,8 +28,8 @@ function App(): JSX.Element {
     const { session } = useSession();
     const { dispatch } = useContext(MarkerContext);
     const [scriptLoaded, setScriptLoaded] = useState(false);
-    const [theme, setTheme] = useState<string>('dark');
     const { notifications, dismissNotification } = useNotifications();
+    const [lang, setLang] = useState<string>(["en", "es"].includes(i18n.language) ? i18n.language : "en");
 
     useEffect(() => {
       const googleMapScript = loadMapApi();
@@ -36,10 +37,6 @@ function App(): JSX.Element {
         setScriptLoaded(true);
       });
     }, []);
-
-    useEffect(() => {
-      document.body.className = theme;
-    }, [theme])
 
     session.onLogin(async () => {
       let markers = await readFriendMarkers(session.info.webId!);
@@ -53,21 +50,15 @@ function App(): JSX.Element {
       window.location.reload();
     })
 
-    const toggleTheme = () => {
-      if (theme === 'dark'){
-        setTheme('light');
-      } else if(theme === 'light'){
-        setTheme('dark');
-      }
-    }
-
     function setMarkers(markers: IPMarker[]) {
       dispatch({ type: Types.SET_MARKERS, payload: { markers: markers } });
     }
 
     return (
       <>
-          <NavBar theme={theme} toggleTheme={toggleTheme}></NavBar>
+          <NavBar lang={lang} setLang={setLang} >
+
+        </NavBar>
           <Routes>
             <Route path="/" element={
               <HomeView />

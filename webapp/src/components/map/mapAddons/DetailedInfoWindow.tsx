@@ -6,9 +6,11 @@ import { MarkerContext, Types } from '../../../context/MarkerContextProvider';
 import { deletePublicMarker, savePublicMarker } from '../../../helpers/SolidHelper';
 import { Slide, Stack, TextField, Dialog, Rating, Button, IconButton, FormGroup, Switch, FormControlLabel, Input, TextareaAutosize, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import Resizer from "react-image-file-resizer";
 
 import { notify } from 'reapop';
+import { fileUpload } from '../../../helpers/CloudinaryHelper';
+import { author } from 'rdf-namespaces/dist/as';
+import { setUrl } from '@inrupt/solid-client';
 
 interface DetailedUbicationViewProps {
   markerShown: IPMarker;
@@ -21,15 +23,25 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
   const { session } = useSession();
   const [rating, setRating] = useState<number>(0);
   const [comment, setComment] = useState<Comment>();
-  const [isPublic, setPublic] = useState<boolean>(false);
+  const [text, setText] = useState<string>('');
   const { state: markers, dispatch } = useContext(MarkerContext);
   const [isRatingOpen, setRatingOpen] = useState<boolean>(false);
-  const [selectedImage, setSelectedImage] = useState<string>();
+  const [selectedImage, setSelectedImage] = useState<File>();
+  const [urlImage, setUrlImage] = useState('');
+  const [author, setAuthor] = useState(session.info.webId?.substring(8).split('.')[0]!)
 
   const { t } = useTranslation("translation");
-
+    
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // handleImageUpload();
+
+    // setComment({
+    //   author: author,
+    //   text: text,
+    //   img: urlImage
+    // })
 
     let marker = markers.find(marker => marker.id = props.markerShown.id)!;
     marker.ratings.push(rating);
@@ -43,11 +55,15 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
     restartValoration();
   }
 
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+  const handleImageUpload = async () => {
+    const file = selectedImage;
     if (file) {
-      const fileBaseImg = await fileToBase64(file);
-      setSelectedImage(fileBaseImg!);
+      const url = await fileUpload(file);
+      console.log(url)
+  
+      if (url) setUrlImage(url);
+
+      console.log(url)
     }
   };
 
@@ -56,6 +72,8 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
     setComment(undefined);
     setRating(0);
     setSelectedImage(undefined);
+    setText('');
+    setUrlImage('');
   }
 
   const getRatingMean = () => {
@@ -68,65 +86,6 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
     return result;
   }
 
-  // Convierte un File a un string en base64
-  const fileToBase64 = async (file: File): Promise<string | null> => {
-    return await new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onloadend = () => {
-        if (typeof reader.result === 'string') {
-          const base64String = reader.result;
-          // Get the file size in bytes
-          const fileSize = Math.round((base64String.length * 3) / 4);
-          // If the file size is already less than 1MB, return the base64 string
-          if (fileSize < 1000000) {
-            return resolve(base64String);
-          }
-          // Otherwise, resize the image and reduce its quality using react-image-file-resizer
-          Resizer.imageFileResizer(
-            file,
-            600, // Width
-            600, // Height
-            'JPEG', // Format
-            80, // Quality
-            0, // Rotation
-            (uri) => {
-              return resolve(uri as string);
-            },
-            'base64' // Output type
-          );
-        }
-      };
-
-      reader.onload = () => {
-          if (typeof reader.result === 'string') return resolve(reader.result)
-      }
-      reader.onerror = (error) => reject(error)
-    })
-  }
-
-  useEffect(() => {
-    setPublic(props.markerShown.isPublic);
-  }, [props.markerShown]);
-
-  useEffect(() => {
-    let id = props.markerShown.id;
-
-    if (id !== "") {
-      let marker = markers.find(marker => marker.id = id)!;
-
-      marker.isPublic = isPublic;
-      if (isPublic) {
-        savePublicMarker(marker, session.info.webId!);
-      } else {
-        deletePublicMarker(marker, session.info.webId!);
-      }
-      dispatch({ type: Types.UPDATE_MARKER, payload: { id: marker.id, marker: marker } });
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPublic]);
-
   return (
     <>
       <Slide style={{ color: 'white' }} direction="right" in={props.isDetailedIWOpen} mountOnEnter unmountOnExit>
@@ -137,21 +96,11 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
           </Stack>
           <p style={{ marginTop: '0em' }}><strong>{t("DetailedInfo.created")}</strong>{props.markerShown.owner || t("DetailedInfo.owner")}</p>
           <p><strong>{t("DetailedInfo.dir")}</strong>{props.markerShown.address}</p>
-          <p><strong>{t("DetailedInfo.cat")}</strong>{t('NewUbication.'+props.markerShown.category.toLocaleLowerCase())}</p>
+          <p><strong>{t("DetailedInfo.cat")}</strong>{props.markerShown.category}</p>
           <p><strong>{t("DetailedInfo.descp")}</strong>{props.markerShown.description}</p>
-          {props.markerShown.webId === session.info.webId
-            &&
-            <FormGroup>
-              <FormControlLabel control={
-                <Switch
-                  checked={isPublic}
-                  inputProps={{ 'aria-label': 'controlled' }}
-                  onChange={e => setPublic(e.target.checked)}
-                />
-              }
-                sx={{ color: 'white', my: 2 }} label={t("DetailedInfo.share")} />
-            </FormGroup>
-          }
+          <>
+            {props.markerShown.webId === session.info.webId}
+          </>
           <h2>{t("DetailedInfo.summary")}</h2>
           <Rating value={getRatingMean()} readOnly />
           <Box>
@@ -180,32 +129,39 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
               <Stack direction='column' sx={{ width: '30em', padding: '1em' }}>
                 <Stack direction='row'>
                   <h1 style={{ margin: '0' }}>{t("DetailedInfo.rate")}</h1>
-                  <IconButton sx={{ marginLeft: 'auto', marginRight: '0em' }} onClick={async () => setRatingOpen(false)}><Close /></IconButton>
+                  <IconButton sx={{ marginLeft: 'auto', marginRight: '0em'}} onClick={async () => setRatingOpen(false)}><Close /></IconButton>
                 </Stack>
                 <Rating
                   value={rating}
                   name="rating"
+                  role="rating"
                   sx={{ margin: '0.5em 0em 0.5em' }}
                   onChange={(_, value) => setRating(value as unknown as number)}
                 />
                 <TextField
                   rows={4}
-                  required
                   multiline
                   value={comment?.text}
                   name="comment"
+                  role="comment"
                   label={t("DetailedInfo.comment")}
-                  onChange={(e) => setComment({
-                    text: e.target.value,
-                    img: selectedImage
-                  })}
+                  onChange={(e) => setText(e.target.value)}
                   sx={{ margin: '0.5em 0em 0.5em' }}
                 />
                 <Input
                   type='file'
-                  onChange={handleImageUpload}
+                  onChange={(e) => {
+                    setSelectedImage((e.target as HTMLInputElement).files?.[0])
+                    handleImageUpload()
+                    setComment({
+                      author: author,
+                      text: text,
+                      img: urlImage
+                    })                   
+                  }}
+                  inputProps={{accept:"image/png, image/jpeg, image/jpg" }}
                  />
-                <Button variant="contained" type="submit" 
+                <Button variant="contained" type="submit" role='submit'
                 sx={{ marginTop: '0.5em', color:'lightblue', border: '2px solid'}}>
                   {t("DetailedInfo.acept")} 
                 </Button>

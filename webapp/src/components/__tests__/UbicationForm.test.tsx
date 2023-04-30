@@ -1,47 +1,61 @@
-import { fireEvent, getByText, render, screen } from "@testing-library/react";
-import NewUbicationForm from "../map/mapAddons/NewUbicationForm";
+import { render, fireEvent, screen } from '@testing-library/react';
+import NewUbicationForm from '../map/mapAddons/NewUbicationForm';
 
-describe('NewUbicationForm', () => {
-  const defaultProps = {
-    globalLat: 0,
-    globalLng: 0,
-    globalName: '',
-    formOpened: true,
-    globalAddress: '',
-    globalCategory: 'Museos',
-    globalDescription: '',
-    nextID: { current: '1' },
-    addMarker: jest.fn(),
-    setGlobalLat: jest.fn(),
-    setGlobalLng: jest.fn(),
-    setGlobalName: jest.fn(),
-    setFormOpened: jest.fn(),
-    setGlobalDescription: jest.fn(),
-    setGlobalCategory: jest.fn(),
-    setAcceptedMarker: jest.fn(),
-  };
+const props = {
+  globalLat: 0,
+  globalLng: 0,
+  globalOwnr: '',
+  globalName: '',
+  formOpened: true,
+  globalAddress: '',
+  globalCategory: '',
+  globalDescription: '',
+  nextID: { current: '1' },
+  addMarker: jest.fn(),
+  setGlobalLat: jest.fn(),
+  setGlobalLng: jest.fn(),
+  setGlobalName: jest.fn(),
+  setFormOpened: jest.fn(),
+  setGlobalDescription: jest.fn(),
+  setGlobalCategory: jest.fn(),
+  setGlobalOwner: jest.fn(),
+  setAcceptedMarker: jest.fn(),
+  notify: jest.fn(),
+};
 
-  it('should render the form', () => {
-    render(<NewUbicationForm {...defaultProps} />);
-    expect(screen.getByText('Latitud')).toBeInTheDocument();
-    expect(screen.getByText('Longitud')).toBeInTheDocument();
-    expect(screen.getByText('Nombre')).toBeInTheDocument();
-    expect(screen.getByText('Descripción')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('Museos')).toBeInTheDocument();
+describe('NewUbicationForm component', () => {
+  it('should render the form fields', () => {
+    render(<NewUbicationForm {...props} />);
+    expect(screen.getByLabelText('NewUbication.latitud')).toBeInTheDocument();
+    expect(screen.getByLabelText('NewUbication.longitud')).toBeInTheDocument();
+    expect(screen.getByLabelText('NewUbication.name')).toBeInTheDocument();
+    expect(screen.getByLabelText('NewUbication.descp')).toBeInTheDocument();
+    expect(screen.getByText('NewUbication.acept')).toBeInTheDocument();
+    expect(screen.getByText('NewUbication.cancel')).toBeInTheDocument();
   });
 
-  it('should submit the form when the "Aceptar" button is clicked', () => {
-    render(<NewUbicationForm {...defaultProps} />);
-    const submitButton = screen.getByText('Aceptar');
-    fireEvent.click(submitButton);
-    expect(defaultProps.addMarker).toHaveBeenCalled();
-    expect(defaultProps.setAcceptedMarker).toHaveBeenCalledWith(true);
+  it('should call handleSubmit when the form is submitted', () => {
+    const handleSubmit = jest.fn();
+    const { getByLabelText, getByText } = render(
+      <NewUbicationForm {...props} />,
+    );
+
+    fireEvent.change(getByLabelText('NewUbication.latitud'), { target: { value: '1' } });
+    fireEvent.change(getByLabelText('NewUbication.longitud'), { target: { value: '2' } });
+    fireEvent.change(getByLabelText('NewUbication.name'), { target: { value: 'Test name' } });
+    fireEvent.change(getByLabelText('NewUbication.descp'), { target: { value: 'Test description' } });
+    fireEvent.click(getByText('NewUbication.acept'));
+
+    expect(handleSubmit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        preventDefault: expect.any(Function),
+      }),
+    );
   });
 
-  it('should close the form when the "Cancelar" button is clicked', () => {
-    render(<NewUbicationForm {...defaultProps} />);
-    const cancelButton = screen.getByText('Cancelar');
-    fireEvent.click(cancelButton);
-    expect(defaultProps.setFormOpened).toHaveBeenCalledWith(false);
+  it('should call setFormOpened when the cancel button is clicked', () => {
+    const { getByText } = render(<NewUbicationForm {...props} />);
+    fireEvent.click(getByText('NewUbication.cancel'));
+    expect(props.setFormOpened).toHaveBeenCalledWith(false);
   });
 });

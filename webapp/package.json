@@ -2,10 +2,12 @@
   "name": "webapp",
   "version": "0.1.0",
   "dependencies": {
+    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/url-gen": "^1.10.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@inrupt/solid-client": "^1.25.2",
-    "@inrupt/solid-client-authn-browser": "^1.13.2",
+    "@inrupt/solid-client-authn-browser": "^1.13.4",
     "@inrupt/solid-ui-react": "^2.8.2",
     "@inrupt/vocab-common-rdf": "^1.0.5",
     "@inrupt/vocab-solid": "^1.0.4",

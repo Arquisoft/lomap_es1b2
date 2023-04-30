@@ -22,6 +22,7 @@ export interface IPMarker {
 }
 
 export interface Comment {
+  author: string,
   text: string,
   img?: string
 }

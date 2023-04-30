@@ -1,12 +1,13 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, getByRole, render, screen } from '@testing-library/react';
 import { IPMarker } from '../../shared/SharedTypes';
 import DetailedUbicationView from '../map/mapAddons/DetailedInfoWindow';
 import { MarkerContext, MarkerContextProvider } from '../../context/MarkerContextProvider';
 import { initialState } from 'rdf-namespaces/dist/wf';
-jest.mock('../../../helpers/SolidHelper');
+//jest.mock('../../../helpers/SolidHelper');
 
-const markerShown: IPMarker = {
+const mockMarkerShown: IPMarker = {
     id: "1",
+    owner: 'unknown',
     date: new Date(),
     lat: 0,
     lng: 0,
@@ -20,42 +21,51 @@ const markerShown: IPMarker = {
     description: "This is a test marker",
 };
 
-describe('DetailedUbicationView', () => {
-  it('should render the component', () => {
-    render(
-      <MarkerContextProvider>
-        <DetailedUbicationView
-          markerShown={markerShown}
-          isDetailedIWOpen={true}
-          setMarkerShown={jest.fn()}
-          setDetailedIWOpen={jest.fn()}
-        />
-      </MarkerContextProvider>
-    );
+const mockSetMarkerShown = jest.fn();
+const mockSetDetailedIWOpen = jest.fn();
 
-    expect(screen.getByText('Test marker')).toBeInTheDocument();
-    expect(screen.getByText('Dirección: test address')).toBeInTheDocument();
-    expect(screen.getByText('Categoría: test')).toBeInTheDocument();
-    expect(screen.getByText('Descripción: test description')).toBeInTheDocument();
-    expect(screen.getByText('Resumen de reseñas')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Escribir una reseña' })).toBeInTheDocument();
+describe('DetailedUbicationView component', () => {
+
+
+  test('renders without crashing', () => {
+    render(
+      <DetailedUbicationView
+        markerShown={mockMarkerShown}
+        isDetailedIWOpen={true}
+        setMarkerShown={mockSetMarkerShown}
+        setDetailedIWOpen={mockSetDetailedIWOpen}
+      />
+    );
+    expect(screen.getByText("Test marker 1")).toBeInTheDocument();
+    expect(screen.getByText("DetailedInfo.summary")).toBeInTheDocument();
+    expect(screen.getByText("DetailedInfo.write")).toBeInTheDocument();
   });
 
-  it('should show the rating dialog when the button is clicked', async () => {
-    render(
-      <MarkerContextProvider>
-        <DetailedUbicationView
-          markerShown={markerShown}
-          isDetailedIWOpen={true}
-          setMarkerShown={jest.fn()}
-          setDetailedIWOpen={jest.fn()}
-        />
-      </MarkerContextProvider>
+  test('handles form submission correctly', async () => {
+    const { getByRole } = render(
+      <DetailedUbicationView
+        markerShown={mockMarkerShown}
+        isDetailedIWOpen={true}
+        setMarkerShown={mockSetMarkerShown}
+        setDetailedIWOpen={mockSetDetailedIWOpen}
+      />
     );
 
-    const ratingButton = screen.getByRole('button', { name: 'Escribir una reseña' });
-    fireEvent.click(ratingButton);
+    // Fill in form inputs
+    const commentInput = screen.getByRole('comment') as HTMLInputElement;
+    fireEvent.change(commentInput, { target: { value: 'Test comment' } });
+    const ratingInput = screen.getByRole('rating') as HTMLInputElement;
+    fireEvent.change(ratingInput, { target: { value: '5' } });
 
-    expect(screen.getByText('Valora esta ubicación')).toBeInTheDocument();
+    // Submit form
+    const submitButton = screen.getByRole('submit');
+    fireEvent.click(submitButton);
+
+    // Check that comment and rating were added to marker and state was reset
+    expect(mockMarkerShown.comments).toHaveLength(1);
+    expect(mockMarkerShown.comments[0].text).toBe('Test comment');
+    expect(mockMarkerShown.ratings).toHaveLength(4);
+    expect(mockMarkerShown.ratings[3]).toBe(5);
+    expect(mockSetDetailedIWOpen).toHaveBeenCalledWith(false);
   });
 });
