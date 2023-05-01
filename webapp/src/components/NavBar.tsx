@@ -61,12 +61,11 @@ export const NavBar: React.FC<propsNav> = (props) => {
             return DEFAULT_USERPIC;
         }
     }
-
-    if (props.opt) {
-        useEffect(() => {
+    useEffect(() => {
+        if (props.opt)
             i18n.changeLanguage(props.lang);
-        }, [props.lang]);
-    }
+    }, [props.lang]);
+        
 
     return (
         <nav>
