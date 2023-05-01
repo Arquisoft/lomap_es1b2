@@ -1,7 +1,7 @@
 [[section-runtime-view]]
-== Runtime View
+## Runtime View
 
-=== Login
+### Login
 
 When an unidentified user logs in.
 
@@ -16,9 +16,9 @@ LoMap  <- PodProvider: Authentication response
 User <- LoMap: The page for identified users is shown
 ----
 
-=== Seeing a personalized map
+### Seeing a personalized map
 
-When an identified user sees a personalized map
+When an identified user sees a personalized map. Note that in our project, by the way, the map provider is Google maps.
 
 [plantuml,"Sequence diagram 2",png]
 ----
@@ -26,13 +26,10 @@ actor User
 participant LoMap
 participant MapProvider
 database Pod as "Users's Pod"
-database DB
 User -> LoMap: Personalized map Request
 LoMap -> MapProvider: Map Request
 LoMap  <- MapProvider: Map Response
 LoMap -> Pod: Places Request
 LoMap <- Pod: Places Response
-LoMap -> DB: Other information Request
-LoMap <- DB: Other information Response
 User <- LoMap: Personalized map Response
 ----
