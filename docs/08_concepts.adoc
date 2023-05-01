@@ -38,9 +38,6 @@
 
 * *Reliability:* This refers to the ability of the system to function without failure or downtime. It involves designing the system in a way that minimizes the risk of failure and ensures that any failures that do occur are quickly detected and resolved.
 
-=== Developement
-(To be done or deleted if not necessary)
-
 === Operational
 
 * *Performance:* This refers to the speed and efficiency of the system in carrying out its functions. It involves ensuring that the system meets its performance requirements and that it can handle the expected load.
