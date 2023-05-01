@@ -5,10 +5,8 @@
 
 We are using the following technologies for the development of the application:
 
-* Solid. Specification that lets people store their data securely in decentralized data stores called Pods. This was a constraint.
-* React. A open-source JavaScript library for building user interfaces. We use it since it is easy to lern, its high performance and the high demand of this technology.
-* MongoDB. A document oriented NoSQL database, popular for agile development. It has advanced queries compared to other NoSQL databases and the developer team has some previous experience with it.
-* MongoDB Atlas. A fully-managed cloud database that handles all the complexity of deploying and managing deployments on the cloud. The starter plan is free and it is possible to scale horizontally and vertically the database as needed.
+- Solid. Specification that lets people store their data securely in decentralized data stores called Pods. This was a constraint.
+- React. A open-source JavaScript library for building user interfaces. We use it since it is easy to lern, its high performance and the high demand of this technology.
 
 === Decisions about the top-level decomposition of the system
 
@@ -19,9 +17,16 @@ We are using the following technologies for the development of the application:
 |===
 |Quality goal|Approach
 |Security and Privacy| SOLID pods will be used to store the user data securely in a decentralized way.
-|Responsiveness|React will be used for achieving a responsiveness web application. A database will be used with non-personal data to improve performance.
+|Responsiveness|React will be used for achieving a responsiveness web application.
 |Maintanability|The code will be clean, avoiding bad smells.
+|Scalability|The project has to be easy to interact with, in order to be easy to add functionality (i.e.: the optional requirements)
 |===
+
+
 === Relevant organizational decisions
 
-* Documentation written in English.
+- *Language*: As said before, the prefered language for contributions to the project is set to be english as we intend that this project can reach the more people the better.
+
+- *Issues*: Although being just two people enables quick and instant comunication thorugh different tools, we have to try to reflect the actual issues of the project in the repository.
+
+- *GitHub Projects*: We intend to use the GitHub project to organize the work that is to be done, has been done or is being done. 
