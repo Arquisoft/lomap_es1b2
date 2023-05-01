@@ -21,6 +21,9 @@ const FriendsList: React.FC = () => {
     loadData();
   }, [showAddFriendForm]);
 
+  /**
+   * Loads the data of the user's friends
+   */
   async function loadData() {
     if (session.info.isLoggedIn) {
       await loadPersonData();
@@ -28,6 +31,9 @@ const FriendsList: React.FC = () => {
     }
   };
 
+  /**
+   * Brings the user's friends' web ids to the PersonData object
+   */
   async function loadPersonData() {
     const webId = session.info.webId
     const personData = await findPersonData(webId!)
@@ -35,7 +41,10 @@ const FriendsList: React.FC = () => {
     setPersonData(personData);  
   }
 
-  
+  /**
+   * Sets the list of friends with all the data (name, photo and friends' ids) of each one.
+   * @param personData The Data of the user.
+   */
   async function fetchFriends(personData : PersonData) {
     const names = await Promise.all(
       personData.friends.map((friend) => findPersonData(friend))
@@ -43,7 +52,10 @@ const FriendsList: React.FC = () => {
     setFriendList(names);
   }
   
-
+  /**
+   * Adds a SOLID friend given its web Id and changes the state of the component modifying the list
+   * @param webId the new friend's id
+   */
   const handleAddFriend = async (webId: string) => {
     addFriendByWebId(session.info.webId!, webId);
     setShowAddFriendForm(false);
@@ -52,10 +64,17 @@ const FriendsList: React.FC = () => {
     setFriendList(friends.concat(friendData));
   };
 
+  /**
+   * Hides the form that enables to add a friend.
+   */
   const handleCancel = () => {
     setShowAddFriendForm(false);
   };
 
+  /**
+   * Removes a SOLID friend given its web Id and changes the state of the component modifying the list
+   * @param webId the new friend's id
+   */
   const handleRemoveFriend = (webId: string) => {
     deleteFriendByWebId(session.info.webId!, webId);
     setFriendList(friends.filter(friend => friend.webId !== webId))
@@ -63,7 +82,12 @@ const FriendsList: React.FC = () => {
   };
 
 
-  function searchProfileImg(photo: string): string | undefined {
+  /**
+   * Returns the url of the profile image of a user. If it has no photo asigned, it returns the no-profile-pic default for the application.
+   * @param photo the user's profile pic url
+   * @returns the url of the photo to be used
+   */
+  function searchProfileImg(photo: string): string {
     let url = "/no-profile-pic.png"
     if (photo !== "") {
       url = photo
