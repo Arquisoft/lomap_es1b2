@@ -3,6 +3,7 @@ import express,{Application} from 'express';
 //setting the option module to commonjs
 
 var app: Application = express()
+
 const port: number = 80;
 
 app.use(express.static('build'))
