@@ -1,6 +1,6 @@
 [[section-system-scope-and-context]]
-== System Scope and Context
-=== Business Context
+## System Scope and Context
+### Business Context
 
 :imagesdir: images/
 image::03_business_context.png[]
@@ -8,21 +8,19 @@ image::03_business_context.png[]
 [options = "header",cols="1,2,2"]
 |===
 | Entity | Input | Output
-| User | The user interacts with the application through a computer or device, experiencing the frontend and sending requests to the backend. | The result is displayed in various parts of the system, covering almost all aspects.
+| User | The user interacts with the application through a computer or device using the front-end of the application. | The result is displayed in various parts of the system, satysfying the high level requirements of the project.
 | User POD | Receives requests to modify or obtain personal information and locations created by the user. | Stores and/or returns the information requested by the user.
-| MongoDB | The database receives requests to create and/or obtain locations not stored in the POD for performance reasons. | Stores and/or returns the information requested by the user.
-| LoMap System | The user interacts with this system by sending requests through the interface. | It processes incoming requests, manages the database to ensure consistency, and then displays the requested information to the user via the interface.
+| LoMap System | The user interacts with this system by sending requests through the interface. | It processes incoming requests, manages the data to ensure consistency, and then displays the requested information to the user via the interface.
 |===
 
-=== Technical Context
+### Technical Context
 
-According to the SOLID project, shared information will be stored in each user's POD. In addition, we will implement the application using TypeScript together with React for Front-end development. Finally; we will make use of MongoDB, a NoSQL database system; and an endpoint using NodeJS with express.
+According to the *SOLID project*, shared information will be stored in each user's POD in order to preserve the privacy of the data. In addition, we will implement the application using *TypeScript* together with React. Besides, different types of tests are going to be necessary. Finally, it is mandatory to tell that the LoMap system is going to use the *Google Maps API* in order to provide the service of the map in the application.
 
 [options="header",cols="1,2"]
 |===
 | Technology | Explanation
 | TypeScript | The programming language used for development.
 | React | JavaScript library used for Front-end development.
-| MongoDB | The database.
-| NodeJS | Server environment used for the endpoint.
+| NodeJS | Server environment used for the application.
 |===
