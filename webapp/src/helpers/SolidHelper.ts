@@ -121,9 +121,6 @@ export async function deleteFriendByWebId(webId: string, friendWebId: string) {
 }
 
 
-  
-  
-  
 export const findPersonData = async (webId: IriString): Promise<PersonData> => {
     const data: PersonData = { webId: webId, name: '', photo: '', friends: [] }
     if (webId) {

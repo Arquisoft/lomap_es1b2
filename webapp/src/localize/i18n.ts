@@ -1,5 +1,6 @@
 import esp_translation from "./es/translation.json";
 import eng_translation from "./en/translation.json";
+import fr_translation from "./fr/translation.json";
 import { initReactI18next } from 'react-i18next/initReactI18next';
 import i18next from 'i18next';
 
@@ -13,6 +14,9 @@ i18next
       },
       en: {
         translation: eng_translation
+      },
+      fr: {
+        translation: fr_translation
       }
     }
   });

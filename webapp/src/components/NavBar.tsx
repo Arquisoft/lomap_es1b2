@@ -16,6 +16,7 @@ type propsNav = {
 export const NavBar: React.FC<propsNav> = (props) => {
     const UK_URL = "/uk-flag.png";
     const ES_URL = "/es-flag.png";
+    const FR_URL = "/fr-flag.png";
 
     const DEFAULT_USERPIC = "/no-profile-pic.png";
 
@@ -102,6 +103,7 @@ export const NavBar: React.FC<propsNav> = (props) => {
                             sx={{boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
                             <MenuItem value={"en"}> <img src={UK_URL} height="35" alt="en_icon" /> </MenuItem>
                             <MenuItem value={"es"}> <img src={ES_URL} height="35" alt="es_icon" /> </MenuItem>
+                            <MenuItem value={"fr"}> <img src={FR_URL} height="35" alt="fr_icon" /> </MenuItem>
                     </Select>
                 </Box>
 
@@ -135,7 +137,6 @@ export const NavBar: React.FC<propsNav> = (props) => {
                         justifyContent='flex-end' 
                         margin="1em"
                         spacing={{ xs: 1, sm: 2, md: 2 }}>
-                            <img src={DEFAULT_USERPIC} alt="" className="profile-pic" />
                             <Button variant="outlined" onClick={handleClickOpen} sx={{ margin: "1em", color:'lightblue', border: '2px solid', marginRight: '3.5%' }}>
                             {t("NavBar.open")}
                         </Button>
