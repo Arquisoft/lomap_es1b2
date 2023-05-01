@@ -25,8 +25,6 @@ const mockSetMarkerShown = jest.fn();
 const mockSetDetailedIWOpen = jest.fn();
 
 describe('DetailedUbicationView component', () => {
-
-
   test('renders without crashing', () => {
     render(
       <DetailedUbicationView

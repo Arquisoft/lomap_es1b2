@@ -5,7 +5,6 @@ import { IPMarker } from "../../../shared/SharedTypes";
 import { MarkerContext, Types } from '../../../context/MarkerContextProvider';
 import { useNotifications } from 'reapop';
 import { useTranslation } from 'react-i18next';
-import { lightBlue } from '@mui/material/colors';
 
 type UbicationProps = {
     myMarkers?: IPMarker[];

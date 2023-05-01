@@ -1,16 +1,14 @@
 import { Close } from '@mui/icons-material';
 import { useSession } from '@inrupt/solid-ui-react';
 import { Comment, IPMarker } from "../../../shared/SharedTypes";
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { MarkerContext, Types } from '../../../context/MarkerContextProvider';
-import { deletePublicMarker, savePublicMarker } from '../../../helpers/SolidHelper';
-import { Slide, Stack, TextField, Dialog, Rating, Button, IconButton, FormGroup, Switch, FormControlLabel, Input, TextareaAutosize, Box } from '@mui/material';
+import { Slide, Stack, TextField, Dialog, Rating, Button, IconButton, Input, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { notify } from 'reapop';
 import { fileUpload } from '../../../helpers/CloudinaryHelper';
-import { author } from 'rdf-namespaces/dist/as';
-import { setUrl } from '@inrupt/solid-client';
+import { savePublicMarker } from '../../../helpers/SolidHelper';
 
 interface DetailedUbicationViewProps {
   markerShown: IPMarker;
@@ -49,8 +47,9 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
 
 
     dispatch({ type: Types.UPDATE_MARKER, payload: { id: marker.id, marker: marker } });
+    notify(t("DetailedInfo.addR"), 'success')
     if (marker.webId !== session.info.webId!) {
-      //await savePublicMarker(marker, marker.owner);
+      await savePublicMarker(marker, marker.owner);
     }
 
     restartValoration();

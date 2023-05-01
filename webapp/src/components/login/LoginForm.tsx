@@ -57,7 +57,7 @@ function LoginForm(props: LoginProps): JSX.Element {
                 disabled={disabled}
               />
               <LoginButton oidcIssuer={oidcIssuer} redirectUrl="http://localhost:3000">
-                <Button variant="contained" sx={{ color:'white', width: '17.25em', margin: '0.5em', backgroundColor: 'darkgray', 
+                <Button variant="contained" sx={{ color:'white', width: '17.25em', margin: '0.5em', backgroundColor: 'darkgoldenrod', 
                   ":hover": {
                     bgcolor: 'darkcyan',
                     color: 'white'

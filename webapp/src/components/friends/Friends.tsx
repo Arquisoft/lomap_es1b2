@@ -52,11 +52,9 @@ const FriendsList: React.FC = () => {
     setFriendList(friends.concat(friendData));
   };
 
-
   const handleCancel = () => {
     setShowAddFriendForm(false);
   };
-
 
   const handleRemoveFriend = (webId: string) => {
     deleteFriendByWebId(session.info.webId!, webId);
