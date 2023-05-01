@@ -24,7 +24,6 @@ const FriendsList: React.FC = () => {
   async function loadData() {
     if (session.info.isLoggedIn) {
       await loadPersonData();
-      console.log("loading false")
       setLoading(false);
     }
   };
@@ -73,19 +72,6 @@ const FriendsList: React.FC = () => {
     }
     return url
   }
-
-  /*
-  const miFuncion = async (webId: string) => {
-    const amigos = await findFriends(webId)
-    console.log(amigos)
-    amigos.friends.forEach(element => {
-      console.log(element);
-    })
-  }
-
-  console.log(session.info.webId!)
-  miFuncion(session.info.webId!);
-  */
 
   return (
     <div id='div-friends'>

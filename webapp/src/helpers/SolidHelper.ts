@@ -60,7 +60,8 @@ async function readMarkersFromFile(fileURL: string) {
                 );
             });
     } catch (error) {
-        console.error(error);
+        // console.error(error);
+        console.error("Error reading the markers");
     }
     return markers;
 }
@@ -83,7 +84,8 @@ async function saveMarkersToFile(markers: IPMarker[], fileURL: string) {
             }
         );
     } catch (error) {
-        console.error(error);
+        // console.error(error);
+        console.error("Error saving markers: ", error)
     }
 }
 
@@ -167,11 +169,13 @@ async function grantAccessToMarkers(webId: string, access: boolean) {
                         }
                     );
                 } catch (error) {
-                    console.error(error);
+                    // console.error(error);
+                    console.error("Error overwritting the file.")
                 }
             });
     } catch (error) {
-        console.error(error);
+        // console.error(error);
+        console.error("Error accesing the markers from: ", webId)
     }
 
     const myDatasetWithAcl = await getSolidDatasetWithAcl(folderURL, { fetch: fetch });

@@ -25,7 +25,8 @@ export const fileUpload = async (file: File): Promise<string | undefined> => {
         return data.url;
 
     } catch (error) {
-        console.error(error);
+        // console.error(error);
+        console.error("Error uploading the file: " + file.name)
     }
 };
 
