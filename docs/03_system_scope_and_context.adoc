@@ -3,7 +3,7 @@
 ### Business Context
 
 :imagesdir: images/
-image::03_business_context.png[]
+image::03_business_context_act.png[]
 
 [options = "header",cols="1,2,2"]
 |===
