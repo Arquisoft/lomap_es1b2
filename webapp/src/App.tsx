@@ -29,7 +29,7 @@ function App(): JSX.Element {
     const { dispatch } = useContext(MarkerContext);
     const [scriptLoaded, setScriptLoaded] = useState(false);
     const { notifications, dismissNotification } = useNotifications();
-    const [lang, setLang] = useState<string>(["en", "es"].includes(i18n.language) ? i18n.language : "en");
+    const [lang, setLang] = useState<string>(["en", "es", "fr"].includes(i18n.language) ? i18n.language : "en");
 
     useEffect(() => {
       const googleMapScript = loadMapApi();
@@ -56,8 +56,7 @@ function App(): JSX.Element {
 
     return (
       <>
-          <NavBar lang={lang} setLang={setLang} >
-
+        <NavBar lang={lang} setLang={setLang} >
         </NavBar>
           <Routes>
             <Route path="/" element={
