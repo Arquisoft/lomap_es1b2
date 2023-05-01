@@ -3,4 +3,4 @@ services:
   webapp:
     image: ghcr.io/arquisoft/lomap_es1b/webapp:latest
     ports:
-      - "80:80"
+      - 80:80
