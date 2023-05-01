@@ -4,20 +4,6 @@ import { NavBar } from '../NavBar';
 import { BrowserRouter } from 'react-router-dom';
 
 const setLangMock = jest.fn();
-import i18next from 'i18next';
-import { initReactI18next } from 'react-i18next';
-
-i18next
-  // pass the i18n instance to react-i18next.
-  .use(initReactI18next)
-  // init i18next
-  .init({
-    debug: true,
-    fallbackLng: 'es',
-    interpolation: {
-      escapeValue: false, // not needed for react as it escapes by default
-    }
-  });
 
 test('check the navbar when its not logged in', async () => {
   render (

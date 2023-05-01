@@ -13,13 +13,14 @@ import { savePublicMarker } from '../../../helpers/SolidHelper';
 interface DetailedUbicationViewProps {
   markerShown: IPMarker;
   isDetailedIWOpen: boolean;
+  rating?: number;
   setMarkerShown: (detailedMarker: IPMarker) => void;
   setDetailedIWOpen: (detailedMarkerOpened: boolean) => void;
 }
 
 const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
   const { session } = useSession();
-  const [rating, setRating] = useState<number>(0);
+  const [rating, setRating] = useState<number>(props.rating === undefined ? 0 : props.rating);
   const [comment, setComment] = useState<Comment>();
   const [text, setText] = useState<string>('');
   const { state: markers, dispatch } = useContext(MarkerContext);
@@ -113,7 +114,7 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
                 )}
               </ul>
             </Box>
-            <Button variant="outlined" 
+            <Button variant="outlined" data-testid="button-open"
                 sx={{ my: 2, color:'lightblue', border: '2px solid', position: 'absolute', bottom: '0' ,marginBottom: '1%'  }} onClick={() => setRatingOpen(true)}>
                   {t("DetailedInfo.write")}
             </Button>
@@ -137,7 +138,7 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
                   multiline
                   value={comment?.text}
                   name="comment"
-                  role="comment"
+                  inputProps={{ "data-testid": "input-comment" }}
                   label={t("DetailedInfo.comment")}
                   onChange={(e) => setText(e.target.value)}
                   sx={{ margin: '0.5em 0em 0.5em' }}
@@ -149,7 +150,7 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
                   }
                   inputProps={{accept:"image/png, image/jpeg, image/jpg" }}
                  />
-                <Button variant="contained" type="submit" role='submit'
+                <Button variant="contained" type="submit" data-testid="button-submit"
                 sx={{ marginTop: '0.5em', color:'lightblue', border: '2px solid'}}>
                   {t("DetailedInfo.acept")} 
                 </Button>

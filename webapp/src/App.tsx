@@ -70,7 +70,7 @@ function App(): JSX.Element {
               <UbicationsView/>
             } />
             <Route path="/friends" element={
-              <FriendsList />
+              <FriendsList loading={true}/>
             } />
             <Route path="/aboutus" element={
               <AboutUs />

@@ -5,6 +5,7 @@ import { Stack, Box, Button, Select, MenuItem } from '@mui/material';
 import { useSession, LogoutButton } from '@inrupt/solid-ui-react';
 import { useTranslation } from 'react-i18next';
 import { PersonData, findPersonData } from '../helpers/SolidHelper';
+import i18n from '../localize/i18n';
 
 type propsNav = {
     isLoggedIn?: boolean;
@@ -22,7 +23,7 @@ export const NavBar: React.FC<propsNav> = (props) => {
     const [open, setOpen] = useState(false);
     const [isLoged, setLoggedIn] = useState<boolean>(props.isLoggedIn!);
 
-    const { t, i18n } = useTranslation("translation");
+    const { t } = useTranslation("translation");
 
     const [personData, setPersonData] = useState<PersonData>()
 

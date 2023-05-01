@@ -1,8 +1,7 @@
 import { render, screen, act } from "@testing-library/react";
-import { SessionProvider } from "@inrupt/solid-ui-react";
-import React from "react";
 import { IPMarker } from "../../shared/SharedTypes";
 import UbicationsView from "../map/mapAddons/UbicationsView";
+import NotificationsSystem, {setUpNotifications, useNotifications} from 'reapop'
 import { MarkerContextProvider } from "../../context/MarkerContextProvider";
 
 describe("UbicationsView", () => {
@@ -38,13 +37,17 @@ describe("UbicationsView", () => {
   };
   const markers = [marker1, marker2];
 
+  setUpNotifications({
+    generateId: () => 'mocked-id'
+  })
+
   it("displays a list of the user's ubications", async () => {
     render(
       <MarkerContextProvider>
-          <UbicationsView myMarkers={markers}/>
+        <UbicationsView myMarkers={markers} />
       </MarkerContextProvider>
-    );
-
+    );    
+    
     const marker1Name = screen.getByText('Test marker 1');
     expect(marker1Name).toBeInTheDocument();
   });

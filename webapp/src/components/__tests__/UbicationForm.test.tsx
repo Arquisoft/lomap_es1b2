@@ -44,7 +44,7 @@ describe('NewUbicationForm component', () => {
     fireEvent.change(getByTestId('input-descp'), { target: { value: 'Test description' } });
     fireEvent.click(getByText('NewUbication.acept'));
 
-    expect(props.addMarker).toHaveBeenCalledWith();
+    expect(props.addMarker).toHaveBeenCalledTimes(1);
   });
 
   it('should call setFormOpened when the cancel button is clicked', () => {

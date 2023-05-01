@@ -7,13 +7,18 @@ import { useTranslation } from 'react-i18next';
 import { notify } from 'reapop';
 import { Button, Link } from '@mui/material';
 
+type FriendProps = {
+  opt?: boolean;
+  loading?: boolean;
+}
 
-const FriendsList: React.FC = () => {
+const FriendsList = (props: FriendProps) => {
   const { session } = useSession();
   const [friends, setFriendList] = useState<PersonData[]>([]);
   const [showAddFriendForm, setShowAddFriendForm] = useState(false);
   const [personData, setPersonData] = useState<PersonData>({ webId: '', name: '', photo: '', friends: [] })
-  const [isLoading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(props.loading ? true : false);
+  const [isLoggedIn, setLoggedIn] = useState(props.opt ? true : false)
 
   const { t } = useTranslation("translation");
 
@@ -73,12 +78,12 @@ const FriendsList: React.FC = () => {
 
   return (
     <div id='div-friends'>
-      { session.info.isLoggedIn ? 
+      { session.info.isLoggedIn || isLoggedIn ? 
       <>
       <h2>{t("Friends.main")}</h2>
       { isLoading ?
       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        <img src="loading-gif2.gif" style={{display: 'block'}}/>
+        <img src="loading-gif2.gif" alt="loading-spinner" data-testid="img-spinner" style={{display: 'block'}}/>
       </div>
       :
       <div>

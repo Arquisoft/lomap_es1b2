@@ -24,7 +24,7 @@ const AddFriendForm: React.FC<AddFriendFormProps> = ({ onAddFriend, onCancel }) 
   return (
     <form id='add-friend-form' onSubmit={handleAddFriend}>
       <label>
-        <input type="text" value={newFriendName} onChange={event => setNewFriendName(event.target.value)} required placeholder='https://example.provider.net/profile/card#me'/>
+        <input type="text" data-testid="input-webid" value={newFriendName} onChange={event => setNewFriendName(event.target.value)} required placeholder='https://example.provider.net/profile/card#me'/>
       </label>
       <Button variant="outlined" sx={{color: 'lightblue',  border: '1.5px solid', borderColor: 'lightskyblue'}} type="submit">{t("Friends.addB")}</Button>
       <Button variant="outlined" sx={{color: 'lightblue',  borderColor: 'red', border: '1.5px solid' }} type="button" onClick={onCancel}>{t("Friends.cancel")}</Button>
