@@ -38,7 +38,7 @@ export const NavBar: React.FC<propsNav> = (props) => {
 
     useEffect(() => {
         i18n.changeLanguage(props.lang);
-    }, [props.lang, i18n]);
+    }, [props.lang]);
 
     useEffect(() => {
         if (session.info.isLoggedIn)

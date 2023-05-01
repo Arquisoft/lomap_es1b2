@@ -4,7 +4,7 @@ import express,{Application} from 'express';
 import path from 'path';
 var app: Application = express()
 
-const port: number = 80;
+const port: number = 443;
 
 
 app.use(express.static('build'))
