@@ -1,4 +1,3 @@
-import Map from '../Map';
 import { v4 as uuid } from 'uuid';
 import { Close } from '@mui/icons-material';
 import NewUbicationForm from './NewUbicationForm';
@@ -23,7 +22,6 @@ import {
 } from '@mui/material';
 import { useNotifications } from 'reapop';
 import { useTranslation } from 'react-i18next';
-import * as ReactBootStrap from 'react-bootstrap';
 import LoMap from '../Map';
 
 const MapView = () => {
@@ -126,7 +124,6 @@ const MapView = () => {
             <Grid item xs={12}>
                 <Stack direction={'row'} alignItems={'center'}>
                 <Select
-                    defaultValue=''
                     value={globalMode}
                     onChange={(e) => {
                         setGlobalMode(e.target.value)
@@ -134,14 +131,10 @@ const MapView = () => {
                     }}
                     sx={{ width: '15em', height: '3em', bgcolor: 'white', margin: '1em', marginLeft: '2%' }}
                 >
-                    {/* <MenuItem value={'M'} >{t("MapView.misubs")}</MenuItem> */}
                     {menuOptions?.map(({value, txt}) => (
                         <MenuItem key={value} value={value} >{txt}</MenuItem>
                     ))
                     }
-                                
-                      
-                    {/* </Select><MenuItem value={'E'} onClick={() => changeFriendsMap('E')}>{}</MenuItem> */}
                 </Select>
                     <Button sx={{ fontSize: 'large', color:'lightblue', border: '2px solid', borderColor: 'white' }} variant="outlined" color="primary" onClick={() => setFilterOpen(true)}>
                         {t("MapView.filtros")}

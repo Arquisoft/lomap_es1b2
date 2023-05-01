@@ -82,7 +82,8 @@
         "comment": "Comentario",
         "acept": "Enviar",
         "created": "Creada por: ",
-        "owner": "Desconocido"
+        "owner": "Desconocido",
+        "addR": "Review añadida correctamente!"
     },
     "Friends":{
         "main": "Amigos",

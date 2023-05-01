@@ -53,11 +53,9 @@ const FriendsList: React.FC = () => {
     setFriendList(friends.concat(friendData));
   };
 
-
   const handleCancel = () => {
     setShowAddFriendForm(false);
   };
-
 
   const handleRemoveFriend = (webId: string) => {
     deleteFriendByWebId(session.info.webId!, webId);
@@ -73,19 +71,6 @@ const FriendsList: React.FC = () => {
     }
     return url
   }
-
-  /*
-  const miFuncion = async (webId: string) => {
-    const amigos = await findFriends(webId)
-    console.log(amigos)
-    amigos.friends.forEach(element => {
-      console.log(element);
-    })
-  }
-
-  console.log(session.info.webId!)
-  miFuncion(session.info.webId!);
-  */
 
   return (
     <div id='div-friends'>

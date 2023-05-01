@@ -12,7 +12,7 @@ import UbicationsView from './components/map/mapAddons/UbicationsView';
 import { readFriendMarkers, readMarkers } from './helpers/SolidHelper';
 import { MarkerContext, Types } from './context/MarkerContextProvider';
 import AboutUs from './components/AboutUs';
-import NotificationsSystem, { atalhoTheme, setUpNotifications, useNotifications, wyboTheme } from "reapop";
+import NotificationsSystem, { atalhoTheme, setUpNotifications, useNotifications } from "reapop";
 import i18n from './localize/i18n';
 
 setUpNotifications({
@@ -79,7 +79,7 @@ function App(): JSX.Element {
           <NotificationsSystem
             notifications={notifications}
             dismissNotification={(id) => dismissNotification(id)}
-            theme={wyboTheme}
+            theme={atalhoTheme}
           />
       </>
     );

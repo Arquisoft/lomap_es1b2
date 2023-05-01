@@ -20,7 +20,6 @@ export const NavBar: React.FC<propsNav> = (props) => {
 
     const { session } = useSession();
     const [open, setOpen] = useState(false);
-    const [icon, setIcon] = useState<string>(UK_URL);
     const [isLoged, setLoggedIn] = useState<boolean>(props.isLoggedIn!);
 
     const { t, i18n } = useTranslation("translation");

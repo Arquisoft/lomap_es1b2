@@ -6,7 +6,6 @@
     import React, { useEffect, useRef, useState, useContext, MutableRefObject } from 'react';
     import { useNotifications } from 'reapop';
     import { useTranslation } from 'react-i18next';
-import { Image } from '@mui/icons-material';
 
     interface IMarker {
         name: string;
@@ -16,10 +15,10 @@ import { Image } from '@mui/icons-material';
         latLng: GoogleLatLng;
     }
 
-interface ICouple {
-    marker: GoogleMarker;
-    //infoWindow: GoogleInfoWindow;
-}
+    interface ICouple {
+        marker: GoogleMarker;
+        //infoWindow: GoogleInfoWindow;
+    }
 
     type GoogleMap = google.maps.Map;
     type GoogleLatLng = google.maps.LatLng;
@@ -76,7 +75,7 @@ const LoMap: React.FC<IMapProps> = (props) => {
          */
         const startMap = (): void => {
             if (!map) {
-                setTimeout(defaultMapStart, 2000)               // Si el mapa no está iniciado, lo inicia
+                defaultMapStart();           // Si el mapa no está iniciado, lo inicia
             } else {
                 google.maps.event.addListenerOnce(map, 'idle', function(){
                     // do something only the first time the map is loaded
@@ -503,7 +502,7 @@ const LoMap: React.FC<IMapProps> = (props) => {
 
         return (
                 <div ref={ref} className="map" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <img src="loading-gif2.gif" style={{display: 'block'}}/>
+                    <img src="loading-gif2.gif" alt="loading-map" style={{display: 'block'}}/>
                 </div>
         );
     };

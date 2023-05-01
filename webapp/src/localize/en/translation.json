@@ -82,7 +82,8 @@
         "comment": "Comment",
         "acept": "Submit",
         "created": "Created by: ",
-        "owner": "Unknown"
+        "owner": "Unknown",
+        "addR": "Review added successfully!"
     },
     "Friends":{
         "main": "Friends",
