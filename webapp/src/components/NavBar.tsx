@@ -35,12 +35,6 @@ export const NavBar: React.FC<propsNav> = (props) => {
         setOpen(false);
     };
 
-    if (props.opt) {
-        useEffect(() => {
-            i18n.changeLanguage(props.lang);
-        }, [props.lang]);
-    }
-
     useEffect(() => {
         if (session.info.isLoggedIn)
             searchPersonData(session.info.webId)
@@ -66,6 +60,12 @@ export const NavBar: React.FC<propsNav> = (props) => {
         } else {
             return DEFAULT_USERPIC;
         }
+    }
+
+    if (props.opt) {
+        useEffect(() => {
+            i18n.changeLanguage(props.lang);
+        }, [props.lang]);
     }
 
     return (

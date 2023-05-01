@@ -14,9 +14,6 @@ type UbicationProps = {
 const UbicationsView = (props: UbicationProps) => {
     const { session } = useSession();
     const { state: markers, dispatch } = useContext(MarkerContext);
-    if (props.opt){
-        const { notify } = useNotifications();
-    }
 
     const { t } = useTranslation("translation");
 
@@ -31,8 +28,10 @@ const UbicationsView = (props: UbicationProps) => {
 
     const deleteMarker = (id: string) => {
         dispatch({ type: Types.DELETE_MARKER, payload: { id: id } });
-        if (props.opt)
+        if (props.opt){
+            const { notify } = useNotifications();
             notify(t("Notifications.okUbi"), "success");
+        }            
     }
     
     return (
