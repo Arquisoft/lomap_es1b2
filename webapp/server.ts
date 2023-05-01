@@ -5,14 +5,14 @@ import https from "https";
 import path from 'path';
 var app: Application = express()
 
-const port: number = 80;
+const port: number = 443;
 
 let credentials = {key: process.env.HTTPS_PRIVATEKEY, cert: process.env.HTTPS_CERTIFICATE};
 
 let httpsServer = https.createServer(credentials, app);
 
 httpsServer.listen(80, function() {
-    console.log("Servidor HTTPS escuchando en puerto 4000")
+    console.log("Servidor HTTPS escuchando en puerto 443")
 });
 
 app.use(express.static('build'))
