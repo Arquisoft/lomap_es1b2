@@ -41,6 +41,6 @@
 
 .Deprecated decisions
 |===
-| *MongoDB and API REST*
+| *MongoDB and API REST* https://github.com/Arquisoft/lomap_es1b2/wiki/ADR-%236:-REST-API-review-and-centralized-database[ADR #6]
 | As we have decided not to work with public information of locations, our system is not going to need a centralized database to store information which cannot be accesed by the PODs.
 |===
