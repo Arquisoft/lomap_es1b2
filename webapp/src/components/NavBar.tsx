@@ -136,7 +136,6 @@ export const NavBar: React.FC<propsNav> = (props) => {
                         justifyContent='flex-end' 
                         margin="1em"
                         spacing={{ xs: 1, sm: 2, md: 2 }}>
-                            <img src={DEFAULT_USERPIC} alt="" className="profile-pic" />
                             <Button variant="outlined" onClick={handleClickOpen} sx={{ margin: "1em", color:'lightblue', border: '2px solid', marginRight: '3.5%' }}>
                             {t("NavBar.open")}
                         </Button>
