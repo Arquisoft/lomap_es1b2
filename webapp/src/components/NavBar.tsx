@@ -39,6 +39,12 @@ export const NavBar: React.FC<propsNav> = (props) => {
         i18n.changeLanguage(props.lang);
     }, [props.lang, i18n]);
 
+    useEffect(() => {
+        if (session.info.isLoggedIn)
+            searchPersonData(session.info.webId)
+
+    }, [session.info.isLoggedIn] )
+
     function searchPersonData(webId: string|undefined) {
         // let name = session.info.webId?.substring(8).split('.')[0]
         if (webId) {
@@ -101,7 +107,6 @@ export const NavBar: React.FC<propsNav> = (props) => {
 
                 <Box>
                     {session.info.isLoggedIn ? <>
-                        {searchPersonData(session.info.webId)}
                         <Stack 
                         direction={{ xs: 'column', sm: 'row' }} 
                         alignItems='center'

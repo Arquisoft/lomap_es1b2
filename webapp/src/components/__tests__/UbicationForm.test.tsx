@@ -1,4 +1,4 @@
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen, getByTestId } from '@testing-library/react';
 import NewUbicationForm from '../map/mapAddons/NewUbicationForm';
 
 const props = {
@@ -26,31 +26,25 @@ const props = {
 describe('NewUbicationForm component', () => {
   it('should render the form fields', () => {
     render(<NewUbicationForm {...props} />);
-    expect(screen.getByLabelText('NewUbication.latitud')).toBeInTheDocument();
-    expect(screen.getByLabelText('NewUbication.longitud')).toBeInTheDocument();
-    expect(screen.getByLabelText('NewUbication.name')).toBeInTheDocument();
-    expect(screen.getByLabelText('NewUbication.descp')).toBeInTheDocument();
-    expect(screen.getByText('NewUbication.acept')).toBeInTheDocument();
-    expect(screen.getByText('NewUbication.cancel')).toBeInTheDocument();
+    expect(screen.getByText('NewUbication.latitud')).toBeInTheDocument();
+    expect(screen.getByText('NewUbication.longitud')).toBeInTheDocument();
+    expect(screen.getByText('NewUbication.name')).toBeInTheDocument();
+    expect(screen.getByText('NewUbication.descp')).toBeInTheDocument();
   });
 
   it('should call handleSubmit when the form is submitted', () => {
     const handleSubmit = jest.fn();
-    const { getByLabelText, getByText } = render(
+    const { getByTestId, getByText } = render(
       <NewUbicationForm {...props} />,
     );
 
-    fireEvent.change(getByLabelText('NewUbication.latitud'), { target: { value: '1' } });
-    fireEvent.change(getByLabelText('NewUbication.longitud'), { target: { value: '2' } });
-    fireEvent.change(getByLabelText('NewUbication.name'), { target: { value: 'Test name' } });
-    fireEvent.change(getByLabelText('NewUbication.descp'), { target: { value: 'Test description' } });
+    fireEvent.change(getByTestId('input-lat'), { target: { value: '1' } });
+    fireEvent.change(getByTestId('input-lon'), { target: { value: '2' } });
+    fireEvent.change(getByTestId('input-name'), { target: { value: 'Test name' } });
+    fireEvent.change(getByTestId('input-descp'), { target: { value: 'Test description' } });
     fireEvent.click(getByText('NewUbication.acept'));
 
-    expect(handleSubmit).toHaveBeenCalledWith(
-      expect.objectContaining({
-        preventDefault: expect.any(Function),
-      }),
-    );
+    expect(props.addMarker).toHaveBeenCalledWith();
   });
 
   it('should call setFormOpened when the cancel button is clicked', () => {

@@ -65,6 +65,7 @@ const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
               type='number'
               name="latitude"
               label={t("NewUbication.latitud")}
+              inputProps={{ "data-testid": "input-lat" }}
               variant='filled'
               value={props.globalLat}
               onChange={e => props.setGlobalLat(e.target.value as unknown as number)}
@@ -75,6 +76,7 @@ const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
               type='number'
               name="longitude"
               label={t("NewUbication.longitud")}
+              inputProps={{ "data-testid": "input-lon" }}
               variant='filled'
               value={props.globalLng}
               onChange={e => props.setGlobalLng(e.target.value as unknown as number)}
@@ -85,6 +87,7 @@ const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
               id="prueba"
               name="name"
               label={t("NewUbication.name")}
+              inputProps={{ "data-testid": "input-name" }}
               variant='filled'
               value={props.globalName}
               onChange={e => props.setGlobalName(e.target.value)}
@@ -94,6 +97,7 @@ const NewUbicationForm: React.FC<INewUbicationFormProps> = (props) => {
               required
               name="description"
               label={t("NewUbication.descp")}
+              inputProps={{ "data-testid": "input-descp" }}
               variant='filled'
               value={props.globalDescription}
               onChange={e => props.setGlobalDescription(e.target.value)}

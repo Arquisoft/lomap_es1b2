@@ -26,8 +26,7 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
   const [text, setText] = useState<string>('');
   const { state: markers, dispatch } = useContext(MarkerContext);
   const [isRatingOpen, setRatingOpen] = useState<boolean>(false);
-  const [selectedImage, setSelectedImage] = useState<File>();
-  const [urlImage, setUrlImage] = useState('');
+  const [urlImage, setUrlImage] = useState<string>();
   const [author, setAuthor] = useState(session.info.webId?.substring(8).split('.')[0]!)
 
   const { t } = useTranslation("translation");
@@ -35,35 +34,33 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // handleImageUpload();
+    const newComment = {
+      author: author,
+      text: text,
+      img: urlImage
+    }
 
-    // setComment({
-    //   author: author,
-    //   text: text,
-    //   img: urlImage
-    // })
-
+    setComment(newComment)
     let marker = markers.find(marker => marker.id = props.markerShown.id)!;
     marker.ratings.push(rating);
-    marker.comments.push(comment!);
+    marker.comments.push(newComment!);
+    console.log(marker.owner)
+    console.log(marker.webId)
+
 
     dispatch({ type: Types.UPDATE_MARKER, payload: { id: marker.id, marker: marker } });
     if (marker.webId !== session.info.webId!) {
-      await savePublicMarker(marker, marker.webId);
+      //await savePublicMarker(marker, marker.owner);
     }
 
     restartValoration();
   }
 
-  const handleImageUpload = async () => {
-    const file = selectedImage;
+  const handleImageUpload = async (e:any) => {
+    const file = e.target.files?.[0];
     if (file) {
       const url = await fileUpload(file);
-      console.log(url)
-  
       if (url) setUrlImage(url);
-
-      console.log(url)
     }
   };
 
@@ -71,9 +68,8 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
     setRatingOpen(false);
     setComment(undefined);
     setRating(0);
-    setSelectedImage(undefined);
     setText('');
-    setUrlImage('');
+    setUrlImage(undefined);
   }
 
   const getRatingMean = () => {
@@ -112,9 +108,8 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
               }}>
               <ul>
                 {props.markerShown.comments.map((comment) =>
-                  <li key={comment.text+Math.random()*100}>
-                    {comment.text}{comment.img && <img src={comment.img} alt="pruebas" height={80} style={{display: 'block'}} />}
-                    {console.log(comment.img)}
+                  <li style={{"marginBottom": "1rem"}} key={comment?.text+Math.random()*100}>
+                    {comment.author + ": " + comment.text}{comment.img && <img src={comment.img} alt="pruebas" height={80} style={{display: 'block'}} />}
                   </li>
                 )}
               </ul>
@@ -150,15 +145,9 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
                 />
                 <Input
                   type='file'
-                  onChange={(e) => {
-                    setSelectedImage((e.target as HTMLInputElement).files?.[0])
-                    handleImageUpload()
-                    setComment({
-                      author: author,
-                      text: text,
-                      img: urlImage
-                    })                   
-                  }}
+                  onChange={
+                    handleImageUpload              
+                  }
                   inputProps={{accept:"image/png, image/jpeg, image/jpg" }}
                  />
                 <Button variant="contained" type="submit" role='submit'

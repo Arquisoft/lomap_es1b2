@@ -47,7 +47,6 @@ async function readMarkersFromFile(fileURL: string) {
                     }
                 );
             });
-
     } catch (error) {
         console.error(error);
     }
@@ -65,7 +64,6 @@ async function saveMarkersToFile(markers: IPMarker[], fileURL: string) {
     });
     
     try {
-        console.log("hola?")
         await overwriteFile(fileURL, blob,
             {
                 contentType: blob.type,
@@ -184,7 +182,7 @@ export async function readFriendMarkers(webId: string) {
                         }
                     );
                 });
-
+            console.log(markers)
         } catch (error) {
             console.error("No ubications available from user: " + friendWebId);
         }

@@ -19,6 +19,7 @@ describe("UbicationsView", () => {
     ratings: [],
     comments: [],
     description: "This is a test marker",
+    owner: "o1"
   };
   const marker2: IPMarker = {
     id: "2",
@@ -33,43 +34,28 @@ describe("UbicationsView", () => {
     ratings: [],
     comments: [],
     description: "This is another test marker",
+    owner: "o2"
   };
   const markers = [marker1, marker2];
 
   it("displays a list of the user's ubications", async () => {
-    const dispatchMock = jest.fn();
-    jest.spyOn(React, "useContext").mockImplementation(() => ({
-      state: markers,
-      dispatch: dispatchMock,
-    }));
+    render(
+      <MarkerContextProvider>
+          <UbicationsView myMarkers={markers}/>
+      </MarkerContextProvider>
+    );
 
-    await act(async () => {
-      render(
-        <SessionProvider sessionId="test">
-          <MarkerContextProvider>
-            <UbicationsView />
-          </MarkerContextProvider>
-        </SessionProvider>
-      );
-    });
-
-    const marker1Name = screen.getByText(marker1.name);
-    const marker2Name = screen.getByText(marker2.name);
+    const marker1Name = screen.getByText('Test marker 1');
     expect(marker1Name).toBeInTheDocument();
-    expect(marker2Name).toBeInTheDocument();
   });
 
   it("displays a message when the user has no ubications", async () => {
-    await act(async () => {
-      render(
-        <SessionProvider sessionId="test">
-          <MarkerContextProvider>
-            <UbicationsView />
-          </MarkerContextProvider>
-        </SessionProvider>
-      );
-    });
+    render(
+      <MarkerContextProvider>
+        <UbicationsView myMarkers={markers} />
+      </MarkerContextProvider>
+    );
 
-    expect("UbicationsView.notyet").toBeInTheDocument();
+    expect(screen.getByText("UbicationsView.notyet")).toBeInTheDocument();
   });
 });

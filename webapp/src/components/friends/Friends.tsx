@@ -20,25 +20,25 @@ const FriendsList: React.FC = () => {
 
   useEffect(() => {
     loadData();
-  }, [isLoading, showAddFriendForm]);
+  }, [showAddFriendForm]);
 
   async function loadData() {
     if (session.info.isLoggedIn) {
       await loadPersonData();
+      console.log("loading false")
       setLoading(false);
     }
   };
 
   async function loadPersonData() {
     const webId = session.info.webId
-    await findPersonData(webId!).then(personData => {
-      setPersonData(personData);
-      fetchFriends();
-    })
+    const personData = await findPersonData(webId!)
+    await fetchFriends(personData);
+    setPersonData(personData);  
   }
 
   
-  async function fetchFriends() {
+  async function fetchFriends(personData : PersonData) {
     const names = await Promise.all(
       personData.friends.map((friend) => findPersonData(friend))
     );
@@ -93,7 +93,7 @@ const FriendsList: React.FC = () => {
       { session.info.isLoggedIn ? 
       <>
       <h2>{t("Friends.main")}</h2>
-      { isLoading || friends.length == 0 ? 
+      { isLoading? 
       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
         <img src="loading-gif.gif" style={{display: 'block'}}/>
         <p style={{color:'white', fontSize:'40px'}}>{t("Friends.loading")}</p>

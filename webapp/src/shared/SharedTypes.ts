@@ -7,7 +7,7 @@ export type User = {
 
 export interface IPMarker {
   id: string,
-  owner?: string,
+  owner: string,
   date: Date,
   lat: number,
   lng: number,
