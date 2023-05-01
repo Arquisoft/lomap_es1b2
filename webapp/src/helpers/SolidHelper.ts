@@ -4,11 +4,14 @@ import { fetch } from "@inrupt/solid-client-authn-browser"
 import {
     Thing,
     getFile,
+    getTerm,
     setThing,
     getThing,
+    IriString,
     getUrlAll,
     buildThing,
     saveAclFor,
+    getTermAll,
     overwriteFile,
     getResourceAcl,
     hasResourceAcl,
@@ -22,6 +25,15 @@ import {
     setPublicResourceAccess,
     createAclFromFallbackAcl,
 } from "@inrupt/solid-client";
+
+import { foaf, vcard } from 'rdf-namespaces'
+
+export interface PersonData {
+    webId: IriString
+    name: string
+    friends: IriString[]
+    photo: IriString
+}
 
 export async function readMarkers(webId: string) {
     let fileURL = `${parseURL(webId)}public/lomap/markers.json`;
@@ -105,6 +117,37 @@ export async function deleteFriendByWebId(webId: string, friendWebId: string) {
     solidDataset = setThing(solidDataset, friends);
     saveSolidDatasetAt(webId, solidDataset, { fetch: fetch });
 }
+
+
+  
+  
+  
+export const findPersonData = async (webId: IriString): Promise<PersonData> => {
+    const data: PersonData = { webId: webId, name: '', photo: '', friends: [] }
+    if (webId) {
+      const dataset = await getSolidDataset(webId)
+      const person = getThing(dataset, webId)
+      if (person) {
+        const friends = getTermAll(person, foaf.knows).map(a => a.value)
+        data.friends = data.friends
+          .concat(friends)
+          .filter((a, i, data) => data.indexOf(a) === i)
+        if (!data.name)
+          data.name =
+            getTerm(person, foaf.name)?.value ??
+            getTerm(person, vcard.fn)?.value ??
+            ''
+        if (!data.photo)
+          data.photo =
+            getTerm(person, vcard.hasPhoto)?.value ??
+            getTerm(person, foaf.img)?.value ??
+            ''
+      }
+  
+        return data
+      }
+    return data
+  }
 
 async function grantAccessToMarkers(webId: string, access: boolean) {
     let folderURL = `${parseURL(webId)}public/lomap/`;

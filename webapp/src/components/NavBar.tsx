@@ -4,7 +4,7 @@ import LoginForm from './login/LoginForm';
 import { Stack, Box, Button, Select, MenuItem } from '@mui/material';
 import { useSession, LogoutButton } from '@inrupt/solid-ui-react';
 import { useTranslation } from 'react-i18next';
-import { PersonData, findPersonData } from '../helpers/ProfileHelper';
+import { PersonData, findPersonData } from '../helpers/SolidHelper';
 
 type propsNav = {
     isLoggedIn?: boolean;

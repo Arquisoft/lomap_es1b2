@@ -2,8 +2,7 @@ import './Friends.css';
 import AddFriendForm from './AddFriendForm';
 import React, { useState, useEffect } from 'react';
 import { useSession } from '@inrupt/solid-ui-react';
-import { PersonData, findPersonData } from '../../helpers/ProfileHelper'
-import { addFriendByWebId, deleteFriendByWebId } from '../../helpers/SolidHelper';
+import { PersonData, findPersonData, addFriendByWebId, deleteFriendByWebId } from '../../helpers/SolidHelper';
 import { useTranslation } from 'react-i18next';
 import { notify } from 'reapop';
 import { Button, Link } from '@mui/material';
@@ -93,10 +92,9 @@ const FriendsList: React.FC = () => {
       { session.info.isLoggedIn ? 
       <>
       <h2>{t("Friends.main")}</h2>
-      { isLoading? 
+      { isLoading ?
       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        <img src="loading-gif.gif" style={{display: 'block'}}/>
-        <p style={{color:'white', fontSize:'40px'}}>{t("Friends.loading")}</p>
+        <img src="loading-gif2.gif" style={{display: 'block'}}/>
       </div>
       :
       <div>
