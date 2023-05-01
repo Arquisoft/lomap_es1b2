@@ -33,3 +33,19 @@ LoMap -> Pod: Places Request
 LoMap <- Pod: Places Response
 User <- LoMap: Personalized map Response
 ----
+
+### Friend's Management
+
+The application enables the user to modify its list of friends from Solid. Note that the relation between people in this plataform are not bidirectional, so that is how they work in LoMap too.
+
+
+[plantuml,"Sequence diagram 3",png]
+----
+actor User
+participant "Web App" as W
+database Pod as "Pod"
+User-> W: User adds or removes a friend
+W <--> Pod: Sends friend's web Id and action
+W ->User: Shows the info up-to-date
+----
+
