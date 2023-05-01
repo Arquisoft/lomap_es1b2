@@ -31,13 +31,17 @@ _(It will obviously be extended as we find new risks and generate others technic
 |Learning techincal material along the semester
 |The discovery of some of the technologies of the project and some of good strategies will take place as we attend the course lectures, which coincide with the developement period
 
+|Medium
+|Performance of external resources
+|The use of external resources can result in a lack of efficiency. Not only due to its functioning in general and in execution but also to the efficiency of the work performed by the team.
+
 |Low
 |The usage of TypeScript and React
 |Even though the advises of our professors may conduct us to use these technologies, we are not familiar with them
 
 |Low
 |Lack of relation between members of the team
-|Most probably it will not be a big deal, but the fact that we do not know each other may difficutl at least the beggining of the developement
+|Most probably it will not be a big deal, but the fact that we do not know each other may difficutl at least the beggining of the developement (Actualization: regarding the developement of the project, it actually was a high priority issue).
 
 |===
 
