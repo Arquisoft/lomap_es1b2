@@ -226,7 +226,6 @@ export async function readFriendMarkers(webId: string) {
                         }
                     );
                 });
-            console.log(markers)
         } catch (error) {
             console.error("No ubications available from user: " + friendWebId);
         }

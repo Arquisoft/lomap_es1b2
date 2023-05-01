@@ -50,7 +50,7 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
     dispatch({ type: Types.UPDATE_MARKER, payload: { id: marker.id, marker: marker } });
     notify(t("DetailedInfo.addR"), 'success')
     if (marker.webId !== session.info.webId!) {
-      await savePublicMarker(marker, marker.owner);
+      await savePublicMarker(marker, marker.webId);
     }
 
     restartValoration();
