@@ -44,7 +44,7 @@ describe("UbicationsView", () => {
   it("displays a list of the user's ubications", async () => {
     render(
       <MarkerContextProvider>
-        <UbicationsView myMarkers={markers} />
+        <UbicationsView myMarkers={markers} opt={false}/>
       </MarkerContextProvider>
     );    
     
@@ -55,7 +55,7 @@ describe("UbicationsView", () => {
   it("displays a message when the user has no ubications", async () => {
     render(
       <MarkerContextProvider>
-        <UbicationsView myMarkers={markers} />
+        <UbicationsView opt={false}/>
       </MarkerContextProvider>
     );
 

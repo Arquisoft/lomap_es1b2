@@ -66,7 +66,7 @@ function App(): JSX.Element {
               (<MapView />)
             } />
             <Route path="/ubications" element={
-              <UbicationsView/>
+              <UbicationsView opt={true}/>
             } />
             <Route path="/friends" element={
               <FriendsList loading={true}/>
