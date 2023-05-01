@@ -1,0 +1,97 @@
+{
+    "NavBar":{
+        "open": "Login",
+        "close": "Logout",
+        "ubic": "My ubications",
+        "friends": "My friends",
+        "about": "About us",
+        "map": "Map"
+    },
+    "HomeView":{
+        "welcome": "Welcome"
+    },
+    "AboutUs": {
+        "about": "About Us",
+        "description": "Hello! We are Pablo Calvo and Pablo Ovies, two enthusiastic software engineering students. We are developing an maps application where people can register their favorite locations and share them securely. We use an innovative decentralized data handling technology called SOLID to ensure the privacy of our users' data. Join us on this thrilling adventure!",
+        "team1": {
+          "name": "Pablo Calvo",
+          "role": "Software Engineering Student"
+        },
+        "team2": {
+          "name": "Pablo Ovies",
+          "role": "Software Engineering Student"
+        }
+    },
+    "Login":{
+        "select": "Please, choose a provider.",
+        "otro": "Other",
+        "login": "Login"
+    },
+    "MapView":{
+        "explora": "Explore",
+        "misubs": "My ubications",
+        "friends": "Friends' ubications",
+        "filtros": "Filter",
+        "name": "Name",
+        "filtra": "Filter the ubications",
+        "categoria": "Categories",
+        "newub": "New ubication",
+        "errorDel": "You can't delete your friends' markers!",
+        "noname": "No name",
+        "nodescp": "No description"
+    },
+    "UbicationsView":{
+        "dir": "Address:",
+        "cat": "Category:",
+        "descp": "Description:",
+        "borrar": "Delete",
+        "notyet": "There is no ubications yet"
+    },
+    "Notifications":{
+        "okUbi": "Ubication has been removed successfully!",
+        "okUbiAdd": "Ubication has been added successfully!",
+        "title": "Success!",
+        "addF": "Friend added correctly!",
+        "delF": "Friend deleted correctly!",
+        "loading": "Loading..."
+    },
+    "NewUbication":{
+        "latitud": "Latitude",
+        "longitud": "Longitude",
+        "name": "Name",
+        "descp": "Description",
+        "museos": "Museums",
+        "parques": "Parks",
+        "tiendas": "Shops",
+        "edificios": "Buildings",
+        "farmacias": "Pharmacies",
+        "transporte": "Transport",
+        "restaurantes": "Restaurants",
+        "entretenimiento": "Entertainment",
+        "acept": "Submit",
+        "cancel": "Cancel"
+    },
+    "DetailedInfo":{
+        "dir": "Address: ",
+        "cat": "Category: ",
+        "descp": "Description: ",
+        "share": "Share this ubication",
+        "summary": "Summary of reviews",
+        "write": "Write a review",
+        "rate": "Rate this ubication",
+        "comment": "Comment",
+        "acept": "Submit",
+        "created": "Created by: ",
+        "owner": "Unknown",
+        "addR": "Review added successfully!"
+    },
+    "Friends":{
+        "main": "Friends",
+        "delete": "Delete",
+        "add": "Add a friend",
+        "show": "Show friends",
+        "addB": "Add",
+        "cancel": "Cancel",
+        "noLoggedIn": "Log-In to see your friends"
+    }
+}

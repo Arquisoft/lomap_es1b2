@@ -1,0 +1,97 @@
+{
+    "NavBar":{
+        "open": "Iniciar sesión",
+        "close": "Cerrar sesión",
+        "ubic": "Mis ubicaciones",
+        "friends": "Mis amigos",
+        "about": "Acerca de",
+        "map": "Mapa"
+    },
+    "HomeView":{
+        "welcome": "¡Bienvenido"
+    },
+    "AboutUs": {
+        "about": "Sobre Nosotros",
+        "description": "¡Hola! Somos Pablo Calvo y Pablo Ovies, dos apasionados estudiantes de ingeniería del software. Estamos desarrollando una aplicación de mapas donde las personas pueden registrar sus ubicaciones favoritas y compartirlas con seguridad. Utilizamos una innovadora tecnología de manejo de datos descentralizados llamada SOLID para garantizar la privacidad de los datos de nuestros usuarios.",
+        "team1": {
+          "name": "Pablo Calvo",
+          "role": "Estudiante de Ingeniería del Software"
+        },
+        "team2": {
+          "name": "Pablo Ovies",
+          "role": "Estudiante de Ingeniería del Software"
+        }
+    },
+    "Login":{
+        "select": "Por favor, seleccione un proveedor.",
+        "otro": "Otro",
+        "login": "Iniciar sesión"
+    },
+    "MapView":{
+        "explora": "Explora",
+        "misubs": "Mis ubicaciones",
+        "friends": "Ubicaciones de amigos",
+        "filtros": "Filtrar",
+        "name": "Nombre",
+        "filtra": "Filtra las ubicaciones",
+        "categoria": "Categorías",
+        "newub": "Nueva ubicación",
+        "errorDel": "¡No puedes borrar las ubicaciones de tus amigos!",
+        "noname": "Sin nombre",
+        "nodescp": "Sin descripción"
+    },
+    "UbicationsView":{
+        "dir": "Dirección:",
+        "cat": "Categoría:",
+        "descp": "Descripción:",
+        "borrar": "Borrar",
+        "notyet": "Aún no has creado ninguna ubicación."
+    },
+    "Notifications":{
+        "okUbi": "¡Localización eliminada correctamente!",
+        "okUbiAdd": "¡La ubicación ha sido añadida correctamente!",
+        "title": "¡Éxito!",
+        "addF": "¡Amigo añadido correctamente!",
+        "delF": "¡Amigo eliminado correctamente!",
+        "loading": "Cargando..."
+    },
+    "NewUbication":{
+        "latitud": "Latitud",
+        "longitud": "Longitud",
+        "name": "Nombre",
+        "descp": "Descripción",
+        "museos": "Museos",
+        "parques": "Parques",
+        "tiendas": "Tiendas",
+        "edificios": "Edificios",
+        "farmacias": "Farmacias",
+        "transporte": "Transporte",
+        "restaurantes": "Restaurantes",
+        "entretenimiento": "Entretenimiento",
+        "acept": "Aceptar",
+        "cancel": "Cancelar"
+    },
+    "DetailedInfo":{
+        "dir": "Dirección: ",
+        "cat": "Categoría: ",
+        "descp": "Descripción: ",
+        "share": "Compartir ubicación",
+        "summary": "Resumen de reseñas",
+        "write": "Escribe una reseña",
+        "rate": "Puntua esta ubicación",
+        "comment": "Comentario",
+        "acept": "Enviar",
+        "created": "Creada por: ",
+        "owner": "Desconocido",
+        "addR": "Review añadida correctamente!"
+    },
+    "Friends":{
+        "main": "Amigos",
+        "delete": "Borrar",
+        "add": "Añadir amigo",
+        "show": "Ver amigos",
+        "addB": "Añadir",
+        "cancel": "Cancelar",
+        "noLoggedIn": "Inicia sesión para ver a tus amigos"
+    }
+}

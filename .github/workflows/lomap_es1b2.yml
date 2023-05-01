@@ -1,25 +1,16 @@
-name: CI for LOMAP ES1B
+name: CI for LOMAP ES1B2
 
 on:
   pull_request:
-    branches: ['**']
+    branches: 
+      - master
+      - develop
   push:
-    branches: ['**']
+    branches: 
+      - develop
 
 jobs:
-  sonarcloud:
-    name: SonarCloud
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  unit-test-webapp:
+  unit-test:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -31,32 +22,15 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 18
-    - run: npm ci
-    - run: npm test --coverage --watchAll
-    - name: Analyze with SonarCloud
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  unit-test-restapi:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: restapi
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 18
-    - run: npm ci
-    - run: npm test --coverage --watchAll
+    - run: npm --prefix webapp ci
+    - run: npm --prefix webapp test --coverage --watchAll
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   e2e-tests:
-    needs: [unit-test-webapp, unit-test-restapi]
+    needs: [unit-test]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -64,9 +38,29 @@ jobs:
       with:
         node-version: 18
     - run: npm --prefix webapp install
-    - run: npm --prefix restapi install
     - run: npm --prefix webapp run build
     - run: npm --prefix webapp run test:e2e
+  docker-push-webapp:
+    name: Push webapp Docker Image to GitHub Packages
+    runs-on: ubuntu-latest
+    #needs: [e2e-tests]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      env:
+        API_KEY_GOOGLE_MAPS: ${{ secrets.API_KEY_GOOGLE_MAPS }}
+        CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+        CLOUDINARY_PRESET: ${{ secrets.CLOUDINARY_PRESET }}
+        CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+        CLOUDINARY_API_API_SECRET: ${{ secrets.CLOUDINARY_API_API_SECRET }}
+      with:
+          name: arquisoft/lomap_es1b2/webapp
+          username: ${{ github.actor }}
+          password: ${{ secrets.DOCKER_PUSH_TOKEN }}
+          registry: ghcr.io
+          workdir: webapp
+          buildargs: API_KEY_GOOGLE_MAPS, CLOUDINARY_CLOUD_NAME, CLOUDINARY_PRESET, CLOUDINARY_API_KEY, CLOUDINARY_API_API_SECRET
   # deploy:
   #   name: Deploy over SSH
   #   runs-on: ubuntu-latest

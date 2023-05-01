@@ -5,12 +5,15 @@ WORKDIR /app
 #Install the dependencies
 RUN npm install
 
-ARG API_URI="http://localhost:5000/api"
-ENV REACT_APP_API_URI=$API_URI
+ENV REACT_APP_API_KEY_GOOGLE_MAPS=$API_KEY_GOOGLE_MAPS
+ENV REACT_APP_CLOUD_NAME=$CLOUDINARY_CLOUD_NAME
+ENV REACT_APP_PRESET=$CLOUDINARY_PRESET
+ENV REACT_APP_API_KEY=$CLOUDINARY_API_KEY
+ENV REACT_APP_API_SECRET=$CLOUDINARY_API_API_SECRET
 
 #Create an optimized version of the webapp
 RUN npm run build
 
 #Execute npm run prod to run the server
-#CMD [ "npm", "run", "prod" ]
-CMD ["npm", "start"]
+CMD [ "npm", "run", "prod" ]
+# CMD ["npm", "start"]

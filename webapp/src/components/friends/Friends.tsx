@@ -2,87 +2,122 @@ import './Friends.css';
 import AddFriendForm from './AddFriendForm';
 import React, { useState, useEffect } from 'react';
 import { useSession } from '@inrupt/solid-ui-react';
-import { PersonData, findPersonData } from './FriendList'
-import { addFriendByWebId, deleteFriendByWebId } from '../../helpers/SolidHelper';
+import { PersonData, findPersonData, addFriendByWebId, deleteFriendByWebId } from '../../helpers/SolidHelper';
+import { useTranslation } from 'react-i18next';
+import { notify } from 'reapop';
+import { Button, Link } from '@mui/material';
 
+type FriendProps = {
+  opt?: boolean;
+  loading?: boolean;
+}
 
-const FriendsList: React.FC = () => {
+const FriendsList = (props: FriendProps) => {
   const { session } = useSession();
   const [friends, setFriendList] = useState<PersonData[]>([]);
   const [showAddFriendForm, setShowAddFriendForm] = useState(false);
   const [personData, setPersonData] = useState<PersonData>({ webId: '', name: '', photo: '', friends: [] })
-  const [showFriends, setShowFriends] = useState(false)
+  const [isLoading, setLoading] = useState(props.loading ? true : false);
+  const [isLoggedIn, setLoggedIn] = useState(props.opt ? true : false)
+
+  const { t } = useTranslation("translation");
 
   useEffect(() => {
-    const loadData = async () => {
-      await loadPersonData();
-      await fetchFriends();
-    };
-  
     loadData();
-  }, [showFriends, showAddFriendForm]);
+  }, [showAddFriendForm]);
 
+  /**
+   * Loads the data of the user's friends
+   */
+  async function loadData() {
+    if (session.info.isLoggedIn) {
+      await loadPersonData();
+      setLoading(false);
+    }
+  };
+
+  /**
+   * Brings the user's friends' web ids to the PersonData object
+   */
   async function loadPersonData() {
     const webId = session.info.webId
-    const data = await findPersonData(webId!)
-    setPersonData(data)
+    const personData = await findPersonData(webId!)
+    await fetchFriends(personData);
+    setPersonData(personData);  
   }
 
-  async function fetchFriends() {
+  /**
+   * Sets the list of friends with all the data (name, photo and friends' ids) of each one.
+   * @param personData The Data of the user.
+   */
+  async function fetchFriends(personData : PersonData) {
     const names = await Promise.all(
       personData.friends.map((friend) => findPersonData(friend))
     );
     setFriendList(names);
   }
-
+  
+  /**
+   * Adds a SOLID friend given its web Id and changes the state of the component modifying the list
+   * @param webId the new friend's id
+   */
   const handleAddFriend = async (webId: string) => {
     addFriendByWebId(session.info.webId!, webId);
     setShowAddFriendForm(false);
-    fetchFriends();
+    
+    const friendData = await findPersonData(webId);
+    setFriendList(friends.concat(friendData));
   };
+
+  /**
+   * Hides the form that enables to add a friend.
+   */
   const handleCancel = () => {
     setShowAddFriendForm(false);
-    fetchFriends();
   };
 
+  /**
+   * Removes a SOLID friend given its web Id and changes the state of the component modifying the list
+   * @param webId the new friend's id
+   */
   const handleRemoveFriend = (webId: string) => {
     deleteFriendByWebId(session.info.webId!, webId);
-    fetchFriends();
+    setFriendList(friends.filter(friend => friend.webId !== webId))
+    notify(t("Notifications.delF"), "success");
   };
 
-  function searchProfileImg(photo: string): string | undefined {
-    let url = "/user.png"
+
+  /**
+   * Returns the url of the profile image of a user. If it has no photo asigned, it returns the no-profile-pic default for the application.
+   * @param photo the user's profile pic url
+   * @returns the url of the photo to be used
+   */
+  function searchProfileImg(photo: string): string {
+    let url = "/no-profile-pic.png"
     if (photo !== "") {
       url = photo
     }
     return url
   }
 
-  /*
-  const miFuncion = async (webId: string) => {
-    const amigos = await findFriends(webId)
-    console.log(amigos)
-    amigos.friends.forEach(element => {
-      console.log(element);
-    })
-  }
-
-  console.log(session.info.webId!)
-  miFuncion(session.info.webId!);
-  */
-
   return (
     <div id='div-friends'>
-      <h2>Amigos</h2>
-      { showFriends ? (
+      { session.info.isLoggedIn || isLoggedIn ? 
+      <>
+      <h2>{t("Friends.main")}</h2>
+      { isLoading ?
+      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <img src="loading-gif2.gif" alt="loading-spinner" data-testid="img-spinner" style={{display: 'block'}}/>
+      </div>
+      :
       <div>
         <div className="friends-container">
           {friends.map((friend) => (
             <div key={friend.webId} className="friend-card">
               <img src={searchProfileImg(friend.photo)} alt="Foto de amigo" className="friend-photo" />
               <h3>{friend.name}</h3>
-              <a href={friend.webId}>Solid profile</a>
-              <button className="button delete-button" onClick={() => handleRemoveFriend(friend.webId)}>Eliminar</button>
+              <Link href={friend.webId} sx={{textDecoration: 'hover', color: 'lightgray'}}>Solid profile</Link>
+              <Button variant="outlined" sx={{color: 'lightblue', border: '2px solid', borderColor: 'red'}} onClick={() => handleRemoveFriend(friend.webId)}>{t("Friends.delete")}</Button>
             </div>
           ))}
 
@@ -93,13 +128,15 @@ const FriendsList: React.FC = () => {
             </div>
           ) : (
             <div className='add-friend-container'>
-              <button className='button accept-button add-friend-button' type="button" onClick={() => setShowAddFriendForm(true)}>Agregar amigo</button>
+              <Button variant="outlined" sx={{color: 'lightblue', height: '3em', fontWeight: '700', border: '2px solid'}} type="button" onClick={() => setShowAddFriendForm(true)}>{t("Friends.add")}</Button>
             </div>
           )}
       </div>
-
-      ): <button className='button accept-button add-friend-button' type="button" onClick={() => setShowFriends(true)}>Ver amigos</button>}
-      
+      }   
+      </>
+      : 
+      <><h2>{t("Friends.noLoggedIn")}</h2></>
+    }
     </div>
   );
 };
