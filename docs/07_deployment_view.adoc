@@ -5,11 +5,12 @@
 :imagesdir: images/
 image:07_deployment_view_overview.png["Infrastructure Level 1"]
 
-Motivation::
-This diagram tries to show a basic overview of how the application will be deployed. It will be upgraded in a near future as we get more deep into the project.
 
 Quality and/or performance features::
-Assuming every user has a decent internet connection, we can ensure that the goal is to have a fast and efficient application, using the minimum resources needed.
+
+The performance and quality of the application are influenced by factors such as internet connection and hardware of the user's device, as well as the Azure server device, which we have no control over. However, we will optimize the application to maximize its performance and quality, using the best available technologies to minimize user waiting times. Our main goals are to ensure privacy, usability, and maintainability.
+
+Regarding the infrastructure, the WebApp is the frontend and backend of the application, which is rendered by a web browser on the user's device. The SOLID PODs will be provided by the Solid Community, responsible for offering the pods to the users. However, following the Solid principles, the application should be independent from the PODs provider selected by the user. Lastly, the client device is the device used by the user, which must have an internet connection to use the application.
 
 Mapping of building blocks to infrastructure::
 |===
@@ -17,9 +18,7 @@ Mapping of building blocks to infrastructure::
 
 |*WebServer*|Where the app will be hosted.
 |*WebApp*|The frontend of the app that will be displayed on the browser.
-|*RestApi*|The backend of the app.
-|*MongoDB*|The database chosen,  where data will be stored.
 |*POD Provider*|Provider of the pods to be used.
-|*MapProvider*|API that will be used to display a map.
+|*MapProvider*|API that will be used to display a map. Right now we are working with Google Maps
 |===
 
