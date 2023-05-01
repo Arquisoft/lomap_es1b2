@@ -24,7 +24,6 @@ const FriendsList: React.FC = () => {
   async function loadData() {
     if (session.info.isLoggedIn) {
       await loadPersonData();
-      console.log("loading false")
       setLoading(false);
     }
   };
