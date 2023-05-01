@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { lightBlue } from '@mui/material/colors';
 
 type UbicationProps = {
-    myMarkers: IPMarker[];
+    myMarkers?: IPMarker[];
 }
 
 const UbicationsView = (props: UbicationProps) => {
