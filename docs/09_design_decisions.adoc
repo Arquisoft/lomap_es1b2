@@ -2,6 +2,7 @@
 == Design Decisions
 
 === Accepted decisions
+.Accepted decisions
 [options="header",cols="1,2,2,2"]
 |===
 |Architecture decision
@@ -37,4 +38,9 @@
 |===
 
 === Deprecated decisions
-None to date.
+
+.Deprecated decisions
+|===
+| *MongoDB and API REST*
+| As we have decided not to work with public information of locations, our system is not going to need a centralized database to store information which cannot be accesed by the PODs.
+|===
