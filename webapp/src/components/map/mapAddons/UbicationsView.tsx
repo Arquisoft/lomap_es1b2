@@ -3,17 +3,21 @@ import { Grid, Box, Button } from '@mui/material';
 import { useSession } from '@inrupt/solid-ui-react';
 import { IPMarker } from "../../../shared/SharedTypes";
 import { MarkerContext, Types } from '../../../context/MarkerContextProvider';
-import { useNotifications } from 'reapop';
+import { notify, useNotifications } from 'reapop';
 import { useTranslation } from 'react-i18next';
 
 type UbicationProps = {
     myMarkers?: IPMarker[];
+    opt?: boolean;
 }
 
 const UbicationsView = (props: UbicationProps) => {
     const { session } = useSession();
     const { state: markers, dispatch } = useContext(MarkerContext);
-    const { notify } = useNotifications();
+    if (props.opt){
+        const { notify } = useNotifications();
+    }
+
     const { t } = useTranslation("translation");
 
     const getMyUbications = () => {
@@ -27,7 +31,8 @@ const UbicationsView = (props: UbicationProps) => {
 
     const deleteMarker = (id: string) => {
         dispatch({ type: Types.DELETE_MARKER, payload: { id: id } });
-        notify(t("Notifications.okUbi"), "success");
+        if (props.opt)
+            notify(t("Notifications.okUbi"), "success");
     }
     
     return (

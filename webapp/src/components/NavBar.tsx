@@ -5,12 +5,12 @@ import { Stack, Box, Button, Select, MenuItem } from '@mui/material';
 import { useSession, LogoutButton } from '@inrupt/solid-ui-react';
 import { useTranslation } from 'react-i18next';
 import { PersonData, findPersonData } from '../helpers/SolidHelper';
-import i18n from '../localize/i18n';
+import i18n from 'i18next';
 
 type propsNav = {
-    isLoggedIn?: boolean;
     lang: string;
     setLang: (lang: string) => void;
+    opt?: boolean;
 }
 
 export const NavBar: React.FC<propsNav> = (props) => {
@@ -22,7 +22,6 @@ export const NavBar: React.FC<propsNav> = (props) => {
 
     const { session } = useSession();
     const [open, setOpen] = useState(false);
-    const [isLoged, setLoggedIn] = useState<boolean>(props.isLoggedIn!);
 
     const { t } = useTranslation("translation");
 
@@ -36,9 +35,11 @@ export const NavBar: React.FC<propsNav> = (props) => {
         setOpen(false);
     };
 
-    useEffect(() => {
-        i18n.changeLanguage(props.lang);
-    }, [props.lang, i18n]);
+    if (props.opt) {
+        useEffect(() => {
+            i18n.changeLanguage(props.lang);
+        }, [props.lang]);
+    }
 
     useEffect(() => {
         if (session.info.isLoggedIn)
@@ -99,7 +100,7 @@ export const NavBar: React.FC<propsNav> = (props) => {
                 </Box>
 
                 <Box>
-                    <Select value={props.lang} onChange={(e) => props.setLang(e.target.value)}
+                    <Select value={props.lang} data-testid="select-lang" onChange={(e) => props.setLang(e.target.value)}
                             sx={{boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
                             <MenuItem value={"en"}> <img src={UK_URL} height="35" alt="en_icon" /> </MenuItem>
                             <MenuItem value={"es"}> <img src={ES_URL} height="35" alt="es_icon" /> </MenuItem>

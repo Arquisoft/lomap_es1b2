@@ -4,10 +4,9 @@ on:
   pull_request:
     branches: 
       - master
-      - develop
   push:
     branches: 
-      - develop
+      - master
 
 jobs:
   unit-test:
@@ -61,3 +60,20 @@ jobs:
           registry: ghcr.io
           workdir: webapp
           buildargs: API_KEY_GOOGLE_MAPS, CLOUDINARY_CLOUD_NAME, CLOUDINARY_PRESET, CLOUDINARY_API_KEY, CLOUDINARY_API_API_SECRET
+  deploy:
+    name: Deploy over SSH
+    runs-on: ubuntu-latest
+    needs: [docker-push-webapp]
+    steps:
+    - name: Deploy over SSH
+      uses: fifsky/ssh-action@master
+      with:
+        host: ${{ secrets.DEPLOY_HOST }}
+        user: ${{ secrets.DEPLOY_USER }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        command: 
+          wget https://raw.githubusercontent.com/Arquisoft/lomap_es1b2/master/docker-compose-deploy.yml -O docker-compose.yml
+          docker-compose stop
+          docker-compose rm -f
+          docker-compose pull   
+          docker-compose up -d
