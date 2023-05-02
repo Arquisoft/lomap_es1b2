@@ -6,7 +6,13 @@ import "dotenv/config"
 import path from 'path';
 var app: Application = express()
 
-let credentials = {key: process.env.REACT_APP_HTTPS_PRIVATEKEY, cert: process.env.REACT_APP_HTTPS_CERTIFICATE};
+let privatekey = "../../../letsencrypt/live/lomap-es1b2.westeurope.cloudapp.azure.com/privkey.pem"
+let fullchain = "../../../letsencrypt/live/lomap-es1b2.westeurope.cloudapp.azure.com/fullchain.pem"
+
+// process.env.REACT_APP_HTTPS_PRIVATEKEY
+//process.env.REACT_APP_HTTPS_CERTIFICATE
+
+let credentials = {key: privatekey, cert: fullchain};
 let httpsServer = https.createServer(credentials, app);
 
 httpsServer.listen(443, function() {
