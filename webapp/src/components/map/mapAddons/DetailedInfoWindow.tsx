@@ -27,6 +27,7 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
   const [isRatingOpen, setRatingOpen] = useState<boolean>(false);
   const [urlImage, setUrlImage] = useState<string>();
   const [author, setAuthor] = useState(session.info.webId?.substring(8).split('.')[0]!)
+  let arrayRandom = new Uint32Array(100);
 
   const { t } = useTranslation("translation");
     
@@ -38,11 +39,11 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
       text: text,
       img: urlImage
     }
-
+    
     setComment(newComment)
     let marker = markers.find(marker => marker.id = props.markerShown.id)!;
     marker.ratings.push(rating);
-    marker.comments.push(newComment!);
+    marker.comments.push(newComment);
     console.log(marker.owner)
     console.log(marker.webId)
 
@@ -108,7 +109,7 @@ const DetailedUbicationView: React.FC<DetailedUbicationViewProps> = (props) => {
               }}>
               <ul>
                 {props.markerShown.comments.map((comment) =>
-                  <li style={{"marginBottom": "1rem"}} key={comment?.text+Math.random()*100}>
+                  <li style={{"marginBottom": "1rem"}} key={comment?.text+crypto.getRandomValues(arrayRandom)}>
                     {comment.author + ": " + comment.text}{comment.img && <img src={comment.img} alt="pruebas" height={80} style={{display: 'block'}} />}
                   </li>
                 )}
