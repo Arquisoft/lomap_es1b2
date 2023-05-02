@@ -72,7 +72,7 @@ Contained Building Blocks::
 |Tab showing a short description of the locations created by the user.
 
 |*My friends*
-|Tab for managing the user's friends.
+|Tab for managing the user's friends
 
 |===
 
