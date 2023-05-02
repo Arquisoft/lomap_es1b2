@@ -4,7 +4,7 @@
     import { useSession } from '@inrupt/solid-ui-react';
     import { MarkerContext, Types } from '../../context/MarkerContextProvider';
     import React, { useEffect, useRef, useState, useContext, MutableRefObject } from 'react';
-    import { useNotifications } from 'reapop';
+    import { notify } from 'reapop';
     import { useTranslation } from 'react-i18next';
 
     interface IMarker {
@@ -23,7 +23,6 @@
     type GoogleMap = google.maps.Map;
     type GoogleLatLng = google.maps.LatLng;
     type GoogleMarker = google.maps.Marker;
-    //type GoogleInfoWindow = google.maps.InfoWindow;
 
     interface IMapProps {
         globalLat: number;
@@ -67,7 +66,6 @@ const LoMap: React.FC<IMapProps> = (props) => {
     const [googleMarkers, setGoogleMarkers] = useState<GoogleMarker[]>([]); // useState para conservar referencias a todos los marcadores que se crean
     const [isLoaded, setLoaded] = useState<boolean>(false);
     const DEFAULT_MAP_ZOOM = 15;
-    const { notify } = useNotifications();
     const { t } = useTranslation("translation");
 
         /**

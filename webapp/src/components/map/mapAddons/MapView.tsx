@@ -20,7 +20,7 @@ import {
     ToggleButton,
     ToggleButtonGroup,
 } from '@mui/material';
-import { useNotifications } from 'reapop';
+import { notify } from 'reapop';
 import { useTranslation } from 'react-i18next';
 import LoMap from '../Map';
 
@@ -54,8 +54,6 @@ const MapView = () => {
         category: "Sin categoría", isPublic: false, description: "Sin descripción",
         ratings: [], comments: [], webId: ""
     });
-
-    const { notify } = useNotifications();
 
     const { t } = useTranslation("translation");
 
@@ -146,7 +144,7 @@ const MapView = () => {
                                 <IconButton sx={{ marginLeft: 'auto', marginRight: '0em' }} onClick={async () => setFilterOpen(false)}><Close /></IconButton>
                             </Stack>
                             <h2>{t("MapView.name")}</h2>
-                            <TextField value={globalFilterName} onChange={(e) => setGlobalFilterName(e.target.value as string)}></TextField>
+                            <TextField value={globalFilterName} onChange={(e) => setGlobalFilterName(e.target.value)}></TextField>
                             <h2>{t("MapView.categoria")}</h2>
                             <ToggleButtonGroup
                                 onChange={handleCategories}
