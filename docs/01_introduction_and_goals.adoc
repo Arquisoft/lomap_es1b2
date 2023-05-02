@@ -42,9 +42,6 @@ We expect the future users of the application to use it as a simpler and more fr
   - Security and respect for user privacy.
   - Responsiveness of the application.
 
-Pending: How is the quality of the architecture going to be judged?
-
-
 ## Stakeholders
 
 
