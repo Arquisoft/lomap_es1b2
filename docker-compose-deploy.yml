@@ -1,6 +1,6 @@
 version: '3.5'
 services:
   webapp:
-    image: ghcr.io/arquisoft/lomap_es1b2/webapp:latest
+    image: ghcr.io/arquisoft/lomap_es1b2/webapp/:latest
     ports:
       - 443:443
